@@ -440,9 +440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1d6ea6d2dbb5f43b5cfc1368354d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastDistance: 10000
+  raycastDistance: 100
   rayLength: 10
-  maxReflections: 10000
+  maxReflections: 100
   reflectionLayer:
     serializedVersion: 2
     m_Bits: 128
