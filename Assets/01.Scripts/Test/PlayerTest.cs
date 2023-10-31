@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class PlayerTest : MonoBehaviour
 {
-    public float raycastDistance = 4;
     public float rayLength = 10f; // 레이의 길이
     public int maxReflections = 5; // 최대 반사 횟수
     public LayerMask reflectionLayer; // 반사할 레이어 마스크
-
-    private float _raycastDistance = 0;
 
     private LineRenderer lb;
     private void Awake()
     {
         lb = (LineRenderer)GetComponent("LineRenderer");
-    }
-    private void Start()
-    {
-        _raycastDistance = raycastDistance;
     }
     private void Update()
     {
@@ -28,25 +21,26 @@ public class PlayerTest : MonoBehaviour
     private void RaycastWithReflection(Vector3 origin, Vector3 direction, float length, int reflectionsRemaining)
     {
         //처음 방향
-        Vector3 raycastDirection = transform.forward;
-        Vector3 currentPoint = transform.position;
+        Vector3 currentPoint = origin;
+        Vector3 raycastDirection = direction;
 
+        float raycastLength = length;
         lb.positionCount = 1;
         lb.SetPosition(0, currentPoint);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < reflectionsRemaining; i++)
         {
-            if (_raycastDistance <= 0)
+            if (raycastLength <= 0)
             {
                 break;
             }
             RaycastHit hit;
-            if (Physics.Raycast(currentPoint, raycastDirection, out hit, _raycastDistance, reflectionLayer))
+            if (Physics.Raycast(currentPoint, raycastDirection, out hit, raycastLength, reflectionLayer))
             {
                 raycastDirection = Vector3.Reflect(raycastDirection, hit.normal);
 
                 float dis = Vector3.Distance(currentPoint, hit.point);
-                _raycastDistance -= dis;
+                raycastLength -= dis;
 
                 currentPoint = hit.point;
 
@@ -56,14 +50,14 @@ public class PlayerTest : MonoBehaviour
             else
             {
                 // 벽에 충돌하지 않은 경우, 레이캐스트가 끝나는 지점까지 그려줍니다.
-                currentPoint += raycastDirection * _raycastDistance;
+                currentPoint += raycastDirection * raycastLength;
                 lb.positionCount += 1;
                 lb.SetPosition(lb.positionCount - 1, currentPoint);
 
-                _raycastDistance -= currentPoint.magnitude;
+                raycastLength -= currentPoint.magnitude;
                 break;
             }
         }
-        _raycastDistance = raycastDistance;
+        raycastLength = length;
     }
 }
