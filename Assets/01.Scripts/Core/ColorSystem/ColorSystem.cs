@@ -3,21 +3,9 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
 
-public class ColorSystem
+public static class ColorSystem
 {
-    private static ColorSystem _instance;
-    public static ColorSystem Instance
-    {
-        get
-        {
-            if (_instance == null)
-                _instance = new ColorSystem();
-            return _instance;
-        }
-    }
-    public Color GetColorCombination(Color value1, Color value2)
-    {
-        return value1 + value2;
-    }
+    public static Color GetColorCombination(Color v1, Color v2)
+        => v1 + v2;
 
 }
