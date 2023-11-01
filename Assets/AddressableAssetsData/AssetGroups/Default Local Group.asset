@@ -17,8 +17,18 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: e72f9fc42f6167c4cb888df336037088
   m_SerializeEntries:
-  - m_GUID: 20b029cee09f47a47b10c0df7510c714
-    m_Address: Assets/03.Prefabs/Level.prefab
+  - m_GUID: 0ff43ef2d37eb554f882636d9eff2c9f
+    m_Address: Assets/03.Prefabs/Obstructions/Stall_small1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 284c20f4ceacccc46bc59ee7ced30fa0
+    m_Address: Assets/03.Prefabs/Obstructions/Stall_small2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 778bc0d01f49f4846b30d08c544b6c52
+    m_Address: Assets/03.Prefabs/Obstructions/Stall_small3.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

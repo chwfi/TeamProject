@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,17 @@ public class M_TAssetLoad : MonoBehaviour
     {
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            assetReference.ForEach(asset =>
-            {
-                PoolManager.Instance.Pop(asset);
-            });
+            StartCoroutine(SpawnTest());
+        }
+    }
+
+    private IEnumerator SpawnTest()
+    {
+        //assetReference.ForEach(asset => { PoolManager.Instance.Pop(asset); });
+        foreach (var asset in assetReference)
+        {
+            yield return new WaitForSeconds(3);
+            PoolManager.Instance.Pop(asset);
         }
     }
 }

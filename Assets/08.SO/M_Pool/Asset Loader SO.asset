@@ -14,7 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PoolingList:
   - assetRef:
-      m_AssetGUID: 20b029cee09f47a47b10c0df7510c714
+      m_AssetGUID: 0ff43ef2d37eb554f882636d9eff2c9f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    count: 5
+  - assetRef:
+      m_AssetGUID: 284c20f4ceacccc46bc59ee7ced30fa0
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    count: 5
+  - assetRef:
+      m_AssetGUID: 778bc0d01f49f4846b30d08c544b6c52
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
