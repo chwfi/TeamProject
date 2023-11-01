@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PoolingList:
   - assetRef:
-      m_AssetGUID: b8ba6536ceafd2b439df42a1d6007b21
+      m_AssetGUID: 20b029cee09f47a47b10c0df7510c714
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

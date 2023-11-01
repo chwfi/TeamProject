@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: e72f9fc42f6167c4cb888df336037088
   m_SerializeEntries:
-  - m_GUID: b8ba6536ceafd2b439df42a1d6007b21
-    m_Address: Assets/03.Prefabs/Cube.prefab
+  - m_GUID: 20b029cee09f47a47b10c0df7510c714
+    m_Address: Assets/03.Prefabs/Level.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
