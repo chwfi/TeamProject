@@ -9,13 +9,5 @@ namespace Define
         public static LayerMask ReflectionLayer =>
             1 << LayerMask.NameToLayer("ReflectiveObject");
     }
-    public enum COLOR_TYPE
-    {
-        RED,
-        GREEN,
-        BLUE,
-        MAGENTA,
-    }
-
 }
 
