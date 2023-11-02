@@ -44,9 +44,9 @@ public class PlayerTest : MonoBehaviour
         lb.SetPosition(0, origin);
 
         RaycastHit hit;
+        Debug.Log(ReflectionLayer.value.ToString());
         if (Physics.Raycast(origin, direction, out hit, 1000, ReflectionLayer))
         {
-            Debug.Log("����");
             lb.SetPosition(1, hit.point);
 
             if (hit.collider.TryGetComponent<IReflectable>(out var reflectableObject))

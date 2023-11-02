@@ -39,7 +39,7 @@ public class ReflectiveObject : MonoBehaviour, IReflectable
 
         Debug.Log(gameObject.name + " : " + inDirection + ": " + normal + ": " + raycastDirection);
         RaycastHit hit;
-
+        Debug.Log(ReflectionLayer.value.ToString());
         if (Physics.Raycast(inHitPos, raycastDirection, out hit, 1000, ReflectionLayer))
         {
             if (_col.name == hit.collider.name) return;
