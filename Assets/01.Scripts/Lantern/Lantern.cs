@@ -10,7 +10,6 @@ public class Lantern : MonoBehaviour
     [SerializeField] private Transform _firePosition;
 
     public Color defaultColor;
-    private bool _canShoot;
     private LineRenderer lb;
 
     private void Awake()
