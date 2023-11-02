@@ -10,6 +10,8 @@ public class PlayerRotatePlate : MonoBehaviour
     LayerMask plateLayer;
     [SerializeField]
     private float rotateSensentive;
+    [SerializeField]
+    private float grabRange;
 
     Vector2 _screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
@@ -22,7 +24,7 @@ public class PlayerRotatePlate : MonoBehaviour
     {
         if(Input.GetMouseButton(1))
         {
-            if (Physics.Raycast(cam.ScreenPointToRay(_screenCenterPoint), out RaycastHit hit, 10f, plateLayer))
+            if (Physics.Raycast(cam.ScreenPointToRay(_screenCenterPoint), out RaycastHit hit, grabRange, plateLayer))
             {
                 Debug.Log("dasdsa");
                 float XRotation = Input.GetAxis("Mouse X") * rotateSensentive * Time.deltaTime;
