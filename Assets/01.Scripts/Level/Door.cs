@@ -14,7 +14,7 @@ public enum ColorM
 
 public class Door : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField, Tooltip("목표 색")]
     private ColorM goalColor; //목표 색
     public ColorM curColor; //현재 문의 색 테스트 용으로 public. 나중에 private로.
 
