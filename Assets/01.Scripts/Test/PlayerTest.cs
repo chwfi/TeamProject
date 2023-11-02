@@ -16,10 +16,12 @@ public class PlayerTest : MonoBehaviour
     }
     private void Update()
     {
-        OnShootLight();
+        //OnShootLight();
     }
-    public void OnShootLight() //연결할 함수
+    public void OnShootLight(bool value) //연결할 함수
     {
+        lb.enabled = value;
+
         RaycastWithReflection(transform.position, transform.forward);
     }
     private void RaycastWithReflection(Vector3 origin, Vector3 direction)

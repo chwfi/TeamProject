@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 167946684}
   - component: {fileID: 167946687}
   - component: {fileID: 167946686}
-  - component: {fileID: 167946688}
   - component: {fileID: 167946689}
+  - component: {fileID: 167946690}
   m_Layer: 6
   m_Name: LantternExample
   m_TagString: Untagged
@@ -209,20 +209,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167946683}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &167946688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167946683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3286a949da041c4eba998cc7a5d18de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _firePosition: {fileID: 541697177}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!120 &167946689
 LineRenderer:
   serializedVersion: 2
@@ -333,9 +319,22 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &167946690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167946683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1d6ea6d2dbb5f43b5cfc1368354d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultColor: {r: 1, g: 0, b: 0, a: 0}
 --- !u!1 &541697176
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,6 +484,46 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &919197838 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8490032492274180583, guid: 80388786327980b408c973efaf6dd136,
+    type: 3}
+  m_PrefabInstance: {fileID: 4802505462799383978}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &919197843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919197838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7635d88ee2c4375438dbe06a6a76ea46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultColor: {r: 0, g: 1, b: 0.9016249, a: 1}
+--- !u!65 &919197847
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919197838}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.99999994, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1168250378
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +745,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8490032492274180583, guid: 80388786327980b408c973efaf6dd136,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 919197843}
+    - targetCorrespondingSourceObject: {fileID: 8490032492274180583, guid: 80388786327980b408c973efaf6dd136,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 919197847}
   m_SourcePrefab: {fileID: 100100000, guid: 80388786327980b408c973efaf6dd136, type: 3}
 --- !u!33 &5393215580315322624
 MeshFilter:
@@ -1287,7 +1334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: c3255832653d1484e9fa060c9b35439f, type: 2}
-  _lantern: {fileID: 167946688}
+  _lantern: {fileID: 167946690}
 --- !u!1 &9005220657801538537
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerFireController : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
-    [SerializeField] private Lantern _lantern;
+    [SerializeField] private PlayerTest _lantern;
 
     private void Awake()
     {
