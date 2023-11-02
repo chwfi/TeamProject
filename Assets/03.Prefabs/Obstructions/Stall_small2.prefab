@@ -150,3 +150,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssetGUID: 
   fallingTime: 2
+  isDisappearObj: 1
+  disappearTime: 2

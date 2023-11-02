@@ -24,8 +24,8 @@ public class M_TAssetLoad : MonoBehaviour
         //assetReference.ForEach(asset => { PoolManager.Instance.Pop(asset); });
         foreach (var asset in assetReference)
         {
-            yield return new WaitForSeconds(3);
             PoolManager.Instance.Pop(asset);
+            yield return new WaitForSeconds(3);
         }
     }
 }

@@ -123,6 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssetGUID: 
   fallingTime: 1
+  isDisappearObj: 1
+  disappearTime: 1
 --- !u!54 &3979363393669655428
 Rigidbody:
   m_ObjectHideFlags: 0
