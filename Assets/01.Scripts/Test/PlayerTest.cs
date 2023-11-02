@@ -57,15 +57,13 @@ public class PlayerTest : MonoBehaviour
             {
                 ChangedReflectObject(reflectable);
 
-                reflectObject?.OnReflectTypeChanged(ReflectState.OnReflect);
-                reflectObject?.DataModify(mydata);
+                reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
+                reflectable?.SetDataModify(mydata);
             }
         }
         else
         {
-            if (reflectObject != null)
-                reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
-
+            reflectObject.OnReflectTypeChanged(ReflectState.UnReflect);
             lb.SetPosition(1, reflectData.inDirection * 1000);
         }
     }

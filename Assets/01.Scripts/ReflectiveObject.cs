@@ -1,9 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
 using static Define.Define;
-
-
 
 public class ReflectiveObject : MonoBehaviour, IReflectable
 {
@@ -16,7 +15,7 @@ public class ReflectiveObject : MonoBehaviour, IReflectable
 
     private ReflectData myData;
 
-    private ReflectState _currentType = ReflectState.UnReflect;
+    public ReflectState _currentType = ReflectState.UnReflect;
 
     public ReflectState CurrentType
     {
@@ -39,6 +38,8 @@ public class ReflectiveObject : MonoBehaviour, IReflectable
     }
 
     private IReflectable reflectObject = null;
+
+    public int idx = 0;
     protected virtual void Awake()
     {
         myData.inColor = defaultColor;
@@ -50,17 +51,20 @@ public class ReflectiveObject : MonoBehaviour, IReflectable
         if (_lr == null)
             _lr = gameObject.AddComponent<LineRenderer>();
 
+        idx = -1;
         Init();
     }
 
     private void Init()
     {
+
+
         _lr.positionCount = 2;
         _lr.startWidth = .2f;
         _lr.endWidth = .2f;
     }
 
-    public void DataModify(ReflectData data)
+    public void SetDataModify(ReflectData data)
     {
         _lr.SetPosition(0, data.inHitPos);
 
@@ -85,7 +89,7 @@ public class ReflectiveObject : MonoBehaviour, IReflectable
                 ChangedReflectObject(reflectable);
 
                 reflectObject.OnReflectTypeChanged(ReflectState.OnReflect);
-                reflectObject.DataModify(myData);
+                reflectObject.SetDataModify(myData);
             }
         }
         else
@@ -100,13 +104,18 @@ public class ReflectiveObject : MonoBehaviour, IReflectable
     }
     public void OnHandleReflected()
     {
+        Debug.Log(gameObject.name + " : on");
         Init();
+        idx++;
     }
     public void UnHandleReflected()
     {
-        _lr.positionCount = 0;
+        Debug.Log(gameObject.name + " : un");
         _lr.startWidth = 0;
         _lr.endWidth = 0;
+
+
+        idx--;
     }
     void IReflectable.OnReflectTypeChanged(ReflectState type)
     {
@@ -115,7 +124,8 @@ public class ReflectiveObject : MonoBehaviour, IReflectable
     private void ChangedReflectObject(IReflectable reflectable)
     {
         if (reflectObject == reflectable) return;
-        reflectObject = reflectable;
+        reflectObject = (reflectable);
+
     }
 
 
