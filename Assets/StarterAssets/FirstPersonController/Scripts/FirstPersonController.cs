@@ -86,6 +86,8 @@ namespace StarterAssets
 			}
 		}
 
+		public bool CanMove = true;
+
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -114,12 +116,14 @@ namespace StarterAssets
 		{
 			JumpAndGravity();
 			GroundedCheck();
-			Move();
+			if (CanMove)
+				Move();
 		}
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if (CanMove)
+				CameraRotation();
 		}
 
 		private void GroundedCheck()

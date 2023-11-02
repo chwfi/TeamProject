@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ef3821a08181a47991851ad9dd6c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ableDistance: 5
-  _rotateSpeed: 45
+  _ableDistance: 3
+  _rotateSpeed: 85
 --- !u!1 &5057829355363768446
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +250,8 @@ GameObject:
   - component: {fileID: 3532442764775637316}
   - component: {fileID: 8635390608455257285}
   - component: {fileID: 1021548665630062201}
+  - component: {fileID: 1460394739782048502}
+  - component: {fileID: 4894337349045425700}
   m_Layer: 7
   m_Name: InnerMirror
   m_TagString: Untagged
@@ -322,3 +324,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1460394739782048502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8490032492274180583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7635d88ee2c4375438dbe06a6a76ea46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultColor: {r: 0, g: 1, b: 0.9016249, a: 1}
+--- !u!65 &4894337349045425700
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8490032492274180583}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.99999994, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
