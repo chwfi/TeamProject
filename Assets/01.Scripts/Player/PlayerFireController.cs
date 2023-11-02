@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerFireController : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
-    [SerializeField] private PlayerTest _lantern;
 
     private void Awake()
     {
@@ -15,7 +14,7 @@ public class PlayerFireController : MonoBehaviour
 
     private void OnShootHandler(bool value)
     {
-        _lantern.OnShootLight(value);
+        //_lantern.OnShootLight(value);
     }
 
     private void OnDestroy()

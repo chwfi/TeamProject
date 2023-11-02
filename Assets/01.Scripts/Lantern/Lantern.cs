@@ -38,7 +38,7 @@ public class Lantern : MonoBehaviour
 
             if (hit.collider.TryGetComponent<IReflectable>(out var reflectableObject))
             {
-                reflectableObject?.OnReflected(hit.point, direction, hit.normal, defaultColor);
+                reflectableObject?.OnHandleReflected(hit.point, direction, hit.normal, defaultColor);
             }
         }
         else
