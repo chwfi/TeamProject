@@ -99,7 +99,10 @@ public class Crystal : MonoBehaviour, IReflectable
     public void OnHandleReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 inNormal, Color inColor)
     {
         StartCoroutine(IncreaseChargingValueCoroutine());
-        //굴절 코드 짜주세용
+
+        //여기서 컬러로 쏘면됨.
+
+        //쏴 코드 짜주세용
     }
 
     private IEnumerator IncreaseChargingValueCoroutine()
