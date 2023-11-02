@@ -8,6 +8,11 @@ namespace Define
     {
         public static LayerMask ReflectionLayer =>
             1 << LayerMask.NameToLayer("ReflectiveObject");
+
+        public static Transform PlayerTrm
+        {
+            get { return GameObject.FindGameObjectWithTag("Player").transform; }
+        }
     }
 }
 
