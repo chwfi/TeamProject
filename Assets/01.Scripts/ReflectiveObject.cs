@@ -1,18 +1,48 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using static Define.Define;
 
-//여기서는 받은 벡터로 반사시켜주고 라인렌더러를 그리는 곳
+
+
 public class ReflectiveObject : MonoBehaviour, IReflectable
 {
+    [SerializeField] private Color defaultColor;
+
     private Collider _col;
     private LineRenderer _lr;
-    public Color defaultColor;
 
+    public ReflectDataChanged OnReflectTypeChanged = null;
+
+    private ReflectData myData;
+
+    private ReflectState _currentType = ReflectState.UnReflect;
+
+    public ReflectState CurrentType
+    {
+        get
+        {
+            return _currentType;
+        }
+        set
+        {
+            if (_currentType == value) return; //전에거는 한번만
+            _currentType = value;
+
+            if (_currentType == ReflectState.UnReflect)
+                UnHandleReflected();
+
+            else if (_currentType == ReflectState.OnReflect)
+                OnHandleReflected();
+
+        }
+    }
+
+    private IReflectable reflectObject = null;
     protected virtual void Awake()
     {
+        myData.inColor = defaultColor;
+
         _col = GetComponent<Collider>();
 
         _lr = gameObject.GetComponent<LineRenderer>();
@@ -30,37 +60,64 @@ public class ReflectiveObject : MonoBehaviour, IReflectable
         _lr.endWidth = .2f;
     }
 
-    public void OnHandleReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 normal, Color inColor)
+    public void DataModify(ReflectData data)
     {
-        _lr.SetPosition(0, inHitPos);
-        var cCol = ColorSystem.GetColorCombination(inColor, defaultColor);
-        _lr.material.color = cCol;
-        var raycastDirection = Vector3.Reflect(inDirection, normal);
+        _lr.SetPosition(0, data.inHitPos);
 
-        Debug.Log(gameObject.name + " : " + inDirection + ": " + normal + ": " + raycastDirection);
+        var cCol = ColorSystem.GetColorCombination(data.inColor, defaultColor);
+        _lr.material.color = cCol;
+
+        var raycastDirection = Vector3.Reflect(data.inDirection, data.normal);
+        myData.inDirection = raycastDirection;
+
         RaycastHit hit;
-        Debug.Log(ReflectionLayer.value.ToString());
-        if (Physics.Raycast(inHitPos, raycastDirection, out hit, 1000, ReflectionLayer))
+        if (Physics.Raycast(data.inHitPos, raycastDirection, out hit, 1000, ReflectionLayer))
         {
             if (_col.name == hit.collider.name) return;
 
+            myData.inHitPos = hit.point;
+            myData.normal = hit.normal;
+
             _lr.SetPosition(1, hit.point);
 
-            if (hit.collider.TryGetComponent<IReflectable>(out var reflectableObject))
+            if (hit.collider.TryGetComponent<IReflectable>(out var reflectable))
             {
-                Debug.Log(gameObject.name + " : " + _col.name + ": " + hit.collider.name);
-                reflectableObject?.OnHandleReflected(hit.point, raycastDirection, hit.normal, cCol);
+                ChangedReflectObject(reflectable);
+
+                reflectObject.OnReflectTypeChanged(ReflectState.OnReflect);
+                reflectObject.DataModify(myData);
             }
         }
         else
         {
-            _lr.SetPosition(1, inHitPos + raycastDirection * 1000);
+            if (reflectObject != null)
+            {
+                reflectObject.OnReflectTypeChanged(ReflectState.UnReflect);
+            }
+
+            _lr.SetPosition(1, data.inHitPos + raycastDirection * 1000);
         }
     }
-
-    public void UnHandleReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 inNormal)
+    public void OnHandleReflected()
     {
         Init();
     }
+    public void UnHandleReflected()
+    {
+        _lr.positionCount = 0;
+        _lr.startWidth = 0;
+        _lr.endWidth = 0;
+    }
+    void IReflectable.OnReflectTypeChanged(ReflectState type)
+    {
+        CurrentType = type;
+    }
+    private void ChangedReflectObject(IReflectable reflectable)
+    {
+        if (reflectObject == reflectable) return;
+        reflectObject = reflectable;
+    }
+
+
 }
 

@@ -2,29 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using static Define.Define;
+
 
 public class PlayerTest : MonoBehaviour
 {
     public Color defaultColor;
     private LineRenderer lb;
 
-    private ReflectData _currentData;
-    public ReflectData CurrentData
-    {
-        get
-        {
-            return _currentData;
-        }
-        set
-        {
-            if (_currentData.Equals(value)) return;
-            _currentData = value;
-        }
-    }
+    private ReflectData mydata;
+
+    private IReflectable reflectObject = null;
+
     private void Awake()
     {
+        mydata.inColor = defaultColor;
+
         lb = (LineRenderer)GetComponent("LineRenderer");
         lb.positionCount = 2;
         lb.material.color = defaultColor;
@@ -33,30 +29,49 @@ public class PlayerTest : MonoBehaviour
     {
         OnShootLight();
     }
-
     public void OnShootLight()
     {
-        RaycastWithReflection(transform.position, transform.forward);
+        StartShootLight(transform.position, transform.forward);
     }
-
-    private void RaycastWithReflection(Vector3 origin, Vector3 direction)
+    public void StartShootLight(Vector3 origin, Vector3 direction)
     {
-        lb.SetPosition(0, origin);
+        mydata.inHitPos = origin;
+        mydata.inDirection = direction;
 
+        DataModify(mydata);
+    }
+    public void DataModify(ReflectData reflectData)
+    {
+        lb.SetPosition(0, reflectData.inHitPos);
         RaycastHit hit;
-        Debug.Log(ReflectionLayer.value.ToString());
-        if (Physics.Raycast(origin, direction, out hit, 1000, ReflectionLayer))
+
+        if (Physics.Raycast(reflectData.inHitPos, reflectData.inDirection, out hit, 1000, ReflectionLayer))
         {
+            mydata.inHitPos = hit.point;
+            mydata.inDirection = reflectData.inDirection;
+            mydata.normal = hit.normal;
+
             lb.SetPosition(1, hit.point);
 
-            if (hit.collider.TryGetComponent<IReflectable>(out var reflectableObject))
+            if (hit.collider.TryGetComponent<IReflectable>(out var reflectable)) //반사 오브젝트라면
             {
-                reflectableObject?.OnHandleReflected(hit.point, direction, hit.normal, defaultColor);
+                ChangedReflectObject(reflectable);
+
+                reflectObject?.OnReflectTypeChanged(ReflectState.OnReflect);
+                reflectObject?.DataModify(mydata);
             }
         }
         else
         {
-            lb.SetPosition(1, direction * 1000);
+            if (reflectObject != null)
+                reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+
+            lb.SetPosition(1, reflectData.inDirection * 1000);
         }
+    }
+    private void ChangedReflectObject(IReflectable reflectable)
+    {
+        if (reflectObject == reflectable) return;
+        reflectObject = reflectable;
     }
 }
