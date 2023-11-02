@@ -68,7 +68,7 @@ public class Crystal : MonoBehaviour, IReflectable
 
         if (isOKeyHeld) //디버그용
         {
-            OnReflected(transform.position, transform.position, transform.position, Color.red);
+            OnHandleReflected(transform.position, transform.position, transform.position, Color.red);
         }
         _preParticleType = _curParticleType;
     }
@@ -96,7 +96,7 @@ public class Crystal : MonoBehaviour, IReflectable
         }
     }
 
-    public void OnReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 inNormal, Color inColor)
+    public void OnHandleReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 inNormal, Color inColor)
     {
         StartCoroutine(IncreaseChargingValueCoroutine());
         //굴절 코드 짜주세용
@@ -111,7 +111,7 @@ public class Crystal : MonoBehaviour, IReflectable
         }
     }
 
-    public void UnReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 inNormal)
+    public void UnHandleReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 inNormal)
     {
         // 앙 아무것도 업음
     }
