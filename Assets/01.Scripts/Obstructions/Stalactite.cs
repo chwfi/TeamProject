@@ -8,9 +8,10 @@ public class Stalactite : PoolableMono
 {
     [SerializeField]
     private float fallingTime;
-    [SerializeField]
-    private bool isDisappearObj; //사라질 종유석이라면 true
-    [SerializeField]
+
+    [SerializeField, Tooltip("사라질 종유석이라면 true")]
+    public bool isDisappearObj; //사라질 종유석이라면 true
+    [SerializeField, Tooltip("사라질 종유석이라면 몇 초 후에 사라질지")]
     private float disappearTime; //사라질 종유석이라면 몇 초 후에 사라질지
 
     Rigidbody _rigidbody;
