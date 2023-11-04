@@ -17,8 +17,8 @@ namespace StarterAssets
 		[Tooltip("Sprint speed of the character in m/s")]
 		public float SprintSpeed = 6.0f;
 		[Tooltip("Rotation speed of the character")]
-		public float RotationSpeed = 1.0f;
-		[Tooltip("Acceleration and deceleration")]
+		private float _rotationSpeed => UIManager.Instance.settingMouseUI.ValueScale;
+        [Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
 		[Space(10)]
@@ -86,6 +86,8 @@ namespace StarterAssets
 			}
 		}
 
+		public bool CanMove = true;
+
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -114,12 +116,14 @@ namespace StarterAssets
 		{
 			JumpAndGravity();
 			GroundedCheck();
-			Move();
+			if (CanMove)
+				Move();
 		}
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if (CanMove)
+				CameraRotation();
 		}
 
 		private void GroundedCheck()
@@ -137,8 +141,8 @@ namespace StarterAssets
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
-				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
-				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
+				_cinemachineTargetPitch += _input.look.y * _rotationSpeed * deltaTimeMultiplier;
+				_rotationVelocity = _input.look.x * _rotationSpeed * deltaTimeMultiplier;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
