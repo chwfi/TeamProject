@@ -13,7 +13,7 @@ public enum CrystalParticleType
     ChargingFin
 }
 
-public class Crystal : MonoBehaviour, IReflectable
+public class Crystal : Reflective
 {
     Dictionary<CrystalParticleType, ParticleSystem> particlesDic = new();
     [SerializeField]
@@ -40,7 +40,7 @@ public class Crystal : MonoBehaviour, IReflectable
         _preParticleType = _curParticleType;
 
         int i = 0;
-        foreach(CrystalParticleType e in Enum.GetValues(typeof(CrystalParticleType))) //파티클 딕셔너리 세팅
+        foreach (CrystalParticleType e in Enum.GetValues(typeof(CrystalParticleType))) //파티클 딕셔너리 세팅
         {
             if (e == CrystalParticleType.None) continue;
             particlesDic.Add(e, particles[i]);
@@ -69,11 +69,10 @@ public class Crystal : MonoBehaviour, IReflectable
 
         if (isOKeyHeld) //디버그용
         {
-            OnHandleReflected(transform.position, transform.position, transform.position, Color.red);
+            OnHandleReflected();
         }
         _preParticleType = _curParticleType;
     }
-
     private void ChangeParticleSystem() //파티클 바꾸는 함수
     {
         if (_preParticleType != CrystalParticleType.None && _curParticleType != CrystalParticleType.OverCharging) { particlesDic[_preParticleType].Stop(); }
@@ -84,7 +83,7 @@ public class Crystal : MonoBehaviour, IReflectable
     {
         if (ChargingValue == maxChargingValue)
         {
-            if(isFirst) //만약 처음 다 충전되었다면 그냥 다 찬거 파티클 실행하고 오버차지도
+            if (isFirst) //만약 처음 다 충전되었다면 그냥 다 찬거 파티클 실행하고 오버차지도
             {
                 particlesDic[CrystalParticleType.ChargingFin].Play();
                 isFirst = false;
@@ -97,15 +96,20 @@ public class Crystal : MonoBehaviour, IReflectable
         }
     }
 
-    public void OnHandleReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 inNormal, Color inColor)
+    public override void SetDataModify(ReflectData inData)
     {
-        StartCoroutine(IncreaseChargingValueCoroutine());
-
-        //여기서 컬러로 쏘면됨.
-
-        //쏴 코드 짜주세용
+        OnShootRaycast(inData, transform.forward);
     }
+    public override void OnHandleReflected()
+    {
+        base.OnHandleReflected();
 
+        StartCoroutine(IncreaseChargingValueCoroutine());
+    }
+    public override void UnHandleReflected()
+    {
+        base.UnHandleReflected();
+    }
     private IEnumerator IncreaseChargingValueCoroutine()
     {
         while (isOKeyHeld && ChargingValue < maxChargingValue)
@@ -113,10 +117,5 @@ public class Crystal : MonoBehaviour, IReflectable
             ChargingValue += chargingRate;
             yield return new WaitForSeconds(1f);
         }
-    }
-
-    public void UnHandleReflected(Vector3 inHitPos, Vector3 inDirection, Vector3 inNormal)
-    {
-        // 앙 아무것도 업음
     }
 }

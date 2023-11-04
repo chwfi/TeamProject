@@ -4,13 +4,14 @@ using UnityEngine;
 
 public struct ReflectData //델리게이트로 할지 생각
 {
-   public  Vector3 inHitPos;
-    public Vector3 inDirection;
+   public  Vector3 hitPos;
+    public Vector3 direction;
     public Vector3 normal;
-    public Color inColor;
+    public Color color;
 }
 public enum ReflectState
 {
+    NULL,
     OnReflect,
     UnReflect,
 }

@@ -13,13 +13,13 @@ public class PlayerTest : MonoBehaviour
     public Color defaultColor;
     private LineRenderer lb;
 
-    private ReflectData mydata;
+    private ReflectData myReflectData;
 
-    private IReflectable reflectObject = null;
+    private Reflective reflectObject = null;
 
     private void Awake()
     {
-        mydata.inColor = defaultColor;
+        myReflectData.color = defaultColor;
 
         lb = (LineRenderer)GetComponent("LineRenderer");
         lb.positionCount = 2;
@@ -35,39 +35,44 @@ public class PlayerTest : MonoBehaviour
     }
     public void StartShootLight(Vector3 origin, Vector3 direction)
     {
-        mydata.inHitPos = origin;
-        mydata.inDirection = direction;
+        myReflectData.hitPos = origin;
+        myReflectData.direction = direction;
 
-        DataModify(mydata);
+        DataModify(myReflectData);
     }
     public void DataModify(ReflectData reflectData)
     {
-        lb.SetPosition(0, reflectData.inHitPos);
+        lb.SetPosition(0, reflectData.hitPos);
         RaycastHit hit;
 
-        if (Physics.Raycast(reflectData.inHitPos, reflectData.inDirection, out hit, 1000, ReflectionLayer))
+        if (Physics.Raycast(reflectData.hitPos, reflectData.direction, out hit, 1000, ReflectionLayer))
         {
-            mydata.inHitPos = hit.point;
-            mydata.inDirection = reflectData.inDirection;
-            mydata.normal = hit.normal;
+            myReflectData.hitPos = hit.point;
+            myReflectData.direction = reflectData.direction;
+            myReflectData.normal = hit.normal;
 
             lb.SetPosition(1, hit.point);
 
-            if (hit.collider.TryGetComponent<IReflectable>(out var reflectable)) //반사 오브젝트라면
+            if (hit.collider.TryGetComponent<Reflective>(out var reflectable)) //반사 오브젝트라면
             {
                 ChangedReflectObject(reflectable);
 
                 reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
-                reflectable?.SetDataModify(mydata);
+                reflectable?.SetDataModify(myReflectData);
             }
         }
         else
         {
-            reflectObject.OnReflectTypeChanged(ReflectState.UnReflect);
-            lb.SetPosition(1, reflectData.inDirection * 1000);
+            if(reflectObject != null)
+            {
+                reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+                reflectObject = null;
+            }
+            
+            lb.SetPosition(1, reflectData.direction * 1000);
         }
     }
-    private void ChangedReflectObject(IReflectable reflectable)
+    private void ChangedReflectObject(Reflective reflectable)
     {
         if (reflectObject == reflectable) return;
         reflectObject = reflectable;
