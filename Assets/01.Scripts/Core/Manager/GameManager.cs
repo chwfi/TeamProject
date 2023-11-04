@@ -8,31 +8,24 @@ public class GameManager : MonoSingleton<GameManager>
 {
     public int CurrentStage = 1;
 
-    private FirstPersonController _controller;
+    private FirstPersonController _player;
+    public FirstPersonController Player => _player;
 
     protected override void Awake()
     {
         base.Awake();
-        _controller = PlayerTrm.GetComponent<FirstPersonController>();
+        _player = PlayerTrm.GetComponent<FirstPersonController>();
     }
 
-    public void StopGameImmediately(bool value)
+    public void StopGameImmediately(bool value) //플레이어의 움직임, 화면 전환 즉시 차단
     {
         if (value)
         {
-            _controller.CanMove = false;
-            StartCoroutine(SetTimerZero(0.5f));
+            _player.CanMove = false;
         }
         else
         {
-            _controller.CanMove = true;
-            Time.timeScale = 1;
+            _player.CanMove = true;
         }
-    }
-
-    private IEnumerator SetTimerZero(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Time.timeScale = 0;
     }
 }

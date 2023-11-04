@@ -40,5 +40,16 @@ public class SoundManager : MonoSingleton<SoundManager>
     public void PlayBGMSound()
     {
         _bgmPlayer.clip = _backgroundSound;
+        _bgmPlayer.Play();
+    }
+
+    public void SetVolumeSFX(float volume)
+    {
+        _sfxPlayer.volume = volume;
+    }
+
+    public void SetVolumeBGM(float volume)
+    {
+        _bgmPlayer.volume = volume;
     }
 }
