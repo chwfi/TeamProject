@@ -19,8 +19,8 @@ public class Crystal : Reflective
     [SerializeField]
     private List<ParticleSystem> particles = new List<ParticleSystem>();
 
-    public CrystalParticleType _curParticleType;
-    public CrystalParticleType _preParticleType;
+    private CrystalParticleType _curParticleType;
+    private CrystalParticleType _preParticleType;
 
     public float curChargingValue; // 테스트용 public
     private float maxChargingValue = 500f;
