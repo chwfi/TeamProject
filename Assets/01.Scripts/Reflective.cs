@@ -1,3 +1,4 @@
+using Define;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -78,6 +79,10 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     {
         CurrentType = type;
     }
+    protected void SetLightColor(COLOR_TYPE tpye)
+    {
+
+    }
     private void ChangedReflectObject(Reflective reflectable)
     {
         if (reflectObject == reflectable) return;
@@ -121,6 +126,10 @@ public abstract class Reflective : MonoBehaviour, IReflectable
             _lr.SetPosition(1, inData.hitPos + dir * 1000);
         }
         Debug.Log(gameObject.name + " : " + reflectObject?.name);
+    }
+    public void HandleGlowReflectStateChanged(GlowState glowState)
+    {
+
     }
 }
 

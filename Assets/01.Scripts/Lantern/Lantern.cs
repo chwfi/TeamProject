@@ -12,6 +12,7 @@ public class Lantern : MonoBehaviour
     [SerializeField] private InputReader _inputReader;
 
     public Color defaultColor;
+
     private LineRenderer lb;
 
     private ReflectData myReflectData;
@@ -43,7 +44,6 @@ public class Lantern : MonoBehaviour
         _inputReader.OnUpdateFireEvent += OnShootLight;
         _inputReader.OnEndFireEvent += OnEndShootLight;
     }
-
     private void OnStartShootLight()
     {
         lb.enabled = true;
