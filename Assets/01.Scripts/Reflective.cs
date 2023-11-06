@@ -79,10 +79,10 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     {
         CurrentType = type;
     }
-    protected void SetLightColor(COLOR_TYPE tpye)
-    {
+    //protected void SetLightColor(COLOR_TYPE tpye)
+    //{
 
-    }
+    //}
     private void ChangedReflectObject(Reflective reflectable)
     {
         if (reflectObject == reflectable) return;
