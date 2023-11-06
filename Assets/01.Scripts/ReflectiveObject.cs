@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class ReflectiveObject : Reflective
 {
+
     public override void SetDataModify(ReflectData data) //아니! 데이터가 변경됐어????????
     {
+        _startPos = data.hitPos;
+
         var cCol = ColorSystem.GetColorCombination(data.color, defaultColor); //자, 이게 무슨 코드냐면요 바로바로 색을 더해주는 코드입니다!!
         SetLightColor(cCol); //우리 한 번 만들어진 색을 빛에 입혀볼까요?
 

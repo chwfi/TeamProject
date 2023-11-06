@@ -1,6 +1,8 @@
 using Define;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Xml.Linq;
 using UnityEngine;
 using static Define.Define;
@@ -42,6 +44,9 @@ public abstract class Reflective : MonoBehaviour, IReflectable
         }
     }
 
+    protected Vector3 _startPos = Vector3.zero;
+    protected Vector3 _endPos = Vector3.zero;
+
     private Reflective reflectObject = null;
     #endregion
     protected virtual void Awake()
@@ -71,10 +76,34 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     {
         _lr.enabled = true;
     }
+
+
+
     public virtual void UnHandleReflected() //맞지 않을때 한번만 실행됨
     {
-        _lr.enabled = false;
+        StartCoroutine(DrawAndFadeLineCoroutine());
     }
+
+    public float duration = 3f;
+    private float startTime = 0;
+    private IEnumerator DrawAndFadeLineCoroutine()
+    {
+        while (startTime < duration)
+        {
+            startTime += Time.deltaTime;
+            float t = Mathf.Clamp(startTime / duration, 0, 1.5f);
+            Vector3 lerpedPosition = Vector3.Lerp(_startPos, _startPos, t);
+
+            _lr.SetPosition(0, lerpedPosition);
+            _lr.SetPosition(1, _endPos);
+
+            yield return null;
+        }
+
+        _lr.enabled = false;
+        startTime = 0;
+    }
+
     public void OnReflectTypeChanged(ReflectState type)
     {
         CurrentType = type;
@@ -103,6 +132,8 @@ public abstract class Reflective : MonoBehaviour, IReflectable
         {
             if (gameObject == hit.collider.gameObject) return;
             //if (_col.name == hit.collider.name) return;
+
+            _endPos = hit.point;
 
             myReflectData.hitPos = hit.point;
             myReflectData.normal = hit.normal;

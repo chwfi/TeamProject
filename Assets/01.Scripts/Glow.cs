@@ -14,7 +14,7 @@ public abstract class Glow : MonoBehaviour
 
     private Reflective reflectObject = null;
 
-    public GlowStateChangedHander OnReflectStateChanged = null;
+    public GlowStateChangedHander OnGlowStateChanged = null;
 
     private GlowState _currentState = GlowState.NULL;
 
@@ -27,7 +27,7 @@ public abstract class Glow : MonoBehaviour
 
             _currentState = value;
 
-            OnReflectStateChanged?.Invoke(_currentState);
+            OnGlowStateChanged?.Invoke(_currentState);
         }
     }
     protected virtual void Awake()
@@ -41,6 +41,8 @@ public abstract class Glow : MonoBehaviour
 
         lb.positionCount = 2;
         lb.material.color = defaultColor;
+
+
     }
     protected virtual void OnStartShootLight()
     {
@@ -103,6 +105,11 @@ public abstract class Glow : MonoBehaviour
     private void ChangedReflectObject(Reflective reflectable)
     {
         if (reflectObject == reflectable) return;
+
+        OnGlowStateChanged -= reflectObject.HandleGlowReflectStateChanged;
+
         reflectObject = reflectable;
+
+        OnGlowStateChanged += reflectObject.HandleGlowReflectStateChanged;
     }
 }
