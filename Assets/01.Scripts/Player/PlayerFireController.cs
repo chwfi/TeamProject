@@ -9,7 +9,7 @@ public class PlayerFireController : MonoBehaviour
 
     private void Awake()
     {
-        _inputReader.FireEvent += OnShootHandler;
+        //_inputReader.FireEvent += OnShootHandler;
     }
 
     private void OnShootHandler(bool value)
@@ -19,6 +19,6 @@ public class PlayerFireController : MonoBehaviour
 
     private void OnDestroy()
     {
-        _inputReader.FireEvent -= OnShootHandler;
+        //_inputReader.FireEvent -= OnShootHandler;
     }
 }

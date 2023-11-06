@@ -11,12 +11,17 @@ public class GameManager : MonoSingleton<GameManager>
     private FirstPersonController _player;
     public FirstPersonController Player => _player;
 
+    [SerializeField] private InputReader _inputReader;
+
     protected override void Awake()
     {
         base.Awake();
         _player = PlayerTrm.GetComponent<FirstPersonController>();
     }
-
+    private void Update()
+    {
+        _inputReader.Update();
+    }
     public void StopGameImmediately(bool value) //플레이어의 움직임, 화면 전환 즉시 차단
     {
         if (value)

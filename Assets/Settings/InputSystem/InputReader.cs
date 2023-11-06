@@ -7,10 +7,15 @@ using static Controls;
 public class InputReader : ScriptableObject, IPlayerActions
 {
     public event Action<Vector2> MovementEvent;
-    public event Action<bool> FireEvent;
 
-    public Vector2 AimPosition { get; private set; } 
+    public event Action OnStartFireEvent;
+    public event Action OnUpdateFireEvent;
+    public event Action OnEndFireEvent;
+
+    public Vector2 AimPosition { get; private set; }
     private Controls _playerInputAction; //싱글톤으로 사용할 녀석
+
+    private bool isClicking = false;
 
     private void OnEnable()
     {
@@ -31,18 +36,29 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public void OnFire(InputAction.CallbackContext context) //나중에
     {
-        if (context.performed)
+        if (context.started)
         {
-            FireEvent?.Invoke(true);
+            // 마우스 왼쪽 버튼을 처음 눌렀을 때 실행됩니다.
+            isClicking = true;
+            OnStartFireEvent?.Invoke();
         }
         else if (context.canceled)
         {
-            FireEvent?.Invoke(false);
+            // 마우스 왼쪽 버튼을 놓았을 때 실행됩니다.
+            isClicking = false;
+            OnEndFireEvent?.Invoke();
         }
     }
 
     public void OnAim(InputAction.CallbackContext context)
     {
-        AimPosition = context.ReadValue<Vector2>(); 
+        AimPosition = context.ReadValue<Vector2>();
+    }
+    public void Update()
+    {
+        if (isClicking)
+        {
+            OnUpdateFireEvent?.Invoke();
+        }
     }
 }

@@ -8,7 +8,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 {
     #region º¯¼öµé
     [SerializeField] protected Color defaultColor;
-
+    
     protected Collider _col;
     protected LineRenderer _lr;
 

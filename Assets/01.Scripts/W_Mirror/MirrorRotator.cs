@@ -22,7 +22,7 @@ public class MirrorRotator : MonoBehaviour
                 transform.Rotate(new Vector3(0, 1, 0) * _rotateSpeed * Time.deltaTime);
 
             if (Keyboard.current.eKey.isPressed)
-               transform.Rotate(new Vector3(0, -1, 0) * _rotateSpeed * Time.deltaTime);
+                transform.Rotate(new Vector3(0, -1, 0) * _rotateSpeed * Time.deltaTime);
         }
     }
 }
