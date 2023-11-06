@@ -12,7 +12,7 @@ public enum ColorM
     Blue
 }
 
-public class Door : MonoBehaviour
+public class ColorDoor : MonoBehaviour
 {
     [SerializeField, Tooltip("목표 색")]
     private ColorM goalColor; //목표 색
