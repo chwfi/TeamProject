@@ -13,12 +13,4 @@ namespace Define
             get { return GameObject.FindGameObjectWithTag("Player").transform; }
         }
     }
-    public enum COLOR_TYPE
-    {
-        RED,
-        GREEN,
-        BLUE,
-        MAGENTA,
-    }
-
 }

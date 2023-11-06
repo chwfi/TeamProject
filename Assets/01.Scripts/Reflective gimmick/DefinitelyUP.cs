@@ -12,7 +12,6 @@ public class DefinitelyUP : Reflective
     public override void OnHandleReflected()
     {
         base.OnHandleReflected();
-
     }
     public override void UnHandleReflected()
     {
