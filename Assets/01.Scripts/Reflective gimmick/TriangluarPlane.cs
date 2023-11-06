@@ -7,17 +7,27 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
 {
     public override void SetDataModify(ReflectData data)
     {
-        //var cCol = ColorSystem.GetColorCombination(data.color, defaultColor);
-        //_lr.material.color = cCol;
 
-        //var raycastDirection = Vector3.Reflect(data.direction, data.normal);
-        //myReflectData.direction = raycastDirection;
-
-        //OnShootRaycast(data, raycastDirection);
     }
 
-    public void OnShoot(ReflectData inData, Vector3 dir)
+    public void OnShoot()
     {
-        _lr.SetPosition(1, transform.position);
+        _lr.SetPosition(0, transform.position);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.up, out hit, 1000))
+        {
+            if (gameObject == hit.collider.gameObject) return;
+
+            myReflectData.hitPos = hit.point;
+            myReflectData.normal = hit.normal;
+
+            _lr.SetPosition(1, hit.point);
+        }
+        else
+        {
+            _lr.SetPosition(1, transform.position + transform.up * 1000);
+        }
     }
 }

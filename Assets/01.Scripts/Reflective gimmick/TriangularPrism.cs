@@ -5,7 +5,6 @@ using UnityEngine;
 public class TriangularPrism : Reflective
 {
     public List<TriangluarPlane> _planes;
-    [SerializeField] private Transform _shootTrm;
 
     protected override void Awake()
     {
@@ -18,6 +17,9 @@ public class TriangularPrism : Reflective
 
     public override void SetDataModify(ReflectData data)
     {
-        _planes[1].OnShoot(data, -transform.up);
+        foreach (var plane in _planes)
+        {
+            plane.OnShoot();
+        }
     }
 }
