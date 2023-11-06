@@ -2,21 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.InputSystem;
-
-public enum ColorM
-{
-    Default,
-    Red,
-    Green,
-    Blue
-}
 
 public class Door : MonoBehaviour
 {
     [SerializeField, Tooltip("목표 색")]
-    private ColorM goalColor; //목표 색
-    public ColorM curColor; //현재 문의 색 테스트 용으로 public. 나중에 private로.
+    private Color goalColor; //목표 색
+    private Color curColor; //현재 문의 색 테스트 용으로 public. 나중에 private로.
 
     Animator _animator;
 
@@ -31,15 +22,15 @@ public class Door : MonoBehaviour
 
     private void Start()
     {
-        curColor = default(ColorM); //현재 문의 색 초기화
+        curColor = default(Color); //현재 문의 색 초기화
     }
 
     private void Update()
     {
-        if (isOpen) { _animator.SetTrigger(openDoorHash); curColor = default(ColorM); } //문 열고 색 초기화
+        if (isOpen) { _animator.SetTrigger(openDoorHash); curColor = default(Color); } //문 열고 색 초기화
     }
 
-    public void ChangeColor(ColorM nextColor) //밖에서 실행할 색 바꾸는 함수
+    public void ChangeColor(Color nextColor) //밖에서 실행할 색 바꾸는 함수
     {
         curColor = nextColor;
     }
