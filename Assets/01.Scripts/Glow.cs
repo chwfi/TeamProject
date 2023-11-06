@@ -1,17 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Xml.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using static Define.Define;
 
-[RequireComponent(typeof(LineRenderer))]
-public class Lantern : MonoBehaviour
+public abstract class Glow : MonoBehaviour
 {
-    [SerializeField] private InputReader _inputReader;
-
-    public Color defaultColor;
+    [SerializeField] private Color defaultColor;
 
     private LineRenderer lb;
 
@@ -19,9 +14,11 @@ public class Lantern : MonoBehaviour
 
     private Reflective reflectObject = null;
 
-    private ReflectState _currentState = ReflectState.NULL;
+    public GlowStateChangedHander OnReflectStateChanged = null;
 
-    public ReflectState CurrentState
+    private GlowState _currentState = GlowState.NULL;
+
+    public GlowState CurrentState
     {
         get { return _currentState; }
         set
@@ -29,37 +26,41 @@ public class Lantern : MonoBehaviour
             if (_currentState == value) return;
 
             _currentState = value;
+
+            OnReflectStateChanged?.Invoke(_currentState);
         }
     }
-
-    private void Awake()
+    protected virtual void Awake()
     {
         myReflectData.color = defaultColor;
 
-        lb = (LineRenderer)GetComponent("LineRenderer");
+        lb = GetComponent<LineRenderer>();
+
+        if (lb == null)
+            lb = gameObject.AddComponent<LineRenderer>();
+
         lb.positionCount = 2;
         lb.material.color = defaultColor;
-
-        _inputReader.OnStartFireEvent += OnStartShootLight;
-        _inputReader.OnUpdateFireEvent += OnShootLight;
-        _inputReader.OnEndFireEvent += OnEndShootLight;
     }
-    private void OnStartShootLight()
+    protected virtual void OnStartShootLight()
     {
         lb.enabled = true;
+
+        _currentState = GlowState.OnGlow;
     }
-    private void OnEndShootLight()
+    protected virtual void OnEndShootLight()
     {
         lb.enabled = false;
-    }
 
-    private void OnShootLight()
+        _currentState = GlowState.UnGlow;
+    }
+    protected virtual void OnShootLight()
     {
         Debug.Log("½´¿ô");
         StartShootLight(transform.position, transform.forward);
     }
 
-    public void StartShootLight(Vector3 origin, Vector3 direction)
+    protected virtual void StartShootLight(Vector3 origin, Vector3 direction)
     {
         myReflectData.hitPos = origin;
         myReflectData.direction = direction;
@@ -67,7 +68,7 @@ public class Lantern : MonoBehaviour
         DataModify(myReflectData);
     }
 
-    public void DataModify(ReflectData reflectData)
+    protected virtual void DataModify(ReflectData reflectData)
     {
         lb.SetPosition(0, reflectData.hitPos);
         RaycastHit hit;
@@ -99,17 +100,9 @@ public class Lantern : MonoBehaviour
             lb.SetPosition(1, reflectData.direction * 1000);
         }
     }
-
     private void ChangedReflectObject(Reflective reflectable)
     {
         if (reflectObject == reflectable) return;
         reflectObject = reflectable;
-    }
-
-    private void OnDestroy()
-    {
-        _inputReader.OnStartFireEvent -= OnShootLight;
-        _inputReader.OnUpdateFireEvent -= OnShootLight;
-        _inputReader.OnEndFireEvent -= OnShootLight;
     }
 }
