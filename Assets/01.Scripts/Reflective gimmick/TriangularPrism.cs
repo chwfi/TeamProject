@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class TriangularPrism : Reflective
 {
-    public List<ReflectiveObject> _planes;
+    public List<TriangluarPlane> _planes;
 
     protected override void Awake()
     {
         base.Awake();
+
         for (int i = 0; i < transform.childCount; i++)
         {
-            _planes.Add(transform.GetChild(i).GetComponent<ReflectiveObject>());
+            _planes.Add(transform.GetChild(i).GetComponent<TriangluarPlane>());
         }
     }
 

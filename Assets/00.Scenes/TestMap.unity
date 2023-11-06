@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  _currentType: 0
+  _currentType: 2
 --- !u!120 &269873455
 LineRenderer:
   serializedVersion: 2
@@ -3030,7 +3030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  _currentType: 0
+  _currentType: 2
 --- !u!120 &712658414
 LineRenderer:
   serializedVersion: 2
@@ -5538,7 +5538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  _currentType: 0
+  _currentType: 2
 --- !u!120 &1328648490
 LineRenderer:
   serializedVersion: 2
@@ -11176,7 +11176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55b57817991d9145ae12743a5299265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 1, g: 0, b: 0, a: 1}
   _currentType: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

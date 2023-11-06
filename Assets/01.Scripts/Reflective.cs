@@ -9,7 +9,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 {
     #region 변수들
     [SerializeField] protected Color defaultColor;
-    
+
     protected Collider _col;
     protected LineRenderer _lr;
 
@@ -79,16 +79,21 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     {
         CurrentType = type;
     }
-    protected void SetLightColor(COLOR_TYPE tpye)
+    protected void SetLightColor(Color type)
     {
-
+        _lr.material.color = type;
+    }
+    protected Vector3 SetDirection(Vector3 value)
+    {
+        myReflectData.direction = value;
+        return value;
     }
     private void ChangedReflectObject(Reflective reflectable)
     {
         if (reflectObject == reflectable) return;
         reflectObject = (reflectable);
     }
-    protected void OnShootRaycast(ReflectData inData, Vector3 dir) //나를 맞춘 오브젝트의 데이터와 쏠 방향
+    protected virtual void OnShootRaycast(ReflectData inData, Vector3 dir) //나를 맞춘 오브젝트의 데이터와 쏠 방향
     {
         _lr.SetPosition(0, inData.hitPos);
 

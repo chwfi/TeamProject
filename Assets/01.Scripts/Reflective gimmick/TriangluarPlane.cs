@@ -7,7 +7,9 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
 {
     public override void SetDataModify(ReflectData data)
     {
-
+        var dir = SetDirection(transform.up);
+        data.hitPos  = transform.position;
+        OnShootRaycast(data, dir);
     }
 
     public void OnShoot()
