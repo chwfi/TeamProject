@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class Door : MonoBehaviour
+public class ColorDoor : MonoBehaviour
 {
     [SerializeField, Tooltip("목표 색")]
     private Color goalColor; //목표 색
