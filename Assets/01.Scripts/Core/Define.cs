@@ -12,5 +12,7 @@ namespace Define
         {
             get { return GameObject.FindGameObjectWithTag("Player").transform; }
         }
+
+        //public static Camera MainCam => Camera.main;
     }
 }

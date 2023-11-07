@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
 
-public class TriangluarPlane : Reflective //삼각형의 각 면
+public class TriangluarPlane : ReflectiveObject //삼각형의 각 면
 {
     public override void SetDataModify(ReflectData data)
     {

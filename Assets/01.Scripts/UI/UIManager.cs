@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
 {
@@ -18,9 +18,9 @@ public class UIManager : MonoSingleton<UIManager>
         settingMouseUI = FindObjectOfType<SettingMouseSenseValue>();
     }
 
-    public void FadePanel(float value, float time, string contents, Sprite sprite)
+    public void FadePanel(float value, float time, string contents, Image image, Image previousImage)
     {
-        tutorialPanelUI.Fade(value, time, contents, sprite);
+        tutorialPanelUI.Fade(value, time, contents, image, previousImage);
     }
 
     //세팅창 로직
