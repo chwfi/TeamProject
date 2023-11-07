@@ -75,24 +75,25 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     public virtual void OnHandleReflected() //처음 빛을 맞을때 한번만 실행됨
     {
         _lr.enabled = true;
+        StopCoroutine(DrawAndFadeLineCoroutine());
     }
 
-
-
-    public virtual void UnHandleReflected() //맞지 않을때 한번만 실행됨
-    {
-        StartCoroutine(DrawAndFadeLineCoroutine());
-    }
 
     public float duration = 3f;
     private float startTime = 0;
+    public virtual void UnHandleReflected() //맞지 않을때 한번만 실행됨
+    {
+        duration = .5f;
+        startTime = 0;
+        StopCoroutine(DrawAndFadeLineCoroutine());
+        StartCoroutine(DrawAndFadeLineCoroutine());
+    }
     private IEnumerator DrawAndFadeLineCoroutine()
     {
         while (startTime < duration)
         {
             startTime += Time.deltaTime;
-            float t = Mathf.Clamp(startTime / duration, 0, 1.5f);
-            Vector3 lerpedPosition = Vector3.Lerp(_startPos, _startPos, t);
+            Vector3 lerpedPosition = Vector3.Lerp(_startPos, _endPos, startTime / duration);
 
             _lr.SetPosition(0, lerpedPosition);
             _lr.SetPosition(1, _endPos);
@@ -157,6 +158,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
                 reflectObject.OnReflectTypeChanged(ReflectState.UnReflect);
                 reflectObject = null;
             }
+            _endPos = inData.hitPos + dir * 10;
 
             Debug.DrawRay(inData.hitPos, inData.hitPos + dir * 1000, Color.green);
             _lr.SetPosition(1, inData.hitPos + dir * 1000);
