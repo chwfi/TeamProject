@@ -31,3 +31,9 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     count: 5
+  - assetRef:
+      m_AssetGUID: 79b3f0847328f8d43ab59d567f27593c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    count: 1
