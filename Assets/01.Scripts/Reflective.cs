@@ -57,6 +57,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 
     private Reflective reflectObject = null;
     #endregion
+    private IEnumerator coroutine;
     protected virtual void Awake()
     {
         myReflectData.color = defaultColor;
@@ -73,6 +74,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 
     private void Init()
     {
+        coroutine = DrawAndFadeLineCoroutine();
         lb.positionCount = 2;
         lb.startWidth = .02f;
         lb.endWidth = .02f;
@@ -80,7 +82,6 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 
     public abstract void SetDataModify(ReflectData inData); //맞고있는 중이면 실행됨 
 
-    private Coroutine coroutine;
     public virtual void OnHandleReflected() //처음 빛을 맞을때 한번만 실행됨
     {
         lb.enabled = true;
@@ -95,7 +96,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     {
         startTime = 0;
 
-        coroutine = StartCoroutine(DrawAndFadeLineCoroutine());
+        StartCoroutine(coroutine);
     }
     private IEnumerator DrawAndFadeLineCoroutine()
     {
