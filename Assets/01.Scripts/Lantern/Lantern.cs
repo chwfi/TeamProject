@@ -47,10 +47,20 @@ public class Lantern : MonoBehaviour
     private void OnStartShootLight()
     {
         lb.enabled = true;
+
     }
     private void OnEndShootLight()
     {
         lb.enabled = false;
+
+        if (reflectObject != null)
+        {
+            reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+            reflectObject = null;
+        }
+
+        elapsedTime = 0;
+        raycastDistance = 0;
     }
 
     private void OnShootLight()
@@ -67,36 +77,79 @@ public class Lantern : MonoBehaviour
         DataModify(myReflectData);
     }
 
+    public float raycastDuration = 0.3f;
+
+    private float elapsedTime = 0f;
+
+    private float raycastDistance = 0;
     public void DataModify(ReflectData reflectData)
     {
         lb.SetPosition(0, reflectData.hitPos);
         RaycastHit hit;
 
-        if (Physics.Raycast(reflectData.hitPos, reflectData.direction, out hit, 1000, ReflectionLayer))
+        elapsedTime += Time.deltaTime;
+
+        if (elapsedTime < raycastDuration) //레이저 발사 중일때
         {
-            myReflectData.hitPos = hit.point;
-            myReflectData.direction = reflectData.direction;
-            myReflectData.normal = hit.normal;
+            float t = elapsedTime / raycastDuration;
+            raycastDistance = t * 10;
 
-            lb.SetPosition(1, hit.point);
+            Vector3 endPosition = reflectData.hitPos + reflectData.direction * raycastDistance;
+            lb.SetPosition(1, endPosition);
 
-            if (hit.collider.TryGetComponent<Reflective>(out var reflectable)) //반사 오브젝트라면
+            if (Physics.Raycast(reflectData.hitPos, reflectData.direction, out hit, raycastDistance, ReflectionLayer))
             {
-                ChangedReflectObject(reflectable);
+                myReflectData.hitPos = hit.point;
+                myReflectData.direction = reflectData.direction;
+                myReflectData.normal = hit.normal;
 
-                reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
-                reflectable?.SetDataModify(myReflectData);
+                lb.SetPosition(1, hit.point);
+
+                if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
+                {
+                    ChangedReflectObject(reflectable);
+
+                    reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
+                    reflectable?.SetDataModify(myReflectData);
+                }
+            }
+            else //레이저 발사가 끝났을때
+            {
+                if (reflectObject != null)
+                {
+                    reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+                    reflectObject = null;
+                }
             }
         }
-        else
+        else //레이저 발사가 끝났을때
         {
-            if (reflectObject != null)
+            if (Physics.Raycast(reflectData.hitPos, reflectData.direction, out hit, 1000, ReflectionLayer))
             {
-                reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
-                reflectObject = null;
-            }
+                if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
+                {
+                    myReflectData.hitPos = hit.point;
+                    myReflectData.direction = reflectData.direction;
+                    myReflectData.normal = hit.normal;
 
-            lb.SetPosition(1, reflectData.direction * 1000);
+                    lb.SetPosition(1, hit.point);
+
+                    ChangedReflectObject(reflectable);
+
+                    reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
+                    reflectable?.SetDataModify(myReflectData);
+                }
+            }
+            else //레이저 발사가 끝났을때
+            {
+                if (reflectObject != null)
+                {
+                    reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+                    reflectObject = null;
+                }
+
+                lb.SetPosition(1, reflectData.direction * 1000);
+            }
         }
     }
 

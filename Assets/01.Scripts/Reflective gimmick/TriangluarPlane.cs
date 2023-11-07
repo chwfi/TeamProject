@@ -14,7 +14,7 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
 
     public void OnShoot()
     {
-        _lr.SetPosition(0, transform.position);
+        lb.SetPosition(0, transform.position);
 
         RaycastHit hit;
 
@@ -25,11 +25,11 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
             myReflectData.hitPos = hit.point;
             myReflectData.normal = hit.normal;
 
-            _lr.SetPosition(1, hit.point);
+            lb.SetPosition(1, hit.point);
         }
         else
         {
-            _lr.SetPosition(1, transform.position + transform.up * 1000);
+            lb.SetPosition(1, transform.position + transform.up * 1000);
         }
     }
 }

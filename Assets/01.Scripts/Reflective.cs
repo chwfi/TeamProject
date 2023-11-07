@@ -11,9 +11,17 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 {
     #region 변수들
     [SerializeField] protected Color defaultColor;
+    public float lgihtFadeInoutDuration = 0.3f; // 레이캐스트를 진행할 시간 (초)
+
+    private float elapsedTime = 0f;
+
+    private float raycastDistance = 0;
+
+    private float startTime = 0;
+
 
     protected Collider _col;
-    protected LineRenderer _lr;
+    protected LineRenderer lb;
 
     protected ReflectData myReflectData;
 
@@ -44,8 +52,8 @@ public abstract class Reflective : MonoBehaviour, IReflectable
         }
     }
 
-    protected Vector3 _startPos = Vector3.zero;
-    protected Vector3 _endPos = Vector3.zero;
+    public Vector3 _startPos = Vector3.zero;
+    public Vector3 _endPos = Vector3.zero;
 
     private Reflective reflectObject = null;
     #endregion
@@ -55,53 +63,54 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 
         _col = GetComponent<Collider>();
 
-        _lr = gameObject.GetComponent<LineRenderer>();
+        lb = gameObject.GetComponent<LineRenderer>();
 
-        if (_lr == null)
-            _lr = gameObject.AddComponent<LineRenderer>();
+        if (lb == null)
+            lb = gameObject.AddComponent<LineRenderer>();
 
         Init();
     }
 
     private void Init()
     {
-        _lr.positionCount = 2;
-        _lr.startWidth = .2f;
-        _lr.endWidth = .2f;
+        lb.positionCount = 2;
+        lb.startWidth = .02f;
+        lb.endWidth = .02f;
     }
 
     public abstract void SetDataModify(ReflectData inData); //맞고있는 중이면 실행됨 
 
+    private Coroutine coroutine;
     public virtual void OnHandleReflected() //처음 빛을 맞을때 한번만 실행됨
     {
-        _lr.enabled = true;
-        StopCoroutine(DrawAndFadeLineCoroutine());
+        lb.enabled = true;
+
+        StopCoroutine(coroutine);
+
+        raycastDistance = 0f;
+        elapsedTime = 0f;
     }
 
-
-    public float duration = 3f;
-    private float startTime = 0;
     public virtual void UnHandleReflected() //맞지 않을때 한번만 실행됨
     {
-        duration = .5f;
         startTime = 0;
-        StopCoroutine(DrawAndFadeLineCoroutine());
-        StartCoroutine(DrawAndFadeLineCoroutine());
+
+        coroutine = StartCoroutine(DrawAndFadeLineCoroutine());
     }
     private IEnumerator DrawAndFadeLineCoroutine()
     {
-        while (startTime < duration)
+        while (startTime < lgihtFadeInoutDuration)
         {
             startTime += Time.deltaTime;
-            Vector3 lerpedPosition = Vector3.Lerp(_startPos, _endPos, startTime / duration);
+            Vector3 lerpedPosition = Vector3.Lerp(_startPos, _endPos, startTime / lgihtFadeInoutDuration);
 
-            _lr.SetPosition(0, lerpedPosition);
-            _lr.SetPosition(1, _endPos);
+            lb.SetPosition(0, lerpedPosition);
+            lb.SetPosition(1, _endPos);
 
             yield return null;
         }
 
-        _lr.enabled = false;
+        lb.enabled = false;
         startTime = 0;
     }
 
@@ -111,7 +120,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     }
     protected void SetLightColor(Color type)
     {
-        _lr.material.color = type;
+        lb.material.color = type;
     }
     protected Vector3 SetDirection(Vector3 value)
     {
@@ -123,47 +132,84 @@ public abstract class Reflective : MonoBehaviour, IReflectable
         if (reflectObject == reflectable) return;
         reflectObject = (reflectable);
     }
+
+
     protected virtual void OnShootRaycast(ReflectData inData, Vector3 dir) //나를 맞춘 오브젝트의 데이터와 쏠 방향
     {
-        _lr.SetPosition(0, inData.hitPos);
-
+        lb.SetPosition(0, inData.hitPos);
         RaycastHit hit;
 
-        if (Physics.Raycast(inData.hitPos, dir, out hit, 1000, ReflectionLayer))
+
+
+        if (elapsedTime < lgihtFadeInoutDuration) //레이저 발사 중일때
         {
-            if (gameObject == hit.collider.gameObject) return;
-            //if (_col.name == hit.collider.name) return;
+            float t = elapsedTime / lgihtFadeInoutDuration;
+            raycastDistance = t * 10;
 
-            _endPos = hit.point;
+            elapsedTime += Time.deltaTime;
 
-            myReflectData.hitPos = hit.point;
-            myReflectData.normal = hit.normal;
+            Vector3 endPosition = inData.hitPos + dir * raycastDistance;
+            lb.SetPosition(1, endPosition);
 
-            _lr.SetPosition(1, hit.point);
-
-            if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
+            if (Physics.Raycast(inData.hitPos, dir, out hit, raycastDistance, ReflectionLayer))
             {
-                ChangedReflectObject(reflectable);
+                if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
+                {
+                    myReflectData.hitPos = hit.point;
+                    myReflectData.direction = dir;
+                    myReflectData.normal = hit.normal;
 
-                reflectObject.OnReflectTypeChanged(ReflectState.OnReflect);
-                reflectObject.SetDataModify(myReflectData);
+                    lb.SetPosition(1, hit.point);
 
-                Debug.DrawRay(inData.hitPos, dir * hit.distance, Color.red);
+
+                    ChangedReflectObject(reflectable);
+
+                    reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
+                    reflectable?.SetDataModify(myReflectData);
+                }
+            }
+            else //레이저 발사가 끝났을때
+            {
+                if (reflectObject != null)
+                {
+                    reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+                    reflectObject = null;
+                }
             }
         }
-        else
+        else //레이저 발사가 끝났을때
         {
-            if (reflectObject != null)
+            if (Physics.Raycast(inData.hitPos, dir, out hit, 100, ReflectionLayer))
             {
-                reflectObject.OnReflectTypeChanged(ReflectState.UnReflect);
-                reflectObject = null;
-            }
-            _endPos = inData.hitPos + dir * 10;
+                if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
+                {
+                    myReflectData.hitPos = hit.point;
+                    myReflectData.direction = dir;
+                    myReflectData.normal = hit.normal;
 
-            Debug.DrawRay(inData.hitPos, inData.hitPos + dir * 1000, Color.green);
-            _lr.SetPosition(1, inData.hitPos + dir * 1000);
+                    _endPos = myReflectData.hitPos;
+
+                    lb.SetPosition(1, hit.point);
+
+                    ChangedReflectObject(reflectable);
+
+                    reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
+                    reflectable?.SetDataModify(myReflectData);
+                }
+            }
+            else //레이저 발사가 끝났을때
+            {
+                if (reflectObject != null)
+                {
+                    reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+                    reflectObject = null;
+                }
+                lb.SetPosition(1, dir * 100);
+
+                _endPos = inData.hitPos + dir * 100;
+            }
         }
-        Debug.Log(gameObject.name + " : " + reflectObject?.name);
+
     }
     public void HandleGlowReflectStateChanged(GlowState glowState)
     {
