@@ -48,6 +48,7 @@ public class Lantern : MonoBehaviour
 
         lb = (LineRenderer)GetComponent("LineRenderer");
         lb.positionCount = 2;
+
         lb.material.color = defaultColor;
 
         _inputReader.OnStartFireEvent += OnStartShootLight;

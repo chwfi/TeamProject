@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ReflectiveObject : Reflective
 {
-
     public override void SetDataModify(ReflectData data) //아니! 데이터가 변경됐어????????
     {
         _startPos = data.hitPos;
 
         Color cCol;
+
         cCol = ColorSystem.GetColorCombination(data.color, defaultColor);
         SetLightColor(cCol); //우리 한 번 만들어진 색을 빛에 입혀볼까요?
 
