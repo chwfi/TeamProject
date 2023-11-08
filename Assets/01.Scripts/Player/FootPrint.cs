@@ -7,13 +7,14 @@ public class FootPrint : PoolableMono
 {
     public override void Init()
     {
-        StartCoroutine(Generate());
+        GenerateFootprint();
     }
 
-    private IEnumerator Generate()
+    private void GenerateFootprint()
     {
         transform.position = new Vector3(PlayerTrm.position.x, PlayerTrm.position.y - 0.05f, PlayerTrm.position.z);
-        transform.rotation = Quaternion.Euler(90, PlayerTrm.position.y, 0);
-        yield break;
+        Vector3 lookDirection = new Vector3(-PlayerTrm.forward.x, 90, -PlayerTrm.forward.z).normalized;
+
+        transform.rotation = Quaternion.LookRotation(lookDirection);
     }
 }

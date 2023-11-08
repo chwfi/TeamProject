@@ -1959,7 +1959,7 @@ GameObject:
   - component: {fileID: 294188134}
   - component: {fileID: 294188136}
   - component: {fileID: 294188135}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9575,7 +9575,7 @@ Transform:
   m_GameObject: {fileID: 1780805982}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1019.4167, y: -517.3603, z: 1.6005325}
+  m_LocalPosition: {x: -1019.4167, y: -517.3603, z: -0.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10271,7 +10271,7 @@ Transform:
   m_GameObject: {fileID: 1870185407}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1019.4167, y: -517.3603, z: 24.13}
+  m_LocalPosition: {x: -1019.4167, y: -517.3603, z: 23.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10343,7 +10343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1897327129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11155,8 +11155,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   intensityFromLight: 1
   intensityModeAdvanced: 0
-  intensityInside: 5
-  intensityOutside: 5
+  intensityInside: 2
+  intensityOutside: 2
   blendingMode: 0
   spotAngleFromLight: 1
   spotAngle: 15.733879
@@ -11204,7 +11204,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
+  m_Intensity: 2
   m_Range: 38.30089
   m_SpotAngle: 15.733879
   m_InnerSpotAngle: 6.915593
@@ -13588,7 +13588,7 @@ GameObject:
   - component: {fileID: 6950477388830321813}
   - component: {fileID: 6330607287141573424}
   - component: {fileID: 8087939916245391354}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lantern_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
