@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Xml.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UI;
 using static Define.Define;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -32,6 +34,14 @@ public class Lantern : MonoBehaviour
         }
     }
 
+    public float lgihtFadeInoutDuration = .3f;
+
+    private Vector3 _startPos = Vector3.zero;
+    private Vector3 _endPos = Vector3.zero;
+
+    private Coroutine coroutine;
+
+    private float startTime = 0;
     private void Awake()
     {
         myReflectData.color = defaultColor;
@@ -48,9 +58,35 @@ public class Lantern : MonoBehaviour
     {
         lb.enabled = true;
 
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
     }
     private void OnEndShootLight()
     {
+
+        elapsedTime = 0;
+        raycastDistance = 0;
+        startTime = 0;
+
+        coroutine = StartCoroutine(DrawAndFadeLineCoroutine());
+    }
+    private IEnumerator DrawAndFadeLineCoroutine() //서서히 빛이 사라지는 코드
+    {
+        lb.SetPosition(0, _startPos);
+        lb.SetPosition(1, _endPos);
+
+        while (startTime < lgihtFadeInoutDuration)
+        {
+            startTime += Time.deltaTime;
+            Vector3 lerpedPosition = Vector3.Lerp(_startPos, _endPos, startTime / lgihtFadeInoutDuration);
+
+            lb.SetPosition(0, lerpedPosition);
+
+            yield return null;
+        }
+
         lb.enabled = false;
 
         if (reflectObject != null)
@@ -58,26 +94,24 @@ public class Lantern : MonoBehaviour
             reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
             reflectObject = null;
         }
-
-        elapsedTime = 0;
-        raycastDistance = 0;
     }
 
     private void OnShootLight()
     {
-        Debug.Log("슈웃");
         StartShootLight(transform.position, transform.forward);
     }
 
+    
     public void StartShootLight(Vector3 origin, Vector3 direction)
     {
+        _startPos = origin;
+
         myReflectData.hitPos = origin;
         myReflectData.direction = direction;
 
         DataModify(myReflectData);
     }
 
-    public float raycastDuration = 0.3f;
 
     private float elapsedTime = 0f;
 
@@ -89,31 +123,35 @@ public class Lantern : MonoBehaviour
 
         elapsedTime += Time.deltaTime;
 
-        if (elapsedTime < raycastDuration) //레이저 발사 중일때
+        if (elapsedTime < lgihtFadeInoutDuration) //레이저 발사 중일때
         {
-            float t = elapsedTime / raycastDuration;
+            float t = elapsedTime / lgihtFadeInoutDuration;
             raycastDistance = t * 10;
 
             Vector3 endPosition = reflectData.hitPos + reflectData.direction * raycastDistance;
             lb.SetPosition(1, endPosition);
 
             if (Physics.Raycast(reflectData.hitPos, reflectData.direction, out hit, raycastDistance, ReflectionLayer))
+            //레이저 발사 중일때 오브젝트가 맞았을때
             {
-                myReflectData.hitPos = hit.point;
-                myReflectData.direction = reflectData.direction;
-                myReflectData.normal = hit.normal;
-
-                lb.SetPosition(1, hit.point);
 
                 if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
                 {
+                    myReflectData.hitPos = hit.point;
+                    myReflectData.direction = reflectData.direction;
+                    myReflectData.normal = hit.normal;
+
+                    lb.SetPosition(1, hit.point);
+
                     ChangedReflectObject(reflectable);
 
                     reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
                     reflectable?.SetDataModify(myReflectData);
+
+                    _endPos = hit.point;
                 }
             }
-            else //레이저 발사가 끝났을때
+            else ////레이저 발사 중일때 오브젝트가 안맞았을때
             {
                 if (reflectObject != null)
                 {
@@ -138,6 +176,8 @@ public class Lantern : MonoBehaviour
 
                     reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
                     reflectable?.SetDataModify(myReflectData);
+
+                    _endPos = hit.point;
                 }
             }
             else //레이저 발사가 끝났을때
@@ -149,6 +189,7 @@ public class Lantern : MonoBehaviour
                 }
 
                 lb.SetPosition(1, reflectData.direction * 1000);
+                _endPos = hit.point + reflectData.direction * 1000;
             }
         }
     }

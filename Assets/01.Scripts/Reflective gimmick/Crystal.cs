@@ -19,7 +19,7 @@ public class Crystal : Reflective
     [SerializeField]
     private List<ParticleSystem> particles = new List<ParticleSystem>();
 
-    private CrystalParticleType _curParticleType;
+    private CrystalParticleType _curParticleType; 
     private CrystalParticleType _preParticleType;
 
     public float curChargingValue; // 테스트용 public

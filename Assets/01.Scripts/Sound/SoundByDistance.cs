@@ -13,7 +13,7 @@ public class SoundByDistance : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
+    private void Start() //효과음들은 3d음향을 켜준다.
     {
         _audioSource.spatialBlend = 1.0f;
         _audioSource.rolloffMode = rolloffMode;
