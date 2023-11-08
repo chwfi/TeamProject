@@ -197,8 +197,7 @@ public class Lantern : MonoBehaviour
     private void ChangedReflectObject(Reflective reflectable)
     {
         if (reflectObject == reflectable) return;
-
-        reflectable?.OnReflectTypeChanged(ReflectState.UnReflect);
+        reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
 
         reflectObject = reflectable;
     }
