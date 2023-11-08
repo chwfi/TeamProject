@@ -56,6 +56,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     public Vector3 _endPos = Vector3.zero;
 
     private Reflective reflectObject = null;
+    private MaterialPropertyBlock _materialPropertyBlock;
     #endregion
     private Coroutine coroutine;
     protected virtual void Awake()
@@ -74,10 +75,10 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 
     private void Init()
     {
-
         lb.positionCount = 2;
         lb.startWidth = .02f;
         lb.endWidth = .02f;
+        _materialPropertyBlock = new MaterialPropertyBlock();
     }
 
     public abstract void SetDataModify(ReflectData inData); //맞고있는 중이면 실행됨 
@@ -132,7 +133,13 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     }
     protected void SetLightColor(Color type) //여기서 빛의 색깔을 세팅해줘야함
     {
-        lb.material.color = type;
+
+        // Property Block 업데이트
+        _materialPropertyBlock.SetColor("_EmissionColor", type * 6f);
+
+        // 라인 렌더러에 Property Block 적용
+        lb.SetPropertyBlock(_materialPropertyBlock);
+
     }
 
     protected Vector3 SetDirection(Vector3 value) //쏠 방향을 정해주고

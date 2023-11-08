@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55b57817991d9145ae12743a5299265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 0, g: 1, b: 0, a: 0}
   lgihtFadeInoutDuration: 0.3
   _currentType: 0
   _startPos: {x: 0, y: 0, z: 0}
@@ -7416,7 +7416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55b57817991d9145ae12743a5299265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 0, g: 0.09924364, b: 1, a: 1}
   lgihtFadeInoutDuration: 0.3
   _currentType: 0
   _startPos: {x: 0, y: 0, z: 0}
@@ -10647,7 +10647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55b57817991d9145ae12743a5299265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 0, g: 0, b: 1, a: 1}
   lgihtFadeInoutDuration: 0.3
   _currentType: 0
   _startPos: {x: 0, y: 0, z: 0}
@@ -13234,6 +13234,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702165694174677638, guid: c9bb4b3102f878149a1460319652203e,
+        type: 3}
+      propertyPath: defaultColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702165694174677638, guid: c9bb4b3102f878149a1460319652203e,
+        type: 3}
+      propertyPath: defaultColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702165694174677638, guid: c9bb4b3102f878149a1460319652203e,
+        type: 3}
+      propertyPath: defaultColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6433124007087934993, guid: c9bb4b3102f878149a1460319652203e,
         type: 3}
