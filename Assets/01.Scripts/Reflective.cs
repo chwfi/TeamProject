@@ -39,7 +39,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 
             if (_currentType == ReflectState.UnReflect)
             {
-                reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+                //reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
 
                 UnHandleReflected();
             }
@@ -76,8 +76,10 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     private void Init()
     {
         lb.positionCount = 2;
+
         lb.startWidth = .08f;
-        lb.endWidth = .08f;
+        lb.endWidth = .0f;
+
         _materialPropertyBlock = new MaterialPropertyBlock();
     }
 
@@ -98,17 +100,18 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 
     public virtual void UnHandleReflected() //맞지 않을때 한번만 실행됨
     {
-
         startTime = 0;
         coroutine = StartCoroutine(DrawAndFadeLineCoroutine());
     }
     private IEnumerator DrawAndFadeLineCoroutine() //서서히 빛이 사라지는 코드
     {
+        Debug.Log(gameObject.name + " : 코루틴 실행");
         lb.SetPosition(0, _startPos);
         lb.SetPosition(1, _endPos);
 
         while (startTime < lgihtFadeInoutDuration)
         {
+            Debug.Log(gameObject.name + " : 코루틴 실행중");
             startTime += Time.deltaTime;
             Vector3 lerpedPosition = Vector3.Lerp(_startPos, _endPos, startTime / lgihtFadeInoutDuration);
 
@@ -116,9 +119,10 @@ public abstract class Reflective : MonoBehaviour, IReflectable
 
             yield return null;
         }
+        //반복문이 끝나면
+        Debug.Log(gameObject.name + " : 코루틴 실행끝");
 
         lb.enabled = false;
-        startTime = 0;
 
         if (reflectObject != null)
         {
@@ -218,17 +222,11 @@ public abstract class Reflective : MonoBehaviour, IReflectable
                     reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
                     reflectObject = null;
                 }
-                lb.SetPosition(1, dir * 100);
+                lb.SetPosition(1, inData.hitPos + dir * 100);
 
-                Debug.Log($"{gameObject.name} : 맞지 않앗다");
-                _endPos = inData.hitPos + dir * 100;
+                _endPos = inData.hitPos + dir.normalized * 100;
             }
         }
-
-    }
-    public void HandleGlowReflectStateChanged(GlowState glowState)
-    {
-
     }
 }
 
