@@ -101,7 +101,7 @@ public class Lantern : MonoBehaviour
         StartShootLight(transform.position, transform.forward);
     }
 
-    
+
     public void StartShootLight(Vector3 origin, Vector3 direction)
     {
         _startPos = origin;
@@ -188,7 +188,7 @@ public class Lantern : MonoBehaviour
                     reflectObject = null;
                 }
 
-                lb.SetPosition(1, reflectData.direction * 1000);
+                lb.SetPosition(1, hit.point + reflectData.direction * 1000); //포지션이라 쏘는 위치를 더해줘야함
                 _endPos = hit.point + reflectData.direction * 1000;
             }
         }
@@ -197,6 +197,8 @@ public class Lantern : MonoBehaviour
     private void ChangedReflectObject(Reflective reflectable)
     {
         if (reflectObject == reflectable) return;
+        reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+
         reflectObject = reflectable;
     }
 

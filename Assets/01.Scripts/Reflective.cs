@@ -105,13 +105,11 @@ public abstract class Reflective : MonoBehaviour, IReflectable
     }
     private IEnumerator DrawAndFadeLineCoroutine() //서서히 빛이 사라지는 코드
     {
-        Debug.Log(gameObject.name + " : 코루틴 실행");
         lb.SetPosition(0, _startPos);
         lb.SetPosition(1, _endPos);
 
         while (startTime < lgihtFadeInoutDuration)
         {
-            Debug.Log(gameObject.name + " : 코루틴 실행중");
             startTime += Time.deltaTime;
             Vector3 lerpedPosition = Vector3.Lerp(_startPos, _endPos, startTime / lgihtFadeInoutDuration);
 
@@ -120,8 +118,6 @@ public abstract class Reflective : MonoBehaviour, IReflectable
             yield return null;
         }
         //반복문이 끝나면
-        Debug.Log(gameObject.name + " : 코루틴 실행끝");
-
         lb.enabled = false;
 
         if (reflectObject != null)
