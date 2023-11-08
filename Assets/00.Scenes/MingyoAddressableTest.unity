@@ -1019,9 +1019,9 @@ MonoBehaviour:
   _endPos: {x: 0, y: 0, z: 0}
   particles:
   - {fileID: 852511295}
-  - {fileID: 1763094900}
   - {fileID: 1432599139}
   curChargingValue: 1
+  maxChargingValue: 10
 --- !u!1 &695645442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,7 +1360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: c3255832653d1484e9fa060c9b35439f, type: 2}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  raycastDuration: 0.3
+  lgihtFadeInoutDuration: 0.3
 --- !u!120 &958839047
 LineRenderer:
   serializedVersion: 2
@@ -1985,12 +1985,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!198 &1763094900 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 19800000, guid: dd33dcc4c5f1d934c90321f3578a62c8,
-    type: 3}
-  m_PrefabInstance: {fileID: 2128530230}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1883154468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,6 +2015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doorOpenTrigger: {fileID: 288169242}
+  _crystal: {fileID: 575463620}
   curColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1883154470
 Transform:
@@ -2129,7 +2124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: dd33dcc4c5f1d934c90321f3578a62c8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: dd33dcc4c5f1d934c90321f3578a62c8, type: 3}
       propertyPath: m_Name
@@ -2308,6 +2303,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 100004, guid: dd33dcc4c5f1d934c90321f3578a62c8, type: 3}
     - {fileID: 100012, guid: dd33dcc4c5f1d934c90321f3578a62c8, type: 3}
+    - {fileID: 100002, guid: dd33dcc4c5f1d934c90321f3578a62c8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: dd33dcc4c5f1d934c90321f3578a62c8,

@@ -9,7 +9,6 @@ public enum CrystalParticleType
 {
     None,
     Charging,
-    OverCharging,
     ChargingFin
 }
 
@@ -23,14 +22,15 @@ public class Crystal : Reflective
     private CrystalParticleType _preParticleType;
 
     public float curChargingValue; // 테스트용 public
-    private float maxChargingValue = 500f;
+    [SerializeField]
+    private float maxChargingValue = 10f;
     public float ChargingValue
     {
         get { return curChargingValue; }
         set { curChargingValue = Mathf.Clamp(value, 0, maxChargingValue); }
     }
 
-    private bool isOKeyHeld = false; //지금은 o키 누르는거. 나중에 바꿔야함
+    private bool isCharging = false; //지금은 o키 누르는거. 나중에 바꿔야함 //지금처바꾸기
     private bool isFirst = true;
     private float chargingRate = 1f; // 1초에 올라가는 양
 
@@ -57,25 +57,11 @@ public class Crystal : Reflective
             ChangeParticleSystem();
         }
 
-        // 'o' 키를 누르고 있을 때 ChargingValue를 증가시킴 디버그용임 ㅋㅋ
-        if (Keyboard.current.oKey.isPressed)
-        {
-            isOKeyHeld = true;
-        }
-        else
-        {
-            isOKeyHeld = false;
-        }
-
-        if (isOKeyHeld) //디버그용
-        {
-            OnHandleReflected();
-        }
         _preParticleType = _curParticleType;
     }
     private void ChangeParticleSystem() //파티클 바꾸는 함수
     {
-        if (_preParticleType != CrystalParticleType.None && _curParticleType != CrystalParticleType.OverCharging) { particlesDic[_preParticleType].Stop(); }
+        if (_preParticleType != CrystalParticleType.None) { particlesDic[_preParticleType].Stop(); }
         if (_curParticleType != CrystalParticleType.None) { particlesDic[_curParticleType].Play(); }
     }
 
@@ -83,16 +69,12 @@ public class Crystal : Reflective
     {
         if (ChargingValue == maxChargingValue)
         {
-            if (isFirst) //만약 처음 다 충전되었다면 그냥 다 찬거 파티클 실행하고 오버차지도
-            {
-                particlesDic[CrystalParticleType.ChargingFin].Play();
-                isFirst = false;
-            }
-            _curParticleType = isOKeyHeld ? CrystalParticleType.OverCharging : CrystalParticleType.ChargingFin;
+            isCharging = false;
+            _curParticleType = CrystalParticleType.ChargingFin;
         }
         else
         {
-            _curParticleType = isOKeyHeld ? CrystalParticleType.Charging : CrystalParticleType.None;
+            _curParticleType = isCharging ? CrystalParticleType.Charging : CrystalParticleType.None;
         }
     }
 
@@ -103,16 +85,17 @@ public class Crystal : Reflective
     public override void OnHandleReflected()
     {
         base.OnHandleReflected();
-
+        isCharging = true;
         StartCoroutine(IncreaseChargingValueCoroutine());
     }
     public override void UnHandleReflected()
     {
         base.UnHandleReflected();
+        isCharging = false;
     }
     private IEnumerator IncreaseChargingValueCoroutine()
     {
-        while (isOKeyHeld && ChargingValue < maxChargingValue)
+        while (isCharging && ChargingValue < maxChargingValue)
         {
             ChargingValue += chargingRate;
             yield return new WaitForSeconds(1f);
