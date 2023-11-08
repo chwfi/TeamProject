@@ -4498,7 +4498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: c3255832653d1484e9fa060c9b35439f, type: 2}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  raycastDuration: 0.2
+  lgihtFadeInoutDuration: 0.3
 --- !u!120 &1077000550
 LineRenderer:
   serializedVersion: 2
