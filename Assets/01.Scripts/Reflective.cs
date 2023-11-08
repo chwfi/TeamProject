@@ -78,7 +78,7 @@ public abstract class Reflective : MonoBehaviour, IReflectable
         lb.positionCount = 2;
 
         lb.startWidth = .08f;
-        lb.endWidth = .0f;
+        lb.endWidth = .08f;
 
         _materialPropertyBlock = new MaterialPropertyBlock();
     }
