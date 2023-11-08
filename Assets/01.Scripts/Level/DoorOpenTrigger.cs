@@ -18,6 +18,4 @@ public class DoorOpenTrigger : MonoBehaviour
             linkedDoor.OpenDoor(); // 같은 색이라면 문 염
         }
     }
-
-
 }
