@@ -11,11 +11,8 @@ public class ReflectiveObject : Reflective
         _startPos = data.hitPos;
 
         Color cCol;
-        //if (data.color == Color.white) { cCol = defaultColor; }
-        //else {  cCol = ColorSystem.GetColorCombination(data.color, defaultColor); } //자, 이게 무슨 코드냐면요 바로바로 색을 더해주는 코드입니다!!
         cCol = ColorSystem.GetColorCombination(data.color, defaultColor);
         SetLightColor(cCol); //우리 한 번 만들어진 색을 빛에 입혀볼까요?
-
 
         var raycastDirection = SetDirection(Vector3.Reflect(data.direction, data.normal));
         //방향을! 구해서 넣어줍시다. 근데 그냥 바로 백터를 넣어주면 되는데 왜 굳이굳이 SetDirection에서 리턴을 받냐!
