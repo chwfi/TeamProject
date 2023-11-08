@@ -40,9 +40,13 @@ public class TutorialManager : MonoSingleton<TutorialManager>
         GameManager.Instance.StopGameImmediately(false);
         _previousIndex++;
         _currentIndex++;
+        if (_currentIndex == 3)
+        {
+            ShowPanel();
+        }
     }
 
-    private void Update()
+    private void Update() //디버그용
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
