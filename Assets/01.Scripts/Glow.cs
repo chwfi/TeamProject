@@ -106,10 +106,6 @@ public abstract class Glow : MonoBehaviour
     {
         if (reflectObject == reflectable) return;
 
-        OnGlowStateChanged -= reflectObject.HandleGlowReflectStateChanged;
-
         reflectObject = reflectable;
-
-        OnGlowStateChanged += reflectObject.HandleGlowReflectStateChanged;
     }
 }
