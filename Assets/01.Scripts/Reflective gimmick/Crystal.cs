@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using static UnityEngine.ParticleSystem;
 
 public enum CrystalParticleType
 {
@@ -48,18 +50,25 @@ public class Crystal : Reflective
             if (e == CrystalParticleType.None) continue;
             particlesDic.Add(e, particles[i]);
             i++;
-            particlesDic[e].Stop();
         }
         _mr = transform.Find("Visual").GetComponent<MeshRenderer>();
+
+
         _materialPropertyBlock = new MaterialPropertyBlock();
         _colorZero = _materialPropertyBlock.GetColor("_EmissionColor");
-
         _materialPropertyBlock.SetColor("_EmissionColor", Color.black); //색 초기화.
         _mr.SetPropertyBlock(_materialPropertyBlock);                   //색 초기화.
+
+
     }
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            OnHandleReflected();
+        }
+
         UpdateCrystalState(); // 상태 확인
         if (_preParticleType != _curParticleType) // 상태 바뀌면 파티클바꿔서 재생
         {
@@ -79,12 +88,30 @@ public class Crystal : Reflective
     {
         if (ChargingValue == maxChargingValue)
         {
+            //Color c = transform.Find("Fin Particle System").GetComponent<ParticleSystemRenderer>().material.color;
+            //c = _targetColor;
+            //transform.Find("Fin Particle System").GetComponent<ParticleSystemRenderer>().material.color = c;
+            //Debug.Log($"Color: {ColorUtility.ToHtmlStringRGB(c)}");
+
+            if (_curParticleType != CrystalParticleType.None)
+            {
+                var p = particlesDic[_curParticleType].colorOverLifetime;
+                p.color = _targetColor;
+            }
+
             isCharging = false;
             _curParticleType = CrystalParticleType.ChargingFin;
         }
         else
         {
-            _curParticleType = isCharging ? CrystalParticleType.Charging : CrystalParticleType.None;
+            if(isCharging)
+            {
+                _curParticleType = CrystalParticleType.Charging;
+            }
+            else
+            {
+                _curParticleType = CrystalParticleType.None;
+            }
         }
     }
 
@@ -117,6 +144,13 @@ public class Crystal : Reflective
 
             _materialPropertyBlock.SetColor("_EmissionColor", newColor);
             _mr.SetPropertyBlock(_materialPropertyBlock);
+
+            if(_curParticleType != CrystalParticleType.None)
+            {
+                var p = particlesDic[_curParticleType].colorOverLifetime;
+                p.color = newColor;
+            }
+
 
             yield return null;
         }
