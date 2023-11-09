@@ -21,18 +21,21 @@ public class Crystal : Reflective
     private CrystalParticleType _curParticleType; 
     private CrystalParticleType _preParticleType;
 
-    public float curChargingValue; // Å×½ºÆ®¿ë public
+    private MaterialPropertyBlock _materialPropertyBlock;
+    private MeshRenderer _mr;
     [SerializeField]
-    private float maxChargingValue = 10f;
+    private Color _targetColor;
+    private Color _colorZero;
+
+    private float curChargingValue;
+    private float maxChargingValue = 5f;
     public float ChargingValue
     {
         get { return curChargingValue; }
         set { curChargingValue = Mathf.Clamp(value, 0, maxChargingValue); }
     }
 
-    private bool isCharging = false; //Áö±İÀº oÅ° ´©¸£´Â°Å. ³ªÁß¿¡ ¹Ù²ã¾ßÇÔ //Áö±İÃ³¹Ù²Ù±â
-    private bool isFirst = true;
-    private float chargingRate = 1f; // 1ÃÊ¿¡ ¿Ã¶ó°¡´Â ¾ç
+    private bool isCharging = false;
 
     private void Start()
     {
@@ -40,32 +43,39 @@ public class Crystal : Reflective
         _preParticleType = _curParticleType;
 
         int i = 0;
-        foreach (CrystalParticleType e in Enum.GetValues(typeof(CrystalParticleType))) //ÆÄÆ¼Å¬ µñ¼Å³Ê¸® ¼¼ÆÃ
+        foreach (CrystalParticleType e in Enum.GetValues(typeof(CrystalParticleType))) //ï¿½ï¿½Æ¼Å¬ ï¿½ï¿½Å³Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
             if (e == CrystalParticleType.None) continue;
             particlesDic.Add(e, particles[i]);
             i++;
             particlesDic[e].Stop();
         }
+        _mr = transform.Find("Visual").GetComponent<MeshRenderer>();
+        _materialPropertyBlock = new MaterialPropertyBlock();
+        _colorZero = _materialPropertyBlock.GetColor("_EmissionColor");
+
+        _materialPropertyBlock.SetColor("_EmissionColor", Color.black); //ìƒ‰ ì´ˆê¸°í™”.
+        _mr.SetPropertyBlock(_materialPropertyBlock);                   //ìƒ‰ ì´ˆê¸°í™”.
     }
 
     private void Update()
     {
-        UpdateCrystalState(); // »óÅÂ Ã¼Å©
-        if (_preParticleType != _curParticleType) //»óÅÂ ¹Ù²î¸é ÆÄÆ¼Å¬ ¹Ù²Ş
+        UpdateCrystalState(); // ìƒíƒœ í™•ì¸
+        if (_preParticleType != _curParticleType) // ìƒíƒœ ë°”ë€Œë©´ íŒŒí‹°í´ë°”ê¿”ì„œ ì¬ìƒ
         {
             ChangeParticleSystem();
         }
 
         _preParticleType = _curParticleType;
     }
-    private void ChangeParticleSystem() //ÆÄÆ¼Å¬ ¹Ù²Ù´Â ÇÔ¼ö
+
+    private void ChangeParticleSystem() //íŒŒí‹°í´ ì¬ìƒ
     {
         if (_preParticleType != CrystalParticleType.None) { particlesDic[_preParticleType].Stop(); }
         if (_curParticleType != CrystalParticleType.None) { particlesDic[_curParticleType].Play(); }
     }
 
-    private void UpdateCrystalState() //»óÅÂ ¹Ù²Ù´Â ÇÔ¼ö
+    private void UpdateCrystalState() // ìƒíƒœ ì—…ë°ì´íŠ¸
     {
         if (ChargingValue == maxChargingValue)
         {
@@ -93,12 +103,22 @@ public class Crystal : Reflective
         base.UnHandleReflected();
         isCharging = false;
     }
-    private IEnumerator IncreaseChargingValueCoroutine()
+    private IEnumerator IncreaseChargingValueCoroutine() // í¬ë¦¬ìŠ¤íƒˆ ìƒ‰ ì¡°ì • ë° ì°¨ì§•
     {
-        while (isCharging && ChargingValue < maxChargingValue)
+        float elapsedTime = 0f;
+
+        while (isCharging && ChargingValue <= maxChargingValue)
         {
-            ChargingValue += chargingRate;
-            yield return new WaitForSeconds(1f);
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / maxChargingValue);
+
+            ChargingValue = Mathf.Lerp(0f, maxChargingValue, t);
+            Color newColor = Color.Lerp(_colorZero, _targetColor, t);
+
+            _materialPropertyBlock.SetColor("_EmissionColor", newColor);
+            _mr.SetPropertyBlock(_materialPropertyBlock);
+
+            yield return null;
         }
     }
 }

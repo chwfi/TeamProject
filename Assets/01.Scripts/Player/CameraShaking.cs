@@ -9,16 +9,12 @@ public class CameraShaking : MonoBehaviour
     [SerializeField]
     private float cameraShakeSensitive;
 
-    CinemachineCameraOffset cameraOffset;
-
     Animator _animator;
 
-    bool isShaking;
-    bool isMoving => GameManager.Instance.Player.TargetSpeed > 0;
+    bool isMoving => GameManager.Instance.Player.CanMove && GameManager.Instance.Player.TargetSpeed > 0;
 
     private void Awake()
     {
-        cameraOffset = GetComponent<CinemachineCameraOffset>();
         _animator = GetComponent<Animator>();
     }
 
