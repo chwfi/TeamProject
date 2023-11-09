@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lantern1 : Glow
+public class Lantern : Glow
 {
     [SerializeField] private InputReader _inputReader;
     protected override void Awake()
