@@ -9,21 +9,20 @@ public class CameraShaking : MonoBehaviour
     [SerializeField]
     private float cameraShakeSensitive;
 
-    CinemachineCameraOffset cameraOffset;
-
     Animator _animator;
 
-    bool isShaking;
-    bool isMoving => GameManager.Instance.Player.TargetSpeed > 0;
+    bool isMoving => GameManager.Instance.Player.CanMove && GameManager.Instance.Player.TargetSpeed > 0;
 
     private void Awake()
     {
-        cameraOffset = GetComponent<CinemachineCameraOffset>();
         _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        _animator.SetBool("isMoving", isMoving);
+        if (!TutorialManager.Instance.IsActive) //튜토리얼 팝업이 뜬 상태가 아니라면
+            _animator.SetBool("isMoving", isMoving);
+        else
+            _animator.SetBool("isMoving", false);
     }
 }

@@ -8,13 +8,16 @@ public class M_DoorTest : MonoBehaviour
     DoorOpenTrigger _doorOpenTrigger;
 
     [SerializeField]
+    Crystal _crystal;
+
+    [SerializeField]
     private Color curColor;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            _doorOpenTrigger.ColorMatch(curColor);
+            _crystal.OnHandleReflected();
         }
     }
 }

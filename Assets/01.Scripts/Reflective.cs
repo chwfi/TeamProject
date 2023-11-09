@@ -9,7 +9,7 @@ using UnityEngine;
 public abstract class Reflective : LightingBehaviour, IReflectable
 {
 
-    private ReflectState _currentState = ReflectState.NULL; //ÇöÀç ³» ¹Ý»ç »óÅÂ
+    private ReflectState _currentState = ReflectState.NULL; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý»ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public ReflectState CurrentState
     {
@@ -40,14 +40,14 @@ public abstract class Reflective : LightingBehaviour, IReflectable
     {
         base.Start();
     }
-    public abstract void GetReflectedObjectDataModify(ReflectData reflectedData); //¸Â°íÀÖ´Â ÁßÀÌ¸é ½ÇÇàµÊ
+    public abstract void GetReflectedObjectDataModify(ReflectData reflectedData); //ï¿½Â°ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    public virtual void OnHandleReflected() //Ã³À½ ºûÀ» ¸ÂÀ»¶§ ÇÑ¹ø¸¸ ½ÇÇàµÊ
+    public virtual void OnHandleReflected() //Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         StopDrawAndFadeLine();
     }
 
-    public virtual void UnHandleReflected() //¸ÂÁö ¾ÊÀ»¶§ ÇÑ¹ø¸¸ ½ÇÇàµÊ
+    public virtual void UnHandleReflected() //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         StartDrawAndFadeLine();
     }

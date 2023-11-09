@@ -16,7 +16,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
     private int _currentIndex = 1;
     private int _previousIndex = 0;
 
-    bool _isActive = false;
+    public bool IsActive = false;
 
     public void ShowPanel()
     {
@@ -26,7 +26,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
             _tutorialInfo[_currentIndex].Image,
             _tutorialInfo[_previousIndex].Image);
         GameManager.Instance.StopGameImmediately(true);
-        _isActive = true;
+        IsActive = true;
     }
 
     public void HidePanel()
@@ -36,7 +36,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
             _tutorialInfo[_currentIndex].Description,
             _tutorialInfo[_currentIndex].Image,
             _tutorialInfo[_previousIndex].Image);
-        _isActive = false;
+        IsActive = false;
         GameManager.Instance.StopGameImmediately(false);
         _previousIndex++;
         _currentIndex++;
@@ -44,16 +44,15 @@ public class TutorialManager : MonoSingleton<TutorialManager>
         {
             ShowPanel();
         }
-    }
-
-    private void Update() //디버그용
-    {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (_currentIndex == 5 || _currentIndex == 6)
         {
             ShowPanel();
         }
+    }
 
-        if (_isActive && Input.GetKeyDown(KeyCode.E))
+    private void Update() 
+    {
+        if (IsActive && Input.GetKeyDown(KeyCode.E))
         {
             HidePanel();
         }
