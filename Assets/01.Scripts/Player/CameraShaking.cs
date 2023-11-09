@@ -24,6 +24,9 @@ public class CameraShaking : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetBool("isMoving", isMoving);
+        if (!TutorialManager.Instance.IsActive) //튜토리얼 팝업이 뜬 상태가 아니라면
+            _animator.SetBool("isMoving", isMoving);
+        else
+            _animator.SetBool("isMoving", false);
     }
 }
