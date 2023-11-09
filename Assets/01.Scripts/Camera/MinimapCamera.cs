@@ -14,7 +14,7 @@ public class MinimapCamera : MonoBehaviour
             transform.position = new Vector3(
                 _target.position.x, 10f, _target.position.z - _minusValue);
 
-            if (_target.rotation.y > -0.7f && _target.rotation.y < 0.7f) //만약 플레이어가 앞쪽을 바라보고있으면 미니맵은 앞쪽을 가리키고 반대면 반대
+            if (_target.rotation.y > -0.75f && _target.rotation.y < 0.75f) //만약 플레이어가 앞쪽을 바라보고있으면 미니맵은 앞쪽을 가리키고 반대면 반대
                 _minusValue = -10;
             else
                 _minusValue = 10;

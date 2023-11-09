@@ -101,7 +101,6 @@ public class Lantern : MonoBehaviour
         StartShootLight(transform.position, transform.forward);
     }
 
-
     public void StartShootLight(Vector3 origin, Vector3 direction)
     {
         _startPos = origin;
@@ -112,10 +111,10 @@ public class Lantern : MonoBehaviour
         DataModify(myReflectData);
     }
 
-
     private float elapsedTime = 0f;
 
     private float raycastDistance = 0;
+
     public void DataModify(ReflectData reflectData)
     {
         lb.SetPosition(0, reflectData.hitPos);
@@ -134,7 +133,6 @@ public class Lantern : MonoBehaviour
             if (Physics.Raycast(reflectData.hitPos, reflectData.direction, out hit, raycastDistance, ReflectionLayer))
             //레이저 발사 중일때 오브젝트가 맞았을때
             {
-
                 if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
                 {
                     myReflectData.hitPos = hit.point;
@@ -148,6 +146,17 @@ public class Lantern : MonoBehaviour
                     reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
                     reflectable?.SetDataModify(myReflectData);
 
+                    _endPos = hit.point;
+                }
+                
+                if (hit.collider.TryGetComponent<DoorOpenTrigger>(out var door))
+                {
+                    myReflectData.hitPos = hit.point;
+                    myReflectData.direction = reflectData.direction;
+                    myReflectData.normal = hit.normal;
+
+                    door.ColorMatch(myReflectData.color);
+                    lb.SetPosition(1, hit.point);
                     _endPos = hit.point;
                 }
             }
@@ -177,6 +186,17 @@ public class Lantern : MonoBehaviour
                     reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
                     reflectable?.SetDataModify(myReflectData);
 
+                    _endPos = hit.point;
+                }
+
+                if (hit.collider.TryGetComponent<DoorOpenTrigger>(out var door))
+                {
+                    myReflectData.hitPos = hit.point;
+                    myReflectData.direction = reflectData.direction;
+                    myReflectData.normal = hit.normal;
+
+                    door.ColorMatch(myReflectData.color);
+                    lb.SetPosition(1, hit.point);
                     _endPos = hit.point;
                 }
             }
