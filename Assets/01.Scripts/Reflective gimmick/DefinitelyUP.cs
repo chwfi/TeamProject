@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DefinitelyUP : Reflective
 {
-    public override void SetDataModify(ReflectData inData)
+    public override void GetReflectedObjectDataModify(ReflectData inData)
     {
-        OnShootRaycast(inData, Vector3.up); // 무조건 위로만
+        //OnShootRaycast(inData, Vector3.up); // 무조건 위로만
     }
 
     public override void OnHandleReflected()

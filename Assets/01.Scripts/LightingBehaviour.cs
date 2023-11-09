@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 using static Define.Define;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -12,7 +15,7 @@ public abstract class LightingBehaviour : MonoBehaviour
     [SerializeField] protected Color defaultColor; //기본 빛 색
     [SerializeField] protected float lightFadeInoutDuration = .3f; //빛이 사라지거나 생기는 딜레이 시간
 
-    private float lightWidth = .08f; //빛 크기
+    [SerializeField] private float lightWidth = .08f; //빛 크기
 
 
     [Header("클래스 내 변수")]
@@ -33,22 +36,10 @@ public abstract class LightingBehaviour : MonoBehaviour
     #endregion
 
     #region 반사로직 변수(경고 !!절대로 열지 마세요!! )
+
     protected Reflective reflectObject = null; //내 빛에 반사된 오브젝트
 
     protected ReflectData myReflectData; //나의 반사 데이터
-
-    private ReflectState _currentState = ReflectState.NULL; //현재 내 반사 상태
-
-    public ReflectState CurrentState
-    {
-        get { return _currentState; }
-        set
-        {
-            if (_currentState == value) return;
-
-            _currentState = value;
-        }
-    }
 
     #endregion
 
@@ -56,8 +47,6 @@ public abstract class LightingBehaviour : MonoBehaviour
     protected virtual void Awake()
     {
         lb = GetComponent<LineRenderer>();
-        //lb.material.color = defaultColor;
-
     }
     protected virtual void Start()
     {
@@ -78,7 +67,26 @@ public abstract class LightingBehaviour : MonoBehaviour
         lb.SetPropertyBlock(_materialPropertyBlock);
     }
 
-    protected IEnumerator DrawAndFadeLineCoroutine() //서서히 빛이 사라지는 코드
+    protected void StopDrawAndFadeLine()
+    {
+        lb.enabled = true;
+
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+    }
+
+    protected void StartDrawAndFadeLine()
+    {
+        elapsedTime = 0;
+        raycastDistance = 0;
+        startTime = 0;
+
+        coroutine = StartCoroutine(DrawAndFadeLineCoroutine());
+    }
+
+    private IEnumerator DrawAndFadeLineCoroutine() //서서히 빛이 사라지는 코드
     {
         lb.SetPosition(0, _startPos);
         lb.SetPosition(1, _endPos);
@@ -97,93 +105,83 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         ReflectObjectChangedTypeToUnReflect();
     }
-
-    public abstract void SetDataModify(ReflectData reflectData);
-    protected void OnShootRaycast(ReflectData inData, Vector3 dir)
+    protected T OnShootRaycast<T>(ReflectData inData, Vector3 dir) where T : class //나를 맞춘 오브젝트의 데이터와 쏠 방향
     {
         lb.SetPosition(0, inData.hitPos);
-
         RaycastHit hit;
 
-        elapsedTime += Time.deltaTime;
-
-        if (elapsedTime < lightFadeInoutDuration) //레이저 발사 중일때
+        T reflectedObject = null;
+        if (elapsedTime < lightFadeInoutDuration) //레이저 발사 중일때 서서히 쏴지게
         {
             float t = elapsedTime / lightFadeInoutDuration;
             raycastDistance = t * 10;
 
+            elapsedTime += Time.deltaTime;
+
             Vector3 endPosition = inData.hitPos + dir * raycastDistance;
             lb.SetPosition(1, endPosition);
 
-            if (Physics.Raycast(inData.hitPos, dir, out hit, raycastDistance, ReflectionLayer))
-            //레이저 발사 중일때 오브젝트가 맞았을때
+            if (Physics.Raycast(inData.hitPos, dir, out hit, raycastDistance, ReflectionLayer)) //서서히 쏴지고 있는데 오브젝트가 맞았을때
             {
-                var reflectable = CheckObject<Reflective>(hit, inData);
+                var obj = CheckObject<T>(hit, dir);
+                reflectedObject = obj;
 
-                ChangedReflectObject(reflectable);
-                
-                reflectObject?.OnReflectTypeChanged(ReflectState.OnReflect);
-                reflectObject?.SetDataModify(myReflectData);
             }
-            else ////레이저 발사 중일때 오브젝트가 안맞았을때
+            else //맞지 않았을때
             {
-                ReflectObjectChangedTypeToUnReflect();
+                SetDrawLineEndPos(endPosition);
             }
         }
         else //레이저 발사가 끝났을때
         {
-            if (Physics.Raycast(inData.hitPos, dir, out hit, 1000, ReflectionLayer))
+            if (Physics.Raycast(inData.hitPos, dir, out hit, 100, ReflectionLayer)) //서서히 쏴지는게 끝났는데 오브젝트가 맞았을때
             {
-                var reflectable = CheckObject<Reflective>(hit, inData); //똥
+                var obj = CheckObject<T>(hit, dir);
 
-                ChangedReflectObject(reflectable);
-
-                reflectObject?.OnReflectTypeChanged(ReflectState.OnReflect);
-
-                reflectObject?.SetDataModify(myReflectData);
-
+                reflectedObject = obj;
             }
-            else //레이저 발사가 끝났을때
+            else ////맞지 않았을때
             {
                 ReflectObjectChangedTypeToUnReflect();
 
-                lb.SetPosition(1, hit.point + dir * 1000); //포지션이라 쏘는 위치를 더해줘야함
-                _endPos = hit.point + dir * 1000;
+                lb.SetPosition(1, inData.hitPos + dir * 100);
+
+                _endPos = inData.hitPos + dir.normalized * 100;
             }
         }
-    }
+        return reflectedObject;
 
-    private void ChangedReflectObject(Reflective reflectable) //내가 반사한 빛에 닿은 오브젝트를 바꿔줌
+    }
+    protected void SetDrawLineEndPos(Vector3 endPos)
     {
-        if (reflectObject == reflectable) return;
-
-        reflectObject?.ChangedReflectObject(reflectable);
-
-        reflectObject = (reflectable);
+        _endPos = endPos;
     }
-
-    private T CheckObject<T>(RaycastHit hit, ReflectData reflectData) where T : LightingBehaviour
+    private T CheckObject<T>(RaycastHit hit, Vector3 reflectDirection) where T : class
     {
         if (hit.collider.TryGetComponent<T>(out var reflectable))
         {
             myReflectData.hitPos = hit.point;
-            myReflectData.direction = reflectData.direction;
+            myReflectData.direction = reflectDirection;
             myReflectData.normal = hit.normal;
 
             lb.SetPosition(1, hit.point);
-            _endPos = hit.point;
 
+            SetDrawLineEndPos(hit.point);
             return reflectable;
         }
         return null;
     }
-
-    private void ReflectObjectChangedTypeToUnReflect()
+    protected void ChangedReflectObject(Reflective reflectable) //내가 반사한 빛에 닿은 오브젝트를 바꿔줌
     {
-        if (reflectObject != null)
-        {
-            reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
-            reflectObject = null;
-        }
+        if (reflectObject == reflectable) return;
+        reflectObject = reflectable;
+    }
+
+    protected void ReflectObjectChangedTypeToUnReflect()
+    {
+        if (reflectObject == null) return;
+
+        reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
+        reflectObject = null;
     }
 }

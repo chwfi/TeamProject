@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct ReflectData //델리게이트로 할지 생각
+public struct ReflectData
 {
     public Vector3 hitPos;
     public Vector3 direction;

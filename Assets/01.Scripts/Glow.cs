@@ -7,26 +7,37 @@ using static Define.Define;
 [RequireComponent(typeof(LineRenderer))]
 public abstract class Glow : LightingBehaviour, IGlowable
 {
+
     public virtual void OnStartShootLight()
     {
-        lb.enabled = true;
-
-        if (coroutine != null)
-        {
-            StopCoroutine(coroutine);
-        }
+        StopDrawAndFadeLine();
     }
     public virtual void OnStopShootLight()
     {
-        elapsedTime = 0;
-        startTime = 0;
-        raycastDistance = 0;
-
-        coroutine = StartCoroutine(DrawAndFadeLineCoroutine());
+        StartDrawAndFadeLine();
     }
-
-    public void OnShootingLight()
+    public virtual void OnShootingLight()
     {
-        
+
     }
+    public virtual void StartShootLight(Vector3 origin, Vector3 direction)
+    {
+        _startPos = origin;
+
+        myReflectData.hitPos = origin;
+        myReflectData.direction = direction;
+
+        SetReflectDataModify(myReflectData);
+    }
+    public virtual void SetReflectDataModify(ReflectData reflectData) //기본 베이스는 반사 오브젝트 안하고 싶으면 베이스 지우면 댐
+    {
+        var obj = OnShootRaycast<Reflective>(reflectData, reflectData.direction);
+
+        ChangedReflectObject(obj);
+
+        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
+        obj?.GetReflectedObjectDataModify(myReflectData);
+    }
+
+  
 }

@@ -52,8 +52,8 @@ public class Lantern : MonoBehaviour
         lb.material.color = defaultColor;
 
         _inputReader.OnStartFireEvent += OnStartShootLight;
-        _inputReader.OnUpdateFireEvent += OnShootLight;
-        _inputReader.OnEndFireEvent += OnEndShootLight;
+        _inputReader.OnShootingFireEvent += OnShootLight;
+        _inputReader.OnStopFireEvent += OnEndShootLight;
     }
     private void OnStartShootLight()
     {
@@ -132,6 +132,8 @@ public class Lantern : MonoBehaviour
             Vector3 endPosition = reflectData.hitPos + reflectData.direction * raycastDistance;
             lb.SetPosition(1, endPosition);
 
+            _endPos = endPosition;
+
             if (Physics.Raycast(reflectData.hitPos, reflectData.direction, out hit, raycastDistance, ReflectionLayer))
             //레이저 발사 중일때 오브젝트가 맞았을때
             {
@@ -147,7 +149,7 @@ public class Lantern : MonoBehaviour
                     ChangedReflectObject(reflectable);
 
                     reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
-                    reflectable?.SetDataModify(myReflectData);
+                    reflectable?.GetReflectedObjectDataModify(myReflectData);
 
                     _endPos = hit.point;
                 }
@@ -176,7 +178,7 @@ public class Lantern : MonoBehaviour
                     ChangedReflectObject(reflectable);
 
                     reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
-                    reflectable?.SetDataModify(myReflectData);
+                    reflectable?.GetReflectedObjectDataModify(myReflectData);
 
                     _endPos = hit.point;
                 }
@@ -206,7 +208,7 @@ public class Lantern : MonoBehaviour
     private void OnDestroy()
     {
         _inputReader.OnStartFireEvent -= OnShootLight;
-        _inputReader.OnUpdateFireEvent -= OnShootLight;
-        _inputReader.OnEndFireEvent -= OnShootLight;
+        _inputReader.OnShootingFireEvent -= OnShootLight;
+        _inputReader.OnStopFireEvent -= OnShootLight;
     }
 }
