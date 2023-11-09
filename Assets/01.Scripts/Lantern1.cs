@@ -36,10 +36,6 @@ public class Lantern1 : Glow
 
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
         obj?.GetReflectedObjectDataModify(myReflectData);
-
-        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(reflectData, transform.forward);
-
-        door?.ColorMatch(myReflectData.color);
     }
     private void OnDestroy()
     {

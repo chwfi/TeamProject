@@ -27,6 +27,9 @@ public class ReflectiveObject : Reflective
 
         obj?.GetReflectedObjectDataModify(myReflectData);
 
+        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(reflectedData, raycastDirection);
+
+        door?.ColorMatch(myReflectData.color);
     }
 
     public override void OnHandleReflected() //음, 처음에 들어왔군
