@@ -77,6 +77,8 @@ public abstract class LightingBehaviour : MonoBehaviour
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
+
+            coroutine = null;
         }
     }
 

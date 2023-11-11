@@ -1271,6 +1271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tutorialInfo: []
+  IsActive: 0
 --- !u!4 &356114322
 Transform:
   m_ObjectHideFlags: 0
