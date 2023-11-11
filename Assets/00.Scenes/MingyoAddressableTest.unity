@@ -1096,6 +1096,16 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198770831735011412, guid: 92741d35de61d3548a1a78f80df11ce9,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198770831735011412, guid: 92741d35de61d3548a1a78f80df11ce9,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_ColorSpace
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 199203328765446926, guid: 92741d35de61d3548a1a78f80df11ce9,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -2135,7 +2145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 446916, guid: 303fa73578986ac4a82283eeb1edc654, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.21
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 446916, guid: 303fa73578986ac4a82283eeb1edc654, type: 3}
       propertyPath: m_LocalPosition.y
