@@ -44,6 +44,7 @@ public abstract class LightingBehaviour : MonoBehaviour
     #endregion
 
     private MaterialPropertyBlock _materialPropertyBlock;
+    private int maxDistance = 1000;
     protected virtual void Awake()
     {
         lb = GetComponent<LineRenderer>();
@@ -56,6 +57,8 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         lb.startWidth = lightWidth;
         lb.endWidth = lightWidth;
+
+        lb.enabled = false;
 
         _materialPropertyBlock = new MaterialPropertyBlock();
     }
@@ -124,6 +127,7 @@ public abstract class LightingBehaviour : MonoBehaviour
             if (Physics.Raycast(inData.hitPos, dir, out hit, raycastDistance, ReflectionLayer)) //서서히 쏴지고 있는데 오브젝트가 맞았을때
             {
                 var obj = CheckObject<T>(hit, dir);
+
                 reflectedObject = obj;
 
             }
@@ -134,7 +138,7 @@ public abstract class LightingBehaviour : MonoBehaviour
         }
         else //레이저 발사가 끝났을때
         {
-            if (Physics.Raycast(inData.hitPos, dir, out hit, 100, ReflectionLayer)) //서서히 쏴지는게 끝났는데 오브젝트가 맞았을때
+            if (Physics.Raycast(inData.hitPos, dir, out hit, maxDistance, ReflectionLayer)) //서서히 쏴지는게 끝났는데 오브젝트가 맞았을때
             {
                 var obj = CheckObject<T>(hit, dir);
 
@@ -144,11 +148,12 @@ public abstract class LightingBehaviour : MonoBehaviour
             {
                 ReflectObjectChangedTypeToUnReflect();
 
-                lb.SetPosition(1, inData.hitPos + dir * 100);
+                lb.SetPosition(1, inData.hitPos + dir * maxDistance);
 
-                _endPos = inData.hitPos + dir.normalized * 100;
+                _endPos = inData.hitPos + dir.normalized * maxDistance;
             }
         }
+
         return reflectedObject;
 
     }
