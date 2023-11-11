@@ -9,8 +9,8 @@ public class InputReader : ScriptableObject, IPlayerActions
     public event Action<Vector2> MovementEvent;
 
     public event Action OnStartFireEvent;
-    public event Action OnUpdateFireEvent;
-    public event Action OnEndFireEvent;
+    public event Action OnShootingFireEvent;
+    public event Action OnStopFireEvent;
 
     public Vector2 AimPosition { get; private set; }
     private Controls _playerInputAction; //싱글톤으로 사용할 녀석
@@ -46,7 +46,7 @@ public class InputReader : ScriptableObject, IPlayerActions
         {
             // 마우스 왼쪽 버튼을 놓았을 때 실행됩니다.
             isClicking = false;
-            OnEndFireEvent?.Invoke();
+            OnStopFireEvent?.Invoke();
         }
     }
 
@@ -58,7 +58,7 @@ public class InputReader : ScriptableObject, IPlayerActions
     {
         if (isClicking)
         {
-            OnUpdateFireEvent?.Invoke();
+            OnShootingFireEvent?.Invoke();
         }
     }
 }

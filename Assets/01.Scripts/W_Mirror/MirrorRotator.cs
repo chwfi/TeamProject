@@ -49,7 +49,7 @@ public class MirrorRotator : MonoBehaviour
 
     private void RotateMirror()
     {
-        if (Vector3.Distance(transform.position, PlayerTrm.position) < _ableDistance)
+        if (Vector3.Distance(transform.position, PlayerTrm.position) < _ableDistance && !TutorialManager.Instance.IsActive)
         {
             State = DistanceState.Inside;
 

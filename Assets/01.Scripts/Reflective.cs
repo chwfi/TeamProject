@@ -5,224 +5,55 @@ using System.Collections.Generic;
 using System.Net;
 using System.Xml.Linq;
 using UnityEngine;
-using static Define.Define;
 
-public abstract class Reflective : MonoBehaviour, IReflectable
+public abstract class Reflective : LightingBehaviour, IReflectable
 {
-    #region º¯¼öµé
-    [SerializeField] protected Color defaultColor;
-    public float lgihtFadeInoutDuration = 0.3f; // ·¹ÀÌÄ³½ºÆ®¸¦ ÁøÇàÇÒ ½Ã°£ (ÃÊ)
 
-    private float elapsedTime = 0f;
+    private ReflectState _currentState = ReflectState.NULL; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý»ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    private float raycastDistance = 0;
-
-    private float startTime = 0;
-
-
-    protected Collider _col;
-    protected LineRenderer lb;
-
-    protected ReflectData myReflectData;
-
-    public ReflectState _currentType = ReflectState.NULL;
-    public ReflectState CurrentType
+    public ReflectState CurrentState
     {
-        get
-        {
-            return _currentType;
-        }
+        get { return _currentState; }
         set
         {
-            if (_currentType == value) return; //Àü¿¡°Å´Â ÇÑ¹ø¸¸
-            _currentType = value;
+            if (_currentState == value) return;
 
-            if (_currentType == ReflectState.UnReflect)
+            _currentState = value;
+
+            if (_currentState == ReflectState.UnReflect)
             {
-                //reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
-
                 UnHandleReflected();
             }
 
-            else if (_currentType == ReflectState.OnReflect)
+            else if (_currentState == ReflectState.OnReflect)
             {
                 OnHandleReflected();
             }
-
         }
     }
 
-    public Vector3 _startPos = Vector3.zero;
-    public Vector3 _endPos = Vector3.zero;
-
-    private Reflective reflectObject = null;
-    private MaterialPropertyBlock _materialPropertyBlock;
-    #endregion
-    private Coroutine coroutine;
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        myReflectData.color = defaultColor;
+        base.Awake();
+    }
+    protected override void Start()
+    {
+        base.Start();
+    }
+    public abstract void GetReflectedObjectDataModify(ReflectData reflectedData); //ï¿½Â°ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        _col = GetComponent<Collider>();
-
-        lb = gameObject.GetComponent<LineRenderer>();
-
-        if (lb == null)
-            lb = gameObject.AddComponent<LineRenderer>();
-
-        Init();
+    public virtual void OnHandleReflected() //Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+    {
+        StopDrawAndFadeLine();
     }
 
-    private void Init()
+    public virtual void UnHandleReflected() //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        lb.positionCount = 2;
-
-        lb.startWidth = .08f;
-        lb.endWidth = .08f;
-
-        _materialPropertyBlock = new MaterialPropertyBlock();
+        StartDrawAndFadeLine();
     }
-
-    public abstract void SetDataModify(ReflectData inData); //¸Â°íÀÖ´Â ÁßÀÌ¸é ½ÇÇàµÊ 
-
-    public virtual void OnHandleReflected() //Ã³À½ ºûÀ» ¸ÂÀ»¶§ ÇÑ¹ø¸¸ ½ÇÇàµÊ
+    public void OnReflectTypeChanged(ReflectState state)
     {
-        lb.enabled = true;
-
-        if (coroutine != null)
-        {
-            StopCoroutine(coroutine);
-        }
-
-        raycastDistance = 0f;
-        elapsedTime = 0f;
-    }
-
-    public virtual void UnHandleReflected() //¸ÂÁö ¾ÊÀ»¶§ ÇÑ¹ø¸¸ ½ÇÇàµÊ
-    {
-        startTime = 0;
-        coroutine = StartCoroutine(DrawAndFadeLineCoroutine());
-    }
-    private IEnumerator DrawAndFadeLineCoroutine() //¼­¼­È÷ ºûÀÌ »ç¶óÁö´Â ÄÚµå
-    {
-        lb.SetPosition(0, _startPos);
-        lb.SetPosition(1, _endPos);
-
-        while (startTime < lgihtFadeInoutDuration)
-        {
-            startTime += Time.deltaTime;
-            Vector3 lerpedPosition = Vector3.Lerp(_startPos, _endPos, startTime / lgihtFadeInoutDuration);
-
-            lb.SetPosition(0, lerpedPosition);
-
-            yield return null;
-        }
-        //¹Ýº¹¹®ÀÌ ³¡³ª¸é
-        lb.enabled = false;
-
-        if (reflectObject != null)
-        {
-            reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
-            reflectObject = null;
-        }
-    }
-
-    public void OnReflectTypeChanged(ReflectState type)
-    {
-        CurrentType = type;
-    }
-    protected void SetLightColor(Color type) //¿©±â¼­ ºûÀÇ »ö±òÀ» ¼¼ÆÃÇØÁà¾ßÇÔ
-    {
-
-        // Property Block ¾÷µ¥ÀÌÆ®
-        _materialPropertyBlock.SetColor("_EmissionColor", type * 6f);
-
-        // ¶óÀÎ ·»´õ·¯¿¡ Property Block Àû¿ë
-        lb.SetPropertyBlock(_materialPropertyBlock);
-
-    }
-
-    protected Vector3 SetDirection(Vector3 value) //½ò ¹æÇâÀ» Á¤ÇØÁÖ°í
-    {
-        myReflectData.direction = value;
-        return value;
-    }
-    private void ChangedReflectObject(Reflective reflectable) //³»°¡ ¹Ý»çÇÑ ºû¿¡ ´êÀº ¿ÀºêÁ§Æ®¸¦ ¹Ù²ãÁÜ
-    {
-        if (reflectObject == reflectable) return;
-        reflectObject = (reflectable);
-    }
-
-
-    protected virtual void OnShootRaycast(ReflectData inData, Vector3 dir) //³ª¸¦ ¸ÂÃá ¿ÀºêÁ§Æ®ÀÇ µ¥ÀÌÅÍ¿Í ½ò ¹æÇâ
-    {
-        lb.SetPosition(0, inData.hitPos);
-        RaycastHit hit;
-
-        if (elapsedTime < lgihtFadeInoutDuration) //·¹ÀÌÀú ¹ß»ç ÁßÀÏ¶§ ¼­¼­È÷ ½÷Áö°Ô
-        {
-            float t = elapsedTime / lgihtFadeInoutDuration;
-            raycastDistance = t * 10;
-
-            elapsedTime += Time.deltaTime;
-
-            Vector3 endPosition = inData.hitPos + dir * raycastDistance;
-            lb.SetPosition(1, endPosition);
-
-            if (Physics.Raycast(inData.hitPos, dir, out hit, raycastDistance, ReflectionLayer)) //¼­¼­È÷ ½÷Áö°í ÀÖ´Âµ¥ ¿ÀºêÁ§Æ®°¡ ¸Â¾ÒÀ»¶§
-            {
-                if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
-                {
-                    myReflectData.hitPos = hit.point;
-                    myReflectData.direction = dir;
-                    myReflectData.normal = hit.normal;
-
-                    lb.SetPosition(1, hit.point);
-
-
-                    ChangedReflectObject(reflectable);
-
-                    reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
-                    reflectable?.SetDataModify(myReflectData);
-                }
-            }
-            else //¸ÂÁö ¾Ê¾ÒÀ»¶§
-            {
-                _endPos = endPosition;
-            }
-        }
-        else //·¹ÀÌÀú ¹ß»ç°¡ ³¡³µÀ»¶§
-        {
-            if (Physics.Raycast(inData.hitPos, dir, out hit, 100, ReflectionLayer)) //¼­¼­È÷ ½÷Áö´Â°Ô ³¡³µ´Âµ¥ ¿ÀºêÁ§Æ®°¡ ¸Â¾ÒÀ»¶§
-            {
-                if (hit.collider.TryGetComponent<Reflective>(out var reflectable))
-                {
-                    myReflectData.hitPos = hit.point;
-                    myReflectData.direction = dir;
-                    myReflectData.normal = hit.normal;
-
-                    _endPos = myReflectData.hitPos;
-
-                    lb.SetPosition(1, hit.point);
-
-                    ChangedReflectObject(reflectable);
-
-                    reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
-                    reflectable?.SetDataModify(myReflectData);
-                }
-            }
-            else ////¸ÂÁö ¾Ê¾ÒÀ»¶§
-            {
-                if (reflectObject != null)
-                {
-                    reflectObject?.OnReflectTypeChanged(ReflectState.UnReflect);
-                    reflectObject = null;
-                }
-                lb.SetPosition(1, inData.hitPos + dir * 100);
-
-                _endPos = inData.hitPos + dir.normalized * 100;
-            }
-        }
+        CurrentState = state;
     }
 }
 

@@ -124,9 +124,9 @@ public class Crystal : Reflective
         }
     }
 
-    public override void SetDataModify(ReflectData inData)
+    public override void GetReflectedObjectDataModify(ReflectData inData)
     {
-        OnShootRaycast(inData, transform.forward);
+        //OnShootRaycast(inData, transform.forward);
     }
     public override void OnHandleReflected()
     {

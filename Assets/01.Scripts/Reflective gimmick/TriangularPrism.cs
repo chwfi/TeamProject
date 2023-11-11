@@ -16,11 +16,11 @@ public class TriangularPrism : Reflective
         }
     }
 
-    public override void SetDataModify(ReflectData data)
+    public override void GetReflectedObjectDataModify(ReflectData data)
     {
         foreach (var plane in _planes)
         {
-            plane.SetDataModify(data);
+            plane.GetReflectedObjectDataModify(data);
         }
     }
 }

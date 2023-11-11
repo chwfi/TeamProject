@@ -58,7 +58,7 @@ public class PlayerTest : MonoBehaviour
                 ChangedReflectObject(reflectable);
 
                 reflectable?.OnReflectTypeChanged(ReflectState.OnReflect);
-                reflectable?.SetDataModify(myReflectData);
+                reflectable?.GetReflectedObjectDataModify(myReflectData);
             }
         }
         else
