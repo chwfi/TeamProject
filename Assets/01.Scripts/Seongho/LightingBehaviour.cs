@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -11,6 +12,10 @@ using static Define.Define;
 [RequireComponent(typeof(LineRenderer))]
 public abstract class LightingBehaviour : MonoBehaviour
 {
+    #region 파일 위치
+    private readonly string AFTEREFFCT_PATH = "LightAfterEffect";
+    #endregion
+
     [Header("참조 변수")]
     [SerializeField] protected Color defaultColor; //기본 빛 색
     [SerializeField] protected float lightFadeInoutDuration = .3f; //빛이 사라지거나 생기는 딜레이 시간
@@ -44,6 +49,8 @@ public abstract class LightingBehaviour : MonoBehaviour
     #endregion
 
     private MaterialPropertyBlock _materialPropertyBlock;
+
+    private Color _effectColor;
     private int maxDistance = 1000;
     protected virtual void Awake()
     {
@@ -64,6 +71,8 @@ public abstract class LightingBehaviour : MonoBehaviour
     }
     protected void SetLightColor(Color color)
     {
+        _effectColor = color;
+
         _materialPropertyBlock.SetColor("_EmissionColor", color * 6f);
 
         // 라인 렌더러에 Property Block 적용
@@ -74,42 +83,31 @@ public abstract class LightingBehaviour : MonoBehaviour
     {
         lb.enabled = true;
 
-        if (coroutine != null)
-        {
-            StopCoroutine(coroutine);
-
-            coroutine = null;
-        }
+        ReflectObjectChangedTypeToUnReflect();
     }
 
     protected void StartDrawAndFadeLine()
     {
-        elapsedTime = 0;
-        raycastDistance = 0;
-        startTime = 0;
-
-        coroutine = StartCoroutine(DrawAndFadeLineCoroutine());
-    }
-
-    private IEnumerator DrawAndFadeLineCoroutine() //서서히 빛이 사라지는 코드
-    {
-        lb.SetPosition(0, _startPos);
-        lb.SetPosition(1, _endPos);
-
-        while (startTime < lightFadeInoutDuration)
-        {
-            startTime += Time.deltaTime;
-            Vector3 lerpedPosition = Vector3.Lerp(_startPos, _endPos, startTime / lightFadeInoutDuration);
-
-            lb.SetPosition(0, lerpedPosition);
-
-            yield return null;
-        }
-
         lb.enabled = false;
 
-        ReflectObjectChangedTypeToUnReflect();
+        elapsedTime = 0;
+        raycastDistance = 0;
+
+        var effect = RdfResources.Load<LightAfterEffect>(AFTEREFFCT_PATH);
+
+        var obj = GameObject.Instantiate(effect);
+
+        obj.Setting(lightWidth, _effectColor);
+
+        obj.DrawAndFadeLine(_startPos, _endPos, lightFadeInoutDuration,
+          () =>
+          {
+              ReflectObjectChangedTypeToUnReflect();
+          });
+
+        //작업이 끝나고 수행되야 할 코드
     }
+
     protected T OnShootRaycast<T>(ReflectData inData, Vector3 dir) where T : class //나를 맞춘 오브젝트의 데이터와 쏠 방향
     {
         lb.SetPosition(0, inData.hitPos);
@@ -181,6 +179,7 @@ public abstract class LightingBehaviour : MonoBehaviour
     protected void ChangedReflectObject(Reflective reflectable) //내가 반사한 빛에 닿은 오브젝트를 바꿔줌
     {
         if (reflectObject == reflectable) return;
+        ReflectObjectChangedTypeToUnReflect();
         reflectObject = reflectable;
     }
 
