@@ -52,7 +52,6 @@ public class LightAfterEffect : MonoBehaviour
             Vector3 lerpedPosition = Vector3.Lerp(startPos, endPos, startTime / duration);
 
             lb.SetPosition(0, lerpedPosition);
-            Debug.Log(lerpedPosition);
             yield return null;
         }
 

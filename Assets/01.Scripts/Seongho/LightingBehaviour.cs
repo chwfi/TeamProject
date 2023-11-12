@@ -129,7 +129,16 @@ public abstract class LightingBehaviour : MonoBehaviour
                 var obj = CheckObject<T>(hit, dir);
 
                 reflectedObject = obj;
+                /*
+                                if (obj is ReflectiveObject)
+                                {
+                                    var refObj = obj as ReflectiveObject;
 
+                                    ChangedReflectObject(refObj);
+                                    refObj?.OnReflectTypeChanged(ReflectState.OnReflect);
+                                    refObj?.GetReflectedObjectDataModify(myReflectData);
+                                }
+                */
             }
             else //맞지 않았을때
             {
@@ -146,11 +155,11 @@ public abstract class LightingBehaviour : MonoBehaviour
             }
             else ////맞지 않았을때
             {
+
                 ReflectObjectChangedTypeToUnReflect();
 
                 lb.SetPosition(1, inData.hitPos + dir * maxDistance);
-
-                _endPos = inData.hitPos + dir.normalized * maxDistance;
+                SetDrawLineEndPos(inData.hitPos + dir.normalized * maxDistance);
             }
         }
 
@@ -165,13 +174,13 @@ public abstract class LightingBehaviour : MonoBehaviour
     {
         if (hit.collider.TryGetComponent<T>(out var reflectable))
         {
+            SetDrawLineEndPos(hit.point);
+            lb.SetPosition(1, hit.point);
+
             myReflectData.hitPos = hit.point;
             myReflectData.direction = reflectDirection;
             myReflectData.normal = hit.normal;
 
-            lb.SetPosition(1, hit.point);
-
-            SetDrawLineEndPos(hit.point);
             return reflectable;
         }
         return null;
