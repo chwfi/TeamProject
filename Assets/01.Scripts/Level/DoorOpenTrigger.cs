@@ -28,6 +28,7 @@ public class DoorOpenTrigger : MonoBehaviour
         if (ColorSystem.CompareColor(inputColor, targetColor) && !_isOpend)
         {
             linkedDoor.OpenDoor(); // 같은 색이라면 문 염
+            SoundManager.Instance.PlaySFXSound("StoneFall");
 
             _dustParticles.ForEach(p => p.Play()); //먼지 파티클 실행해주고
 
