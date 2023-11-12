@@ -1982,6 +1982,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1621128908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &460366862 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3484211613908976917, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1544336282894216994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &463356201
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,6 +2417,12 @@ RectTransform:
   m_AnchoredPosition: {x: -40.9, y: 20}
   m_SizeDelta: {x: 424, y: 272.4}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!198 &576762126 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7622987758970791494, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1544336282894216994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &579785649
 GameObject:
   m_ObjectHideFlags: 0
@@ -11106,11 +11118,36 @@ PrefabInstance:
       propertyPath: m_Drag
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 6593379917044110347, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
+        type: 3}
+      propertyPath: startDelay.scalar
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7622987758970791494, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7820619469758729446, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
         type: 3}
       propertyPath: linkedDoor
       value: 
       objectReference: {fileID: 1546815537}
+    - target: {fileID: 7820619469758729446, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
+        type: 3}
+      propertyPath: _dustParticles.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820619469758729446, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
+        type: 3}
+      propertyPath: _dustParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 460366862}
+    - target: {fileID: 7820619469758729446, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
+        type: 3}
+      propertyPath: _dustParticles.Array.data[1]
+      value: 
+      objectReference: {fileID: 576762126}
     - target: {fileID: 8740480610904022522, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
         type: 3}
       propertyPath: m_LocalPosition.x
