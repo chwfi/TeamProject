@@ -12,13 +12,14 @@ public class DoorOpenTrigger : MonoBehaviour
     [SerializeField]
     private ColorDoor linkedDoor; // 열어줄 문
 
-    [SerializeField] private List<ParticleSystem> _dustParticles;
-    private List<Rigidbody> _rigids;
+    private List<ParticleSystem> _dustParticles = new List<ParticleSystem>();
+    private List<Rigidbody> _rigids = new List<Rigidbody>();
 
     bool _isOpend = false;
 
     private void Awake()
     {
+        _dustParticles.AddRange(GetComponentsInChildren<ParticleSystem>());
         _rigids.AddRange(GetComponentsInChildren<Rigidbody>());
     }
 
