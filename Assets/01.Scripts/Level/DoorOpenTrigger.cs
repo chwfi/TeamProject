@@ -12,7 +12,8 @@ public class DoorOpenTrigger : MonoBehaviour
     [SerializeField]
     private ColorDoor linkedDoor; // 열어줄 문
 
-    public List<Rigidbody> _rigids;
+    [SerializeField] private List<ParticleSystem> _dustParticles;
+    private List<Rigidbody> _rigids;
 
     bool _isOpend = false;
 
@@ -26,11 +27,15 @@ public class DoorOpenTrigger : MonoBehaviour
         if (ColorSystem.CompareColor(inputColor, targetColor) && !_isOpend)
         {
             linkedDoor.OpenDoor(); // 같은 색이라면 문 염
-            _rigids.ForEach(p =>
+
+            _dustParticles.ForEach(p => p.Play()); //먼지 파티클 실행해주고
+
+            _rigids.ForEach(v => //체인들 떨어뜨리기
             {
-                p.useGravity = true;
-                Destroy(p.gameObject, 2f);
+                v.useGravity = true;
+                Destroy(v.gameObject, 2f);
             });
+
             _isOpend = true;
         }
     }
