@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Define.Define;
 
-public class ArrowUI : LookCamUIModule //튜토리얼에서 크리스탈을 가리키는 화살표 UI 코드
+public class ArrowUI : LookCamUIModule, ICheckDistance //튜토리얼에서 크리스탈을 가리키는 화살표 UI 코드
 {
     [SerializeField] private float _moveDis;
     [SerializeField] private float _moveTime;
@@ -61,15 +61,15 @@ public class ArrowUI : LookCamUIModule //튜토리얼에서 크리스탈을 가리키는 화살표
         _arrowImage.DOFade(value, 0.5f);
     }
 
-    public void CheckDistance()
+    public DistanceState CheckDistance()
     {
         if (Vector3.Distance(PlayerTrm.position, transform.position) < _ableDistance)
         {
-            State = DistanceState.Inside;
+            return State = DistanceState.Inside;
         }
         else
         {
-            State = DistanceState.Outside;
+            return State = DistanceState.Outside;
         }
     }
 }
