@@ -108,9 +108,9 @@ public abstract class LightingBehaviour : MonoBehaviour
         //작업이 끝나고 수행되야 할 코드
     }
 
-    protected T OnShootRaycast<T>(ReflectData inData, Vector3 dir) where T : class //나를 맞춘 오브젝트의 데이터와 쏠 방향
+    protected T OnShootRaycast<T>(Vector3 pos, Vector3 dir) where T : class //나를 맞춘 오브젝트의 데이터와 쏠 방향
     {
-        lb.SetPosition(0, inData.hitPos);
+        lb.SetPosition(0, pos);
         RaycastHit hit;
 
         T reflectedObject = null;
@@ -121,24 +121,14 @@ public abstract class LightingBehaviour : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
 
-            Vector3 endPosition = inData.hitPos + dir * raycastDistance;
+            Vector3 endPosition = pos + dir * raycastDistance;
             lb.SetPosition(1, endPosition);
 
-            if (Physics.Raycast(inData.hitPos, dir, out hit, raycastDistance, ReflectionLayer)) //서서히 쏴지고 있는데 오브젝트가 맞았을때
+            if (Physics.Raycast(pos, dir, out hit, raycastDistance, ReflectionLayer)) //서서히 쏴지고 있는데 오브젝트가 맞았을때
             {
                 var obj = CheckObject<T>(hit, dir);
 
                 reflectedObject = obj;
-                /*
-                                if (obj is ReflectiveObject)
-                                {
-                                    var refObj = obj as ReflectiveObject;
-
-                                    ChangedReflectObject(refObj);
-                                    refObj?.OnReflectTypeChanged(ReflectState.OnReflect);
-                                    refObj?.GetReflectedObjectDataModify(myReflectData);
-                                }
-                */
             }
             else //맞지 않았을때
             {
@@ -147,7 +137,7 @@ public abstract class LightingBehaviour : MonoBehaviour
         }
         else //레이저 발사가 끝났을때
         {
-            if (Physics.Raycast(inData.hitPos, dir, out hit, maxDistance, ReflectionLayer)) //서서히 쏴지는게 끝났는데 오브젝트가 맞았을때
+            if (Physics.Raycast(pos, dir, out hit, maxDistance, ReflectionLayer)) //서서히 쏴지는게 끝났는데 오브젝트가 맞았을때
             {
                 var obj = CheckObject<T>(hit, dir);
 
@@ -158,8 +148,8 @@ public abstract class LightingBehaviour : MonoBehaviour
 
                 ReflectObjectChangedTypeToUnReflect();
 
-                lb.SetPosition(1, inData.hitPos + dir * maxDistance);
-                SetDrawLineEndPos(inData.hitPos + dir.normalized * maxDistance);
+                lb.SetPosition(1, pos + dir * maxDistance);
+                SetDrawLineEndPos(pos + dir.normalized * maxDistance);
             }
         }
 

@@ -30,7 +30,7 @@ public class Lantern : Glow
     }
     public override void SetReflectDataModify(ReflectData reflectData)
     {
-        Reflective obj = OnShootRaycast<Reflective>(reflectData, reflectData.direction);
+        Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
 
         ChangedReflectObject(obj);
 

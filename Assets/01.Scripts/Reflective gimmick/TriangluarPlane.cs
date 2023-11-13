@@ -3,33 +3,27 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
 
-public class TriangluarPlane : ReflectiveObject //삼각형의 각 면
+public class TriangluarPlane : Reflective //삼각형의 각 면
 {
-    public override void GetReflectedObjectDataModify(ReflectData data)
+    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
     {
-        //var dir = SetDirection(transform.up);
-        data.hitPos  = transform.position;
-        //OnShootRaycast(data, dir);
-    }
+        Color cCol;
 
-    public void OnShoot()
-    {
-        lb.SetPosition(0, transform.position);
+        cCol = ColorSystem.GetColorCombination(reflectedData.color, defaultColor);
+        SetLightColor(cCol);
 
-        RaycastHit hit;
+        var raycastDirection = transform.up;
 
-        if (Physics.Raycast(transform.position, transform.up, out hit, 1000))
-        {
-            if (gameObject == hit.collider.gameObject) return;
+        var obj = OnShootRaycast<Reflective>(transform.position, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
 
-            myReflectData.hitPos = hit.point;
-            myReflectData.normal = hit.normal;
+        ChangedReflectObject(obj);
 
-            lb.SetPosition(1, hit.point);
-        }
-        else
-        {
-            lb.SetPosition(1, transform.position + transform.up * 1000);
-        }
+        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
+
+        obj?.GetReflectedObjectDataModify(myReflectData);
+
+        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(transform.position, raycastDirection);
+
+        door?.ColorMatch(myReflectData.color);
     }
 }

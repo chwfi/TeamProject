@@ -8,7 +8,7 @@ public class ReflectiveObject : Reflective
 {
     public override void GetReflectedObjectDataModify(ReflectData reflectedData) //아니! 데이터가 변경됐어????????
     {
-        _startPos = reflectedData.hitPos;
+        //_startPos = reflectedData.hitPos;
 
         Color cCol;
 
@@ -23,7 +23,7 @@ public class ReflectiveObject : Reflective
         //방향을! 구해서 넣어줍시다. 근데 그냥 바로 백터를 넣어주면 되는데 왜 굳이굳이 SetDirection에서 리턴을 받냐!
         //바로 나의 데이터를 저장하기 위해서입니다! 모르겠으면 디코로 연락주세욧!
 
-        var obj = OnShootRaycast<Reflective>(reflectedData, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
+        var obj = OnShootRaycast<Reflective>(reflectedData.hitPos, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
 
         ChangedReflectObject(obj);
 
@@ -31,7 +31,7 @@ public class ReflectiveObject : Reflective
 
         obj?.GetReflectedObjectDataModify(myReflectData);
 
-        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(reflectedData, raycastDirection);
+        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(reflectedData.hitPos, raycastDirection);
 
         door?.ColorMatch(myReflectData.color);
     }
