@@ -102,8 +102,6 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         obj.Setting(lightWidth, _effectColor);
 
-        Debug.Log("ewqr : " + _startPos);
-
         obj.DrawAndFadeLine(_startPos, _endPos, lightFadeInoutTick,
           () =>
           {

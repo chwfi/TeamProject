@@ -40,13 +40,10 @@ public class LightAfterEffect : MonoBehaviour
     }
     public void DrawAndFadeLine(Vector3 startPos, Vector3 endPos, float duration, Action action)
     {
-        Debug.Log("fewqe : " + startPos);
-        Debug.Log(endPos);
-
         StartCoroutine(DrawAndFadeLineCoroutine(startPos, endPos, duration, action));
     }
 
-    private IEnumerator DrawAndFadeLineCoroutine(Vector3 startPos, Vector3 endPos, float moveAmountPerTick, Action action) //������ ���� ������� �ڵ�
+    private IEnumerator DrawAndFadeLineCoroutine(Vector3 startPos, Vector3 endPos, float moveAmountPerTick, Action action)
     {
         float t = 0;
 

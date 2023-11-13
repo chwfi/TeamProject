@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class TriangluarPlane : Reflective //삼각형의 각 면
@@ -17,16 +18,21 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
     {
         SetLightColor(color);
     }
+
+    public void SetDataModify(ReflectData reflectedData, TriangluarPlane comp)
+    {
+        GetReflectedObjectDataModify(reflectedData);
+    }
     public override void GetReflectedObjectDataModify(ReflectData reflectedData)
     {
-        Color cCol;
+        SetStartPos(transform.position);
 
-        cCol = ColorSystem.GetColorCombination(reflectedData.color, defaultColor);
+        Color cCol = ColorSystem.GetColorCombination(reflectedData.color, defaultColor);
         SetLightColor(cCol);
 
         var raycastDirection = transform.up;
 
-        var obj = OnShootRaycast<Reflective>(transform.position, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
+        Reflective obj = OnShootRaycast<Reflective>(transform.position, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
 
         ChangedReflectObject(obj);
 

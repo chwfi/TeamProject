@@ -6,11 +6,17 @@ public class TriangularPrism : Reflective
 {
     public List<TriangluarPlane> _planes;
 
+    private TriangluarPlane _plane;
     protected override void Awake()
     {
         base.Awake();
 
         _planes.AddRange(transform.GetComponentsInChildren<TriangluarPlane>());
+    }
+    public void SetTriangluarPlane(TriangluarPlane plane)
+    {
+        //if (_plane == plane) return;
+        _plane = plane;
     }
     public override void OnHandleReflected()
     {
@@ -18,19 +24,23 @@ public class TriangularPrism : Reflective
 
         foreach (var plane in _planes)
         {
+            if (_plane == plane) return;
+
             plane.OnHandleReflected();
 
             plane.SetColor(myReflectData.color);
         }
-
-
     }
+
+
     public override void UnHandleReflected()
     {
         base.UnHandleReflected();
 
         foreach (var plane in _planes)
         {
+            if (_plane == plane) return;
+
             plane.UnHandleReflected();
         }
     }
@@ -38,7 +48,9 @@ public class TriangularPrism : Reflective
     {
         foreach (var plane in _planes)
         {
-            plane.GetReflectedObjectDataModify(data);
+            if (_plane == plane) return;
+
+            plane.SetDataModify(data, plane);
         }
     }
 }
