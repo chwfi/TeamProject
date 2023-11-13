@@ -560,9 +560,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  lightFadeInoutDuration: 0.3
+  lightFadeInoutTick: 40
   lightWidth: 0.08
   _inputReader: {fileID: 11400000, guid: c3255832653d1484e9fa060c9b35439f, type: 2}
+  _remainedLight: {fileID: 0}
 --- !u!1 &6483124071903031386
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,9 +11,11 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
     [SerializeField] private float _ableDistance;
     [SerializeField] private float _rotateSpeed;
 
+    public bool CanFullRotate = false;
+
     private float RotationSpeed => UIManager.Instance.settingRotUI.ValueScale;
 
-    private List<KeyGuideUI> _lookCamUI = new List<KeyGuideUI>();
+    public List<KeyGuideUI> _lookCamUI = new List<KeyGuideUI>();
 
     private DistanceState _currentState;
     public DistanceState State
@@ -54,9 +56,16 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
     {
         if (Vector3.Distance(transform.position, PlayerTrm.position) < _ableDistance && !TutorialManager.Instance.IsActive)
         {
+            if (CanFullRotate)
+            {
+                if (Input.GetAxis("Mouse ScrollWheel") > 0)
+                    transform.Rotate(new Vector3(0, 0, -4) * RotationSpeed * Time.deltaTime);
+                else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+                    transform.Rotate(new Vector3(0, 0, 4) * RotationSpeed * Time.deltaTime);
+            }
+
             if (Keyboard.current.qKey.isPressed)
                 transform.Rotate(new Vector3(0, 1, 0) * RotationSpeed * Time.deltaTime);
-
             if (Keyboard.current.eKey.isPressed)
                 transform.Rotate(new Vector3(0, -1, 0) * RotationSpeed * Time.deltaTime);
 

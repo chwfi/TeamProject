@@ -18,7 +18,7 @@ public abstract class LightingBehaviour : MonoBehaviour
 
     [Header("참조 변수")]
     [SerializeField] protected Color defaultColor; //기본 빛 색
-    [SerializeField] private float lightFadeInoutTick = 10f; //한 틱당 이동 거리
+    [SerializeField] private float lightFadeInoutTick = 90f; //한 틱당 이동 거리
     [SerializeField] private float lightWidth = .08f; //빛 크기
 
 
