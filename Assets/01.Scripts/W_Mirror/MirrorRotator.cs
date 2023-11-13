@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Define.Define;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum DistanceState
 {
@@ -16,7 +18,9 @@ public class MirrorRotator : MonoBehaviour
     [SerializeField] private float _ableDistance;
     [SerializeField] private float _rotateSpeed;
 
-    [SerializeField] private List<LookCamUI> _lookCamUI;
+    private float RotationSpeed => UIManager.Instance.settingRotUI.ValueScale;
+
+    private List<KeyGuideUI> _lookCamUI = new List<KeyGuideUI>();
 
     private DistanceState _currentState;
     public DistanceState State
@@ -40,6 +44,7 @@ public class MirrorRotator : MonoBehaviour
     private void Awake()
     {
         State = DistanceState.Outside;
+        _lookCamUI.AddRange(GetComponentsInChildren<KeyGuideUI>());
     }
 
     private void Update()
@@ -54,10 +59,10 @@ public class MirrorRotator : MonoBehaviour
             State = DistanceState.Inside;
 
             if (Keyboard.current.qKey.isPressed)
-                transform.Rotate(new Vector3(0, 1, 0) * _rotateSpeed * Time.deltaTime);
+                transform.Rotate(new Vector3(0, 1, 0) * RotationSpeed * Time.deltaTime);
 
             if (Keyboard.current.eKey.isPressed)
-                transform.Rotate(new Vector3(0, -1, 0) * _rotateSpeed * Time.deltaTime);
+                transform.Rotate(new Vector3(0, -1, 0) * RotationSpeed * Time.deltaTime);
         }
         else
         {

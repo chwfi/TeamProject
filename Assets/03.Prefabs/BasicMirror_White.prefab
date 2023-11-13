@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7230123942857226818}
-  - component: {fileID: 3543696395844231545}
+  - component: {fileID: 7973618238136301653}
   - component: {fileID: 7381649252407063035}
   - component: {fileID: 8808440605498356768}
   m_Layer: 0
@@ -121,7 +121,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3543696395844231545
+--- !u!114 &7973618238136301653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2630763232895402996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b59c0da66f65a7542a1e4ca25e5011db, type: 3}
+  m_Script: {fileID: 11500000, guid: fd77a3dd813829f42bdb05674c8eef20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &7381649252407063035
@@ -320,10 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ableDistance: 4.5
-  _rotateSpeed: 85
-  _lookCamUI:
-  - {fileID: 3543696395844231545}
-  - {fileID: 821193854336304581}
+  _rotateSpeed: 60
 --- !u!1 &5013302620833439481
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7164237683793716212}
-  - component: {fileID: 821193854336304581}
+  - component: {fileID: 2864939246722507228}
   - component: {fileID: 1441269161436287190}
   - component: {fileID: 661967580391958675}
   m_Layer: 0
@@ -480,7 +477,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &821193854336304581
+--- !u!114 &2864939246722507228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -489,7 +486,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5336002579661229867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b59c0da66f65a7542a1e4ca25e5011db, type: 3}
+  m_Script: {fileID: 11500000, guid: fd77a3dd813829f42bdb05674c8eef20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &1441269161436287190
@@ -938,10 +935,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  lgihtFadeInoutDuration: 0.2
-  _currentType: 0
-  _startPos: {x: 0, y: 0, z: 0}
-  _endPos: {x: 0, y: 0, z: 0}
+  lightFadeInoutDuration: 0.3
+  lightWidth: 0.08
 --- !u!65 &5964911080651198220
 BoxCollider:
   m_ObjectHideFlags: 0
