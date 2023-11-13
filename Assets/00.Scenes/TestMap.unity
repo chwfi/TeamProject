@@ -800,7 +800,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC6D0\uD310 \uD68C\uC804 \uAC10\uB3C4"
+  m_text: "\uC6D0\uD310 \uD68C\uC804 \uC18D\uB3C4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 71310727337c2374380cc626128a1016, type: 2}
   m_sharedMaterial: {fileID: -3015540264052310163, guid: 71310727337c2374380cc626128a1016,
@@ -2542,12 +2542,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1621128908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &460366862 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3484211613908976917, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1544336282894216994}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &463356201
 GameObject:
   m_ObjectHideFlags: 0
@@ -2998,12 +2992,6 @@ RectTransform:
   m_AnchoredPosition: {x: -40.9, y: 22}
   m_SizeDelta: {x: 424, y: 272.4}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!198 &576762126 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7622987758970791494, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1544336282894216994}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &579785649
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,6 +6614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveDis: 0.15
   _moveTime: 1.1
+  _ableDistance: 30
 --- !u!1 &1205662424
 GameObject:
   m_ObjectHideFlags: 0
@@ -10459,6 +10448,7 @@ MonoBehaviour:
   settingUI: {fileID: 0}
   settingMouseUI: {fileID: 0}
   settingRotUI: {fileID: 0}
+  InputReader: {fileID: 11400000, guid: c3255832653d1484e9fa060c9b35439f, type: 2}
 --- !u!4 &1923001784
 Transform:
   m_ObjectHideFlags: 0
@@ -12317,7 +12307,7 @@ CanvasGroup:
   m_GameObject: {fileID: 2044284768}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 0
+  m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &2044284771
@@ -13263,12 +13253,12 @@ PrefabInstance:
         type: 3}
       propertyPath: _dustParticles.Array.data[0]
       value: 
-      objectReference: {fileID: 460366862}
+      objectReference: {fileID: 0}
     - target: {fileID: 7820619469758729446, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
         type: 3}
       propertyPath: _dustParticles.Array.data[1]
       value: 
-      objectReference: {fileID: 576762126}
+      objectReference: {fileID: 0}
     - target: {fileID: 8740480610904022522, guid: 70b9f9cdf75af5b4e9ef39e204bcf88f,
         type: 3}
       propertyPath: m_LocalPosition.x

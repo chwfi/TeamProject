@@ -14,6 +14,8 @@ public class UIManager : MonoSingleton<UIManager>
 
     bool _isSettingShown;
 
+    public InputReader InputReader;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +42,7 @@ public class UIManager : MonoSingleton<UIManager>
             else
             {
                 settingUI.Fade(1, 0.5f);
+                InputReader.CanShoot = false;
                 SoundManager.Instance.PlaySFXSound("Page");
                 GameManager.Instance.StopGameImmediately(true);
                 Cursor.lockState = CursorLockMode.None;
@@ -52,6 +55,7 @@ public class UIManager : MonoSingleton<UIManager>
     public void HideSettingPanel()
     {
         settingUI.Fade(0, 0.5f);
+        InputReader.CanShoot = true;
         SoundManager.Instance.PlaySFXSound("Page");
         GameManager.Instance.StopGameImmediately(false);
         Cursor.visible = false;

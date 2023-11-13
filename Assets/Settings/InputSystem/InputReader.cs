@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR.Haptics;
 using static Controls;
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "SO/Input/InputReader")]
@@ -17,6 +20,8 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     private bool isClicking = false;
 
+    public bool CanShoot = true;
+
     private void OnEnable()
     {
         if (_playerInputAction == null)
@@ -25,6 +30,7 @@ public class InputReader : ScriptableObject, IPlayerActions
             _playerInputAction.Player.SetCallbacks(this); //플레이어 인풋이 발생하면 이 인스턴스를 연결
         }
 
+        CanShoot = true;
         _playerInputAction.Player.Enable(); //활성화
     }
 
@@ -38,15 +44,20 @@ public class InputReader : ScriptableObject, IPlayerActions
     {
         if (context.started)
         {
-            // 마우스 왼쪽 버튼을 처음 눌렀을 때 실행됩니다.
-            isClicking = true;
-            OnStartFireEvent?.Invoke();
+            if (CanShoot)
+            {
+                isClicking = true;
+                OnStartFireEvent?.Invoke();
+            }     
         }
         else if (context.canceled)
         {
-            // 마우스 왼쪽 버튼을 놓았을 때 실행됩니다.
-            isClicking = false;
-            OnStopFireEvent?.Invoke();
+            if (CanShoot)
+            {
+                // 마우스 왼쪽 버튼을 놓았을 때 실행됩니다.
+                isClicking = false;
+                OnStopFireEvent?.Invoke();
+            }
         }
     }
 
@@ -54,6 +65,23 @@ public class InputReader : ScriptableObject, IPlayerActions
     {
         AimPosition = context.ReadValue<Vector2>();
     }
+
+    public bool IsPointerOverUIObject(Vector2 touchPos)
+    {
+        PointerEventData eventDataCurrentPosition
+            = new PointerEventData(EventSystem.current);
+
+        eventDataCurrentPosition.position = touchPos;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+
+
+        EventSystem.current
+        .RaycastAll(eventDataCurrentPosition, results);
+
+        return results.Count > 0;
+    }
+
     public void Update()
     {
         if (isClicking)

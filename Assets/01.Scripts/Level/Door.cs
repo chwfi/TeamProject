@@ -7,6 +7,7 @@ public class ColorDoor : MonoBehaviour
 {
     private Animator _animator;
     private CameraShake _cameraShake;
+    private List<ParticleSystem> _dustParticles = new List<ParticleSystem>();
 
     private readonly int openDoorHash = Animator.StringToHash("OpenDoorTrigger");
 
@@ -14,12 +15,13 @@ public class ColorDoor : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _cameraShake = FindObjectOfType<CameraShake>();
+        _dustParticles.AddRange(GetComponentsInChildren<ParticleSystem>());
     }
 
     public void OpenDoor()
     {
-        Debug.Log("으아아아아아!!!");
         _animator.SetTrigger(openDoorHash);
+        _dustParticles.ForEach(p => p.Play()); //먼지 파티클 실행해주고
         _cameraShake.Shake(4.75f);
     }
 }
