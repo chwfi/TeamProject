@@ -17,7 +17,7 @@ namespace StarterAssets
 		[Tooltip("Sprint speed of the character in m/s")]
 		public float SprintSpeed = 6.0f;
 		[Tooltip("Rotation speed of the character")]
-		private float _rotationSpeed => 3f; //UIManager.Instance.settingMouseUI.ValueScale;
+		private float _rotationSpeed => UIManager.Instance.settingMouseUI.ValueScale;
         [Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 

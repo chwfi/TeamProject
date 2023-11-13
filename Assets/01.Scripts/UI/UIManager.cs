@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+    [Header("TutorialUI")]
     public TutorialPanelUI tutorialPanelUI;
+    [Header("SettingUI")]
     public SettingUI settingUI;
     public SettingMouseSenseValue settingMouseUI;
+    public SettingRotationValue settingRotUI;
 
     bool _isSettingShown;
 
@@ -17,6 +20,7 @@ public class UIManager : MonoSingleton<UIManager>
         tutorialPanelUI = FindObjectOfType<TutorialPanelUI>();
         settingUI = FindObjectOfType<SettingUI>();
         settingMouseUI = FindObjectOfType<SettingMouseSenseValue>();
+        settingRotUI = FindObjectOfType<SettingRotationValue>();
     }
 
     public void FadePanel(float value, float time, string contents, Image image, Image previousImage)
