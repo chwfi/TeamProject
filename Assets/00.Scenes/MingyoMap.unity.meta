@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: 8ea7d655ca5dbe04cbbe67b1f8056715
+<<<<<<<< HEAD:Assets/00.Scenes/MingyoMap.unity.meta
+guid: bcfed325ffbd0eb4aa37e2ff62d3210f
 DefaultImporter:
+========
+guid: fe5735dfe81b7494f8042b1a57d308a7
+NativeFormatImporter:
+>>>>>>>> seongho2:Assets/05.Materials/Ground.mat.meta
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
