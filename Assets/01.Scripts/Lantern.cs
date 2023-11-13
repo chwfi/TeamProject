@@ -15,7 +15,7 @@ public class Lantern : Glow
 
     }
     public override void OnStartShootLight()
-    {
+    {  
         base.OnStartShootLight();
     }
     public override void OnStopShootLight()

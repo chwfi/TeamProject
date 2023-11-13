@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [System.Serializable]
 struct TutorialInfo
 {
-    [TextArea] public string Description;
+    [TextArea(4, 4)] public string Description;
     public Image Image;
 }
 
@@ -25,6 +25,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
             _tutorialInfo[_currentIndex].Description,
             _tutorialInfo[_currentIndex].Image,
             _tutorialInfo[_previousIndex].Image);
+        UIManager.Instance.InputReader.CanShoot = false;
         GameManager.Instance.StopGameImmediately(true);
         IsActive = true;
     }
@@ -37,14 +38,11 @@ public class TutorialManager : MonoSingleton<TutorialManager>
             _tutorialInfo[_currentIndex].Image,
             _tutorialInfo[_previousIndex].Image);
         IsActive = false;
+        UIManager.Instance.InputReader.CanShoot = true;
         GameManager.Instance.StopGameImmediately(false);
         _previousIndex++;
         _currentIndex++;
-        if (_currentIndex == 3)
-        {
-            ShowPanel();
-        }
-        if (_currentIndex == 5 || _currentIndex == 6)
+        if (_currentIndex >= 3 && _currentIndex <= 6)
         {
             ShowPanel();
         }

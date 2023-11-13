@@ -5,11 +5,16 @@ using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+    [Header("TutorialUI")]
     public TutorialPanelUI tutorialPanelUI;
+    [Header("SettingUI")]
     public SettingUI settingUI;
     public SettingMouseSenseValue settingMouseUI;
+    public SettingRotationValue settingRotUI;
 
     bool _isSettingShown;
+
+    public InputReader InputReader;
 
     protected override void Awake()
     {
@@ -17,6 +22,7 @@ public class UIManager : MonoSingleton<UIManager>
         tutorialPanelUI = FindObjectOfType<TutorialPanelUI>();
         settingUI = FindObjectOfType<SettingUI>();
         settingMouseUI = FindObjectOfType<SettingMouseSenseValue>();
+        settingRotUI = FindObjectOfType<SettingRotationValue>();
     }
 
     public void FadePanel(float value, float time, string contents, Image image, Image previousImage)
@@ -36,6 +42,7 @@ public class UIManager : MonoSingleton<UIManager>
             else
             {
                 settingUI.Fade(1, 0.5f);
+                InputReader.CanShoot = false;
                 SoundManager.Instance.PlaySFXSound("Page");
                 GameManager.Instance.StopGameImmediately(true);
                 Cursor.lockState = CursorLockMode.None;
@@ -48,6 +55,7 @@ public class UIManager : MonoSingleton<UIManager>
     public void HideSettingPanel()
     {
         settingUI.Fade(0, 0.5f);
+        InputReader.CanShoot = true;
         SoundManager.Instance.PlaySFXSound("Page");
         GameManager.Instance.StopGameImmediately(false);
         Cursor.visible = false;
