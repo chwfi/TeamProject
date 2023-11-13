@@ -25,6 +25,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
             _tutorialInfo[_currentIndex].Description,
             _tutorialInfo[_currentIndex].Image,
             _tutorialInfo[_previousIndex].Image);
+        UIManager.Instance.InputReader.CanShoot = false;
         GameManager.Instance.StopGameImmediately(true);
         IsActive = true;
     }
@@ -37,6 +38,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
             _tutorialInfo[_currentIndex].Image,
             _tutorialInfo[_previousIndex].Image);
         IsActive = false;
+        UIManager.Instance.InputReader.CanShoot = true;
         GameManager.Instance.StopGameImmediately(false);
         _previousIndex++;
         _currentIndex++;
