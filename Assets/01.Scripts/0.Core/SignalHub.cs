@@ -9,18 +9,7 @@ public struct ReflectData
     public Vector3 normal;
     public Color color;
 }
-public enum ReflectState
-{
-    NULL,
-    OnReflect,
-    UnReflect,
-}
-public enum GlowState
-{
-    NULL,
-    OnGlow,
-    UnGlow,
-}
+
 public delegate void ReflectDataChanged(ReflectData data, ReflectState prevType, ReflectState currentTpye);
 public delegate void GlowStateChangedHander(GlowState currentTpye);
 public delegate void ReflectRegisterHandler(IReflectable reflectObject);
