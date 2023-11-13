@@ -979,7 +979,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &307310434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2092,7 +2092,7 @@ Transform:
   m_GameObject: {fileID: 405204832}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -3.54, y: 0.62, z: -1.83}
+  m_LocalPosition: {x: -6.36, y: 0.62, z: 0.99}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5939,7 +5939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!120 &1538825702
 LineRenderer:
   serializedVersion: 2
@@ -6078,7 +6078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecb57473ce7f914a837aa9414e50a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 1, g: 0, b: 0, a: 1}
   lightFadeInoutDuration: 0.3
   lightWidth: 0.08
   _planes: []

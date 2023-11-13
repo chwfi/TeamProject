@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class TriangluarPlane : Reflective //삼각형의 각 면
 {
+    public override void OnHandleReflected()
+    {
+        base.OnHandleReflected();
+    }
+    public override void UnHandleReflected()
+    {
+        base.UnHandleReflected();
+    }
+    public void SetColor(Color color)
+    {
+        SetLightColor(color);
+    }
     public override void GetReflectedObjectDataModify(ReflectData reflectedData)
     {
         Color cCol;

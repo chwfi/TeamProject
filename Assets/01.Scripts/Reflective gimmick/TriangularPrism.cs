@@ -10,12 +10,30 @@ public class TriangularPrism : Reflective
     {
         base.Awake();
 
-        for (int i = 0; i < transform.childCount; i++)
+        _planes.AddRange(transform.GetComponentsInChildren<TriangluarPlane>());
+    }
+    public override void OnHandleReflected()
+    {
+        base.OnHandleReflected();
+
+        foreach (var plane in _planes)
         {
-            _planes.Add(transform.GetChild(i).GetComponent<TriangluarPlane>());
+            plane.OnHandleReflected();
+
+            plane.SetColor(myReflectData.color);
+        }
+
+
+    }
+    public override void UnHandleReflected()
+    {
+        base.UnHandleReflected();
+
+        foreach (var plane in _planes)
+        {
+            plane.UnHandleReflected();
         }
     }
-
     public override void GetReflectedObjectDataModify(ReflectData data)
     {
         foreach (var plane in _planes)
