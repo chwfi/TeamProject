@@ -22,6 +22,6 @@ public class ColorDoor : MonoBehaviour
     {
         _animator.SetTrigger(openDoorHash);
         _dustParticles.ForEach(p => p.Play()); //먼지 파티클 실행해주고
-        _cameraShake.Shake(4.75f);
+        _cameraShake.Shake(5.75f);
     }
 }
