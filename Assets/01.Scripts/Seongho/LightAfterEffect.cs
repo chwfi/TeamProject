@@ -8,6 +8,7 @@ using UnityEngine;
 public class LightAfterEffect : MonoBehaviour
 {
     private LineRenderer lb;
+    private RemainedLight trail;
     private MaterialPropertyBlock _materialPropertyBlock;
 
     private void OnEnable()
@@ -17,6 +18,7 @@ public class LightAfterEffect : MonoBehaviour
     void Awake()
     {
         lb = GetComponent<LineRenderer>();
+        trail = FindAnyObjectByType<RemainedLight>();
     }
     private void Start()
     {
@@ -44,7 +46,9 @@ public class LightAfterEffect : MonoBehaviour
     {
         float startTime = 0;
         lb.SetPosition(0, startPos);
+        trail.SetPosition(startPos);
         lb.SetPosition(1, endPos);
+        trail.SetPosition(endPos);
 
         while (startTime < duration)
         {
@@ -52,6 +56,7 @@ public class LightAfterEffect : MonoBehaviour
             Vector3 lerpedPosition = Vector3.Lerp(startPos, endPos, startTime / duration);
 
             lb.SetPosition(0, lerpedPosition);
+            trail.SetPosition(lerpedPosition);
             yield return null;
         }
 
