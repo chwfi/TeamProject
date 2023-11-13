@@ -38,22 +38,33 @@ public class LightAfterEffect : MonoBehaviour
     }
     public void DrawAndFadeLine(Vector3 startPos, Vector3 endPos, float duration, Action action)
     {
+        Debug.Log("fewqe : " + startPos);
+        Debug.Log(endPos);
+
         StartCoroutine(DrawAndFadeLineCoroutine(startPos, endPos, duration, action));
     }
-    private IEnumerator DrawAndFadeLineCoroutine(Vector3 startPos, Vector3 endPos, float duration, Action action) //서서히 빛이 사라지는 코드
+
+    private IEnumerator DrawAndFadeLineCoroutine(Vector3 startPos, Vector3 endPos, float moveAmountPerTick, Action action) //서서히 빛이 사라지는 코드
     {
-        float startTime = 0;
+        float t = 0;
+
         lb.SetPosition(0, startPos);
-        lb.SetPosition(1, endPos);
+        lb.SetPosition(1, endPos); // 끝점을 고정
 
-        while (startTime < duration)
+        float totalDistance = Vector3.Distance(startPos, endPos); // 총 거리 계산
+
+        // 이동이 완료되면 초기화
+        while (t <= 1.0f)
         {
-            startTime += Time.deltaTime;
-            Vector3 lerpedPosition = Vector3.Lerp(startPos, endPos, startTime / duration);
+            Vector3 lerpedPosition = Vector3.Lerp(startPos, endPos, t);
 
-            lb.SetPosition(0, lerpedPosition);
+            // t 값을 업데이트하여 다음 프레임에 대비
+            t += moveAmountPerTick / totalDistance * Time.deltaTime;
+
+            lb.SetPosition(0, lerpedPosition); // 시작점만 업데이트
             yield return null;
         }
+        lb.enabled = false;
 
         action.Invoke();
     }

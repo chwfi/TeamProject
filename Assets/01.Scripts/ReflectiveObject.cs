@@ -8,7 +8,7 @@ public class ReflectiveObject : Reflective
 {
     public override void GetReflectedObjectDataModify(ReflectData reflectedData) //아니! 데이터가 변경됐어????????
     {
-        //_startPos = reflectedData.hitPos;
+        SetStartPos(reflectedData.hitPos);
 
         Color cCol;
 
@@ -39,13 +39,10 @@ public class ReflectiveObject : Reflective
     public override void OnHandleReflected() //음, 처음에 들어왔군
     {
         base.OnHandleReflected();
-        Debug.Log(gameObject.name + " : on");
     }
 
     public override void UnHandleReflected() //음, 처음에 나갔군
     {
         base.UnHandleReflected();
-
-        Debug.Log(gameObject.name + " : un");
     }
 }

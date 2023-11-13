@@ -18,8 +18,7 @@ public abstract class LightingBehaviour : MonoBehaviour
 
     [Header("참조 변수")]
     [SerializeField] protected Color defaultColor; //기본 빛 색
-    [SerializeField] protected float lightFadeInoutDuration = .3f; //빛이 사라지거나 생기는 딜레이 시간
-
+    [SerializeField] private float lightFadeInoutTick = 10f; //한 틱당 이동 거리
     [SerializeField] private float lightWidth = .08f; //빛 크기
 
 
@@ -69,6 +68,10 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         _materialPropertyBlock = new MaterialPropertyBlock();
     }
+    protected void SetStartPos(Vector3 pos)
+    {
+        _startPos = pos;
+    }
     protected void SetLightColor(Color color)
     {
         _effectColor = color;
@@ -99,7 +102,9 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         obj.Setting(lightWidth, _effectColor);
 
-        obj.DrawAndFadeLine(_startPos, _endPos, lightFadeInoutDuration,
+        Debug.Log("ewqr : " + _startPos);
+
+        obj.DrawAndFadeLine(_startPos, _endPos, lightFadeInoutTick,
           () =>
           {
               ReflectObjectChangedTypeToUnReflect();
@@ -107,54 +112,30 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         //작업이 끝나고 수행되야 할 코드
     }
-
-    protected T OnShootRaycast<T>(Vector3 pos, Vector3 dir) where T : class //나를 맞춘 오브젝트의 데이터와 쏠 방향
+    protected T OnShootRaycast<T>(Vector3 pos, Vector3 dir) where T : class
     {
         lb.SetPosition(0, pos);
+
         RaycastHit hit;
 
         T reflectedObject = null;
-        if (elapsedTime < lightFadeInoutDuration) //레이저 발사 중일때 서서히 쏴지게
+
+        Vector3 endPosition = pos + dir * raycastDistance;
+
+        raycastDistance += lightFadeInoutTick * Time.deltaTime;
+
+        if (Physics.Raycast(pos, dir, out hit, raycastDistance, ReflectionLayer))
         {
-            float t = elapsedTime / lightFadeInoutDuration;
-            raycastDistance = t * 10;
-
-            elapsedTime += Time.deltaTime;
-
-            Vector3 endPosition = pos + dir * raycastDistance;
+            reflectedObject = CheckObject<T>(hit, dir);
+        }
+        else
+        {
             lb.SetPosition(1, endPosition);
+            SetDrawLineEndPos(endPosition);
 
-            if (Physics.Raycast(pos, dir, out hit, raycastDistance, ReflectionLayer)) //서서히 쏴지고 있는데 오브젝트가 맞았을때
-            {
-                var obj = CheckObject<T>(hit, dir);
-
-                reflectedObject = obj;
-            }
-            else //맞지 않았을때
-            {
-                SetDrawLineEndPos(endPosition);
-            }
+            ReflectObjectChangedTypeToUnReflect();
         }
-        else //레이저 발사가 끝났을때
-        {
-            if (Physics.Raycast(pos, dir, out hit, maxDistance, ReflectionLayer)) //서서히 쏴지는게 끝났는데 오브젝트가 맞았을때
-            {
-                var obj = CheckObject<T>(hit, dir);
-
-                reflectedObject = obj;
-            }
-            else ////맞지 않았을때
-            {
-
-                ReflectObjectChangedTypeToUnReflect();
-
-                lb.SetPosition(1, pos + dir * maxDistance);
-                SetDrawLineEndPos(pos + dir.normalized * maxDistance);
-            }
-        }
-
         return reflectedObject;
-
     }
     protected void SetDrawLineEndPos(Vector3 endPos)
     {
@@ -165,6 +146,7 @@ public abstract class LightingBehaviour : MonoBehaviour
         if (hit.collider.TryGetComponent<T>(out var reflectable))
         {
             SetDrawLineEndPos(hit.point);
+
             lb.SetPosition(1, hit.point);
 
             myReflectData.hitPos = hit.point;
