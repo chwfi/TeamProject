@@ -33,32 +33,39 @@ public class LightAfterEffect : MonoBehaviour
 
         _materialPropertyBlock.SetColor("_EmissionColor", color * 6f);
 
-        // ¶óÀÎ ·»´õ·¯¿¡ Property Block Àû¿ë
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Property Block ï¿½ï¿½ï¿½ï¿½
         lb.SetPropertyBlock(_materialPropertyBlock);
 
 
     }
     public void DrawAndFadeLine(Vector3 startPos, Vector3 endPos, float duration, Action action)
     {
+        Debug.Log("fewqe : " + startPos);
+        Debug.Log(endPos);
+
         StartCoroutine(DrawAndFadeLineCoroutine(startPos, endPos, duration, action));
     }
-    private IEnumerator DrawAndFadeLineCoroutine(Vector3 startPos, Vector3 endPos, float duration, Action action) //¼­¼­È÷ ºûÀÌ »ç¶óÁö´Â ÄÚµå
+
+    private IEnumerator DrawAndFadeLineCoroutine(Vector3 startPos, Vector3 endPos, float moveAmountPerTick, Action action) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
     {
-        float startTime = 0;
+        float t = 0;
+
         lb.SetPosition(0, startPos);
-        trail.SetPosition(startPos);
         lb.SetPosition(1, endPos);
-        trail.SetPosition(endPos);
 
-        while (startTime < duration)
+        float totalDistance = Vector3.Distance(startPos, endPos);
+
+        while (t <= 1.0f)
         {
-            startTime += Time.deltaTime;
-            Vector3 lerpedPosition = Vector3.Lerp(startPos, endPos, startTime / duration);
+            Vector3 lerpedPosition = Vector3.Lerp(startPos, endPos, t);
 
-            lb.SetPosition(0, lerpedPosition);
-            trail.SetPosition(lerpedPosition);
+
+            t += moveAmountPerTick / totalDistance * Time.deltaTime;
+
+            lb.SetPosition(0, lerpedPosition); 
             yield return null;
         }
+        lb.enabled = false;
 
         action.Invoke();
     }
