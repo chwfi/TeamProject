@@ -11,7 +11,6 @@ public abstract class Glow : LightingBehaviour, IGlowable
     public virtual void OnStartShootLight()
     {
         SetLightColor(defaultColor);
-        ReflectObjectChangedTypeToUnReflect();
 
         StopDrawAndFadeLine();
     }
