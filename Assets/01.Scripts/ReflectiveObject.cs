@@ -18,24 +18,20 @@ public class ReflectiveObject : Reflective
         SetLightColor(cCol);
 
         //================================================================================================
-
         var raycastDirection = Vector3.Reflect(reflectedData.direction, reflectedData.normal);
+
         //방향을! 구해서 넣어줍시다. 근데 그냥 바로 백터를 넣어주면 되는데 왜 굳이굳이 SetDirection에서 리턴을 받냐!
         //바로 나의 데이터를 저장하기 위해서입니다! 모르겠으면 디코로 연락주세욧!
+        var obj = OnShootRaycast<Reflective>(reflectedData.hitPos, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
+        ChangedReflectObject(obj);
+        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
+        obj?.GetReflectedObjectDataModify(myReflectData);
 
-        var refObj = OnShootRaycast<Reflective>(reflectedData.hitPos, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
-
-        ChangedReflectObject(refObj);
-        refObj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        refObj?.GetReflectedObjectDataModify(myReflectData);
-
-        var triPrism = OnShootRaycast<TriangularPrism>(reflectedData.hitPos, raycastDirection);
-        var triPlane = OnShootRaycast<TriangluarPlane>(reflectedData.hitPos, raycastDirection);
-        triPrism.SetTriangluarPlane(triPlane);
+        TriangluarPlane triPlane = OnShootRaycast<TriangluarPlane>(reflectedData.hitPos, raycastDirection);
+        triPlane?.GetReflectedObjectDataModify(myReflectData);
 
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(reflectedData.hitPos, raycastDirection);
-
         door?.ColorMatch(myReflectData.color);
     }
 

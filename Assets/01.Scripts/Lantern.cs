@@ -24,13 +24,24 @@ public class Lantern : Glow
     }
     public override void OnShootingLight()
     {
-        base.OnShootingLight();
-
         StartShootLight(transform.position, transform.forward);
+        //여기서 이미 SetReflectDataModify를 실행해줌
     }
     public override void SetReflectDataModify(ReflectData reflectData)
     {
-        base.SetReflectDataModify(reflectData);
+        ReflectiveObject refObj = OnShootRaycast<ReflectiveObject>(reflectData.hitPos, reflectData.direction);
+
+        ChangedReflectObject(refObj);
+        refObj?.OnReflectTypeChanged(ReflectState.OnReflect);
+        refObj?.GetReflectedObjectDataModify(myReflectData);
+
+        TriangluarPlane triPlane = OnShootRaycast<TriangluarPlane>(reflectData.hitPos, reflectData.direction);
+        triPlane?.GetReflectedObjectDataModify(reflectData);
+
+        OnShootRaycast<ReflectToReflect>(reflectData.hitPos, reflectData.direction);
+        OnShootRaycast<ReflectToUp>(reflectData.hitPos, reflectData.direction);
+
+        OnShootRaycast<DoorOpenTrigger>(reflectData.hitPos, reflectData.direction);
     }
     private void OnDestroy()
     {

@@ -31,20 +31,7 @@ public abstract class Glow : LightingBehaviour, IGlowable
 
         SetReflectDataModify(myReflectData);
     }
-    public virtual void SetReflectDataModify(ReflectData reflectData)
-    {
-        Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
-
-        ChangedReflectObject(obj);
-
-        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        obj?.GetReflectedObjectDataModify(myReflectData);
-
-        var triPlane = OnShootRaycast<TriangluarPlane>(reflectData.hitPos, reflectData.direction);
-        triPlane?.GetReflectedObjectDataModify(reflectData);
-
-
-    }
+    public abstract void SetReflectDataModify(ReflectData reflectData);
 
 
 

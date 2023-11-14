@@ -54,16 +54,12 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
 
         var raycastDirection = transform.up;
 
-        Reflective obj = OnShootRaycast<Reflective>(transform.position, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
-
+        ReflectiveObject obj = OnShootRaycast<ReflectiveObject>(transform.position, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
         ChangedReflectObject(obj);
-
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-
         obj?.GetReflectedObjectDataModify(myReflectData);
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(transform.position, raycastDirection);
-
-        door?.ColorMatch(myReflectData.color);
+        door?.ColorMatch(cCol);
     }
 }
