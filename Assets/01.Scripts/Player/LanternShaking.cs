@@ -5,7 +5,7 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class LanternShaking : MonoBehaviour
-{
+{  
     [SerializeField]
     private float cameraShakeSensitive;
 
