@@ -12,7 +12,7 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
     [SerializeField] private float _rotateSpeed;
 
     public bool CanFullRotate = false;
-    public float _keyPressTime = 0;
+    public float _keyPressTime = 0.2f;
 
     private float RotationSpeed => UIManager.Instance.settingRotUI.ValueScale;
 
@@ -68,16 +68,21 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
             if (Input.GetKey(KeyCode.Q))
             {
                 transform.Rotate(new Vector3(0, 1, 0) * RotationSpeed * _keyPressTime * Time.deltaTime);
-                _keyPressTime += Time.deltaTime * 6f;
+                _keyPressTime += Time.deltaTime * 4f;
             }
             else if (Input.GetKeyUp(KeyCode.Q))
             {
-                _keyPressTime = 0;
+                _keyPressTime = 0.2f;
             }
 
-            if (Keyboard.current.eKey.isPressed)
+            if (Input.GetKey(KeyCode.E))
             {
-                transform.Rotate(new Vector3(0, -1, 0) * RotationSpeed * Time.deltaTime);
+                transform.Rotate(new Vector3(0, -1, 0) * RotationSpeed * _keyPressTime * Time.deltaTime);
+                _keyPressTime += Time.deltaTime * 4f;
+            }
+            else if (Input.GetKeyUp(KeyCode.E))
+            {
+                _keyPressTime = 0.2f;
             }
 
             return State = DistanceState.Inside;
