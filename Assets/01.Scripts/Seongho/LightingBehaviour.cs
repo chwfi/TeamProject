@@ -20,7 +20,8 @@ public abstract class LightingBehaviour : MonoBehaviour
     [SerializeField] protected Color defaultColor; //기본 빛 색
     [SerializeField] private float lightFadeInoutTick = 90f; //한 틱당 이동 거리
     [SerializeField] private float lightWidth = .08f; //빛 크기
-
+    private ParticleSystem _outlineParticle;
+    private Light _light;
 
     [Header("클래스 내 변수")]
     protected LineRenderer lb; //라인 렌더러
@@ -54,6 +55,8 @@ public abstract class LightingBehaviour : MonoBehaviour
     protected virtual void Awake()
     {
         lb = GetComponent<LineRenderer>();
+        _outlineParticle = GetComponentInChildren<ParticleSystem>();
+        _light = GetComponentInChildren<Light>();
     }
     protected virtual void Start()
     {
@@ -67,6 +70,10 @@ public abstract class LightingBehaviour : MonoBehaviour
         lb.enabled = false;
 
         _materialPropertyBlock = new MaterialPropertyBlock();
+
+        var main = _outlineParticle.main;
+        main.startColor = defaultColor;
+        _light.color = defaultColor;
     }
     protected void SetStartPos(Vector3 pos)
     {
