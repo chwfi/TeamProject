@@ -13,6 +13,14 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
 
     public bool CanFullRotate = false;
     public float _keyPressTime = 0.2f;
+    public float KeyPressTime
+    {
+        get { return _keyPressTime; }
+        set
+        {
+            _keyPressTime = Mathf.Clamp(value, 0.2f, 15f);
+        }
+    }
 
     private float RotationSpeed => UIManager.Instance.settingRotUI.ValueScale;
 
@@ -67,22 +75,22 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
 
             if (Input.GetKey(KeyCode.Q))
             {
-                transform.Rotate(new Vector3(0, 1, 0) * RotationSpeed * _keyPressTime * Time.deltaTime);
-                _keyPressTime += Time.deltaTime * 4f;
+                transform.Rotate(new Vector3(0, 1, 0) * RotationSpeed * KeyPressTime * Time.deltaTime);
+                KeyPressTime += Time.deltaTime * 4f;
             }
             else if (Input.GetKeyUp(KeyCode.Q))
             {
-                _keyPressTime = 0.2f;
+                KeyPressTime = 0.2f;
             }
 
             if (Input.GetKey(KeyCode.E))
             {
-                transform.Rotate(new Vector3(0, -1, 0) * RotationSpeed * _keyPressTime * Time.deltaTime);
-                _keyPressTime += Time.deltaTime * 4f;
+                transform.Rotate(new Vector3(0, -1, 0) * RotationSpeed * KeyPressTime * Time.deltaTime);
+                KeyPressTime += Time.deltaTime * 4f;
             }
             else if (Input.GetKeyUp(KeyCode.E))
             {
-                _keyPressTime = 0.2f;
+                KeyPressTime = 0.2f;
             }
 
             return State = DistanceState.Inside;
