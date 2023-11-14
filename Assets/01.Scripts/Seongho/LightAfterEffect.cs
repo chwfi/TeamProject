@@ -8,6 +8,7 @@ using UnityEngine;
 public class LightAfterEffect : MonoBehaviour
 {
     private LineRenderer lb;
+    private RemainedLight trail;
     private MaterialPropertyBlock _materialPropertyBlock;
 
     private void OnEnable()
@@ -17,6 +18,7 @@ public class LightAfterEffect : MonoBehaviour
     void Awake()
     {
         lb = GetComponent<LineRenderer>();
+        trail = FindAnyObjectByType<RemainedLight>();
     }
     private void Start()
     {
@@ -31,29 +33,39 @@ public class LightAfterEffect : MonoBehaviour
 
         _materialPropertyBlock.SetColor("_EmissionColor", color * 6f);
 
-        // ¶óÀÎ ·»´õ·¯¿¡ Property Block Àû¿ë
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Property Block ï¿½ï¿½ï¿½ï¿½
         lb.SetPropertyBlock(_materialPropertyBlock);
 
 
     }
     public void DrawAndFadeLine(Vector3 startPos, Vector3 endPos, float duration, Action action)
     {
+        Debug.Log("fewqe : " + startPos);
+        Debug.Log(endPos);
+
         StartCoroutine(DrawAndFadeLineCoroutine(startPos, endPos, duration, action));
     }
-    private IEnumerator DrawAndFadeLineCoroutine(Vector3 startPos, Vector3 endPos, float duration, Action action) //¼­¼­È÷ ºûÀÌ »ç¶óÁö´Â ÄÚµå
+
+    private IEnumerator DrawAndFadeLineCoroutine(Vector3 startPos, Vector3 endPos, float moveAmountPerTick, Action action) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
     {
-        float startTime = 0;
+        float t = 0;
+
         lb.SetPosition(0, startPos);
         lb.SetPosition(1, endPos);
 
-        while (startTime < duration)
-        {
-            startTime += Time.deltaTime;
-            Vector3 lerpedPosition = Vector3.Lerp(startPos, endPos, startTime / duration);
+        float totalDistance = Vector3.Distance(startPos, endPos);
 
-            lb.SetPosition(0, lerpedPosition);
+        while (t <= 1.0f)
+        {
+            Vector3 lerpedPosition = Vector3.Lerp(startPos, endPos, t);
+
+
+            t += moveAmountPerTick / totalDistance * Time.deltaTime;
+
+            lb.SetPosition(0, lerpedPosition); 
             yield return null;
         }
+        lb.enabled = false;
 
         action.Invoke();
     }

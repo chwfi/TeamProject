@@ -31,14 +31,14 @@ public class Lantern1 : Glow
     }
     public override void SetReflectDataModify(ReflectData reflectData)
     {
-        Reflective obj = OnShootRaycast<Reflective>(reflectData, reflectData.direction);
+        Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
 
         ChangedReflectObject(obj);
 
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
         obj?.GetReflectedObjectDataModify(myReflectData);
 
-        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(reflectData, transform.forward);
+        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(reflectData.hitPos, transform.forward);
 
         door?.ColorMatch(myReflectData.color);
     }

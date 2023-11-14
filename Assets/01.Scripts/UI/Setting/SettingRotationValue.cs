@@ -7,6 +7,9 @@ public class SettingRotationValue : MonoBehaviour
 {
     private TextMeshProUGUI _valueText;
 
+    [SerializeField] private float _maxRotationValue = 90f;
+    [SerializeField] private float _minRotationValue = 10f;
+
     public float ValueScale
     {
         get;
@@ -15,7 +18,7 @@ public class SettingRotationValue : MonoBehaviour
 
     private void Awake()
     {
-        ValueScale = 60;
+        ValueScale = 30; //초기값 설정
         _valueText = GetComponent<TextMeshProUGUI>();
         SetValueText();
     }
@@ -31,7 +34,7 @@ public class SettingRotationValue : MonoBehaviour
             ValueScale -= 10f;
         }
 
-        ValueScale = Mathf.Clamp(ValueScale, 20f, 120f);
+        ValueScale = Mathf.Clamp(ValueScale, _minRotationValue, _maxRotationValue);
         SetValueText();
     }
 

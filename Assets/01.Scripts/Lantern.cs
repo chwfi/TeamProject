@@ -5,6 +5,7 @@ using UnityEngine;
 public class Lantern : Glow
 {
     [SerializeField] private InputReader _inputReader;
+    [SerializeField] private RemainedLight _remainedLight;
     protected override void Awake()
     {
         base.Awake();
@@ -17,6 +18,7 @@ public class Lantern : Glow
     public override void OnStartShootLight()
     {  
         base.OnStartShootLight();
+        _remainedLight.ClearTrail();
     }
     public override void OnStopShootLight()
     {
@@ -30,7 +32,7 @@ public class Lantern : Glow
     }
     public override void SetReflectDataModify(ReflectData reflectData)
     {
-        Reflective obj = OnShootRaycast<Reflective>(reflectData, reflectData.direction);
+        Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
 
         ChangedReflectObject(obj);
 

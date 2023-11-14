@@ -29,8 +29,10 @@ public class PlayerRotatePlate : MonoBehaviour
         {
             if (Physics.Raycast(cam.ScreenPointToRay(_screenCenterPoint), out RaycastHit hit, grabRange, plateLayer))
             {
-                prevGrapPlateOutline = hit.transform.GetComponent<Outline>(); //만약 잡혔다면 그 오브젝트의 outline 키기
-                prevGrapPlateOutline.enabled = true;
+                if(hit.transform.TryGetComponent(out prevGrapPlateOutline)) //만약 잡혔다면 그 오브젝트의 outline 키기
+                {
+                    prevGrapPlateOutline.enabled = true;
+                }
 
                 float XRotation = Input.GetAxis("Mouse X") * rotateSensentive * Time.deltaTime;
                 float YRotation = Input.GetAxis("Mouse Y") * rotateSensentive * Time.deltaTime;

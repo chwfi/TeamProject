@@ -3,33 +3,39 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
 
-public class TriangluarPlane : ReflectiveObject //삼각형의 각 면
+public class TriangluarPlane : Reflective //삼각형의 각 면
 {
-    public override void GetReflectedObjectDataModify(ReflectData data)
+    public override void OnHandleReflected()
     {
-        //var dir = SetDirection(transform.up);
-        data.hitPos  = transform.position;
-        //OnShootRaycast(data, dir);
+        base.OnHandleReflected();
     }
-
-    public void OnShoot()
+    public override void UnHandleReflected()
     {
-        lb.SetPosition(0, transform.position);
+        base.UnHandleReflected();
+    }
+    public void SetColor(Color color)
+    {
+        SetLightColor(color);
+    }
+    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
+    {
+        Color cCol;
 
-        RaycastHit hit;
+        cCol = ColorSystem.GetColorCombination(reflectedData.color, defaultColor);
+        SetLightColor(cCol);
 
-        if (Physics.Raycast(transform.position, transform.up, out hit, 1000))
-        {
-            if (gameObject == hit.collider.gameObject) return;
+        var raycastDirection = transform.up;
 
-            myReflectData.hitPos = hit.point;
-            myReflectData.normal = hit.normal;
+        var obj = OnShootRaycast<Reflective>(transform.position, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
 
-            lb.SetPosition(1, hit.point);
-        }
-        else
-        {
-            lb.SetPosition(1, transform.position + transform.up * 1000);
-        }
+        ChangedReflectObject(obj);
+
+        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
+
+        obj?.GetReflectedObjectDataModify(myReflectData);
+
+        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(transform.position, raycastDirection);
+
+        door?.ColorMatch(myReflectData.color);
     }
 }
