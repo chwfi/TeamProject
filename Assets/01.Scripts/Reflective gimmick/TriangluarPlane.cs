@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -6,24 +7,45 @@ using UnityEngine;
 
 public class TriangluarPlane : Reflective //삼각형의 각 면
 {
+    public List<TriangluarPlane> _planes = new();
     public override void OnHandleReflected()
     {
-        base.OnHandleReflected();
+        foreach (var plane in _planes)
+        {
+            plane.On();
+
+            plane.SetColor(myReflectData.color);
+        }
+    }
+    public void On()
+    {
+        StopDrawAndFadeLine();
     }
     public override void UnHandleReflected()
     {
-        base.UnHandleReflected();
+        foreach (var plane in _planes)
+        {
+            plane.Un();
+        };
+    }
+    public void Un()
+    {
+        StartDrawAndFadeLine();
+
     }
     public void SetColor(Color color)
     {
         SetLightColor(color);
     }
-
-    public void SetDataModify(ReflectData reflectedData, TriangluarPlane comp)
-    {
-        GetReflectedObjectDataModify(reflectedData);
-    }
     public override void GetReflectedObjectDataModify(ReflectData reflectedData)
+    {
+        foreach (var plane in _planes)
+        {
+            plane.SetDataModify(reflectedData);
+        }
+    }
+
+    private void SetDataModify(ReflectData reflectedData)
     {
         SetStartPos(transform.position);
 

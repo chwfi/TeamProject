@@ -40,9 +40,8 @@ public abstract class Glow : LightingBehaviour, IGlowable
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
         obj?.GetReflectedObjectDataModify(myReflectData);
 
-        var triPrism = OnShootRaycast<TriangularPrism>(reflectData.hitPos, reflectData.direction);
         var triPlane = OnShootRaycast<TriangluarPlane>(reflectData.hitPos, reflectData.direction);
-        triPrism.SetTriangluarPlane(triPlane);
+        triPlane?.GetReflectedObjectDataModify(reflectData);
 
 
     }

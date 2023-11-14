@@ -6,7 +6,7 @@ public class TriangularPrism : Reflective
 {
     public List<TriangluarPlane> _planes;
 
-    private TriangluarPlane _plane;
+    private TriangluarPlane _currentPlane;
     protected override void Awake()
     {
         base.Awake();
@@ -15,16 +15,15 @@ public class TriangularPrism : Reflective
     }
     public void SetTriangluarPlane(TriangluarPlane plane)
     {
-        //if (_plane == plane) return;
-        _plane = plane;
+        _currentPlane = plane;
     }
     public override void OnHandleReflected()
     {
-        base.OnHandleReflected();
+        //base.OnHandleReflected();
 
         foreach (var plane in _planes)
         {
-            if (_plane == plane) return;
+            if (_currentPlane != plane) return;
 
             plane.OnHandleReflected();
 
@@ -35,11 +34,11 @@ public class TriangularPrism : Reflective
 
     public override void UnHandleReflected()
     {
-        base.UnHandleReflected();
+        //base.UnHandleReflected();
 
         foreach (var plane in _planes)
         {
-            if (_plane == plane) return;
+            if (_currentPlane != plane) return;
 
             plane.UnHandleReflected();
         }
@@ -48,9 +47,9 @@ public class TriangularPrism : Reflective
     {
         foreach (var plane in _planes)
         {
-            if (_plane == plane) return;
+            if (_currentPlane != plane) return;
 
-            plane.SetDataModify(data, plane);
+            plane.GetReflectedObjectDataModify(data);
         }
     }
 }
