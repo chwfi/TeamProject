@@ -8,7 +8,7 @@ public class GameManager : MonoSingleton<GameManager>
 {
     public int CurrentStage = 1;
 
-    private FirstPersonController _player;
+    private FirstPersonController _player;  
     public FirstPersonController Player => _player;
 
     [SerializeField] private InputReader _inputReader;
