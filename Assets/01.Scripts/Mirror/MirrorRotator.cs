@@ -65,9 +65,13 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
             }
 
             if (Keyboard.current.qKey.isPressed)
+            {
                 transform.Rotate(new Vector3(0, 1, 0) * RotationSpeed * Time.deltaTime);
+            }       
             if (Keyboard.current.eKey.isPressed)
+            {
                 transform.Rotate(new Vector3(0, -1, 0) * RotationSpeed * Time.deltaTime);
+            }
 
             return State = DistanceState.Inside;
         }
