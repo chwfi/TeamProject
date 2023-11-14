@@ -75,12 +75,12 @@ public abstract class LightingBehaviour : MonoBehaviour
         _materialPropertyBlock = new MaterialPropertyBlock();
         _minimapMaterialBlock = new MaterialPropertyBlock();
 
+        _minimapMaterialBlock.SetColor("_EmissionColor", defaultColor * 6f);
+        _minimapCube.SetPropertyBlock(_minimapMaterialBlock); //미니맵에 뜨는 UI의 색을 설정해주는 것
+
         var main = _outlineParticle.main;
         main.startColor = defaultColor;
         _light.color = defaultColor;
-
-        _minimapMaterialBlock.SetColor("_EmissionColor", defaultColor * 6f);
-        _minimapCube.SetPropertyBlock(_minimapMaterialBlock); //미니맵에 뜨는 UI의 색을 설정해주는 것
     }
     protected void SetStartPos(Vector3 pos)
     {
