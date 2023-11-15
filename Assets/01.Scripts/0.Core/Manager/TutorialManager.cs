@@ -42,7 +42,11 @@ public class TutorialManager : MonoSingleton<TutorialManager>
         GameManager.Instance.StopGameImmediately(false);
         _previousIndex++;
         _currentIndex++;
-        if (_currentIndex >= 3 && _currentIndex <= 6)
+        if (_currentIndex >= 3 && _currentIndex <= 5)
+        {
+            ShowPanel();
+        }
+        if (_currentIndex >= 7 && _currentIndex <= 7) 
         {
             ShowPanel();
         }
@@ -50,6 +54,10 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
     private void Update() 
     {
+        if (!IsActive && Input.GetKeyDown(KeyCode.T))
+        {
+            ShowPanel();
+        }
         if (IsActive && Input.GetKeyDown(KeyCode.E))
         {
             HidePanel();
