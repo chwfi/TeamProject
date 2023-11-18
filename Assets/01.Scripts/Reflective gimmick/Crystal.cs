@@ -127,8 +127,12 @@ public class Crystal : Reflective
     public override void OnHandleReflected()
     {
         base.OnHandleReflected();
-        isCharging = true;
-        StartCoroutine(IncreaseChargingValueCoroutine());
+        if(_curParticleType == CrystalParticleType.None)
+        {
+            isCharging = true;
+            Debug.Log("차징");
+            StartCoroutine(IncreaseChargingValueCoroutine());
+        }
     }
     public override void UnHandleReflected()
     {
