@@ -130,7 +130,6 @@ public class Crystal : Reflective
         if(_curParticleType == CrystalParticleType.None)
         {
             isCharging = true;
-            Debug.Log("차징");
             StartCoroutine(IncreaseChargingValueCoroutine());
         }
     }
