@@ -69,6 +69,7 @@ public class LightAfterEffect : MonoBehaviour
             _trailTrm.position = lerpedPosition;
             yield return null;
         }
+        _trailTrm.position = endPos;
         lb.enabled = false;
 
         action.Invoke();
