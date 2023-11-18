@@ -42,7 +42,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
         GameManager.Instance.StopGameImmediately(false);
         _previousIndex++;
         _currentIndex++;
-        if (_currentIndex >= 3 && _currentIndex <= 6)
+        if (_currentIndex >= 3 && _currentIndex <= 5)
         {
             ShowPanel();
         }
