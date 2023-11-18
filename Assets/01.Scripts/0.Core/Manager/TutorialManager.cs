@@ -46,18 +46,10 @@ public class TutorialManager : MonoSingleton<TutorialManager>
         {
             ShowPanel();
         }
-        if (_currentIndex >= 7 && _currentIndex <= 7) 
-        {
-            ShowPanel();
-        }
     }
 
     private void Update() 
     {
-        if (!IsActive && Input.GetKeyDown(KeyCode.T))
-        {
-            ShowPanel();
-        }
         if (IsActive && Input.GetKeyDown(KeyCode.E))
         {
             HidePanel();
