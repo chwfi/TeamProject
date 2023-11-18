@@ -105,7 +105,7 @@ public abstract class LightingBehaviour : MonoBehaviour
         ReflectObjectChangedTypeToUnReflect();
     }
 
-    protected void StartDrawAndFadeLine()
+    protected void StartDrawAndFadeLine(bool isGrow = false)
     {
         lb.enabled = false;
 
@@ -116,7 +116,7 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         var obj = GameObject.Instantiate(effect);
 
-        obj.Setting(lightWidth, _effectColor, _isHit);
+        obj.Setting(lightWidth, _effectColor, isGrow);
 
         obj.DrawAndFadeLine(_startPos, _endPos, lightFadeInoutTick,
           () =>
