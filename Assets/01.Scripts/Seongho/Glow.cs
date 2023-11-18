@@ -12,11 +12,18 @@ public abstract class Glow : LightingBehaviour, IGlowable
     {
         SetLightColor(defaultColor);
 
+        var afterEffects = GameObject.FindObjectsOfType<LightAfterEffect>();
+
+        for (int i = 0; i < afterEffects.Length; ++i)
+        {
+            Destroy(afterEffects[i].gameObject);
+        }
+
         StopDrawAndFadeLine();
     }
     public virtual void OnStopShootLight()
     {
-        StartDrawAndFadeLine();
+        StartDrawAndFadeLine(true);
     }
     public virtual void OnShootingLight()
     {

@@ -32,14 +32,14 @@ public class LightAfterEffect : MonoBehaviour
 
         Destroy(gameObject, trail.time + 3f);
     }
-    public void Setting(float lightWidth, Color color, bool isHit)
+    public void Setting(float lightWidth, Color color, bool isGrow)
     {
         lb.startWidth = lightWidth;
         lb.endWidth = lightWidth;
 
         lb.enabled = true;
 
-        trail.enabled = isHit;
+        trail.enabled = !isGrow;
 
         _materialPropertyBlock.SetColor("_EmissionColor", color * 6f);
         lb.SetPropertyBlock(_materialPropertyBlock);
@@ -69,6 +69,7 @@ public class LightAfterEffect : MonoBehaviour
             _trailTrm.position = lerpedPosition;
             yield return null;
         }
+        _trailTrm.position = endPos;
         lb.enabled = false;
 
         action.Invoke();
