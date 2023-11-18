@@ -6,7 +6,7 @@ public class DefinitelyUP : Reflective
 {
     public override void GetReflectedObjectDataModify(ReflectData inData)
     {
-        _startPos = inData.hitPos;
+        SetStartPos(inData.hitPos);
 
         Color cCol;
 
@@ -21,7 +21,7 @@ public class DefinitelyUP : Reflective
         //방향을! 구해서 넣어줍시다. 근데 그냥 바로 백터를 넣어주면 되는데 왜 굳이굳이 SetDirection에서 리턴을 받냐!
         //바로 나의 데이터를 저장하기 위해서입니다! 모르겠으면 디코로 연락주세욧!
 
-        var obj = OnShootRaycast<Reflective>(inData.direction, transform.up); // 무조건 위로만
+        var obj = OnShootRaycast<ReflectiveObject>(inData.hitPos, transform.up); // 무조건 위로만
 
         ChangedReflectObject(obj);
 
@@ -29,9 +29,9 @@ public class DefinitelyUP : Reflective
 
         obj?.GetReflectedObjectDataModify(myReflectData);
 
-        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(inData.direction, raycastDirection);
+        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(inData.hitPos, raycastDirection);
 
-        door?.ColorMatch(myReflectData.color);
+        door?.ColorMatch(cCol);
     }
 
     public override void OnHandleReflected()
