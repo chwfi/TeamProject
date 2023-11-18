@@ -8,8 +8,8 @@ public class ReflectiveObject : Reflective
 {
     public override void GetReflectedObjectDataModify(ReflectData reflectedData)
     {
-        Vector3 startPos = reflectedData.hitPos;
-        SetStartPos(startPos);
+        Vector3 shootPos = reflectedData.hitPos;
+        SetStartPos(shootPos);
 
         Color cCol;
 
@@ -18,15 +18,15 @@ public class ReflectiveObject : Reflective
 
         var raycastDirection = Vector3.Reflect(reflectedData.direction, reflectedData.normal);
 
-        var obj = OnShootRaycast<Reflective>(startPos, raycastDirection);
+        var obj = OnShootRaycast<Reflective>(shootPos, raycastDirection);
         ChangedReflectObject(obj);
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
         obj?.GetReflectedObjectDataModify(myReflectData);
 
-        TriangluarPlane triPlane = OnShootRaycast<TriangluarPlane>(startPos, raycastDirection);
+        TriangluarPlane triPlane = OnShootRaycast<TriangluarPlane>(shootPos, raycastDirection);
         triPlane?.GetReflectedObjectDataModify(myReflectData);
 
-        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(startPos, raycastDirection);
+        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(shootPos, raycastDirection);
         door?.ColorMatch(cCol);
     }
 

@@ -24,22 +24,10 @@ public class ReflectToReflect : Reflective
 
         var raycastDirection = Vector3.Reflect(reflectedData.direction, reflectedData.normal);
 
-        var refObj = OnShootRaycast<ReflectiveObject>(shootPos, raycastDirection);
-        ChangedReflectObject(refObj);
-        refObj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        refObj?.GetReflectedObjectDataModify(myReflectData);
-
-        var refToUp = OnShootRaycast<ReflectToUp>(shootPos, raycastDirection);
-
-        ChangedReflectObject(refToUp);
-        refToUp?.OnReflectTypeChanged(ReflectState.OnReflect);
-        refToUp?.GetReflectedObjectDataModify(myReflectData);
-
-        var refToRef = OnShootRaycast<ReflectToReflect>(shootPos, raycastDirection);
-
-        ChangedReflectObject(refToRef);
-        refToRef?.OnReflectTypeChanged(ReflectState.OnReflect);
-        refToRef?.GetReflectedObjectDataModify(myReflectData);
+        var obj = OnShootRaycast<Reflective>(shootPos, raycastDirection);
+        ChangedReflectObject(obj);
+        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
+        obj?.GetReflectedObjectDataModify(myReflectData);
 
         var triPlane = OnShootRaycast<TriangluarPlane>(shootPos, raycastDirection);
         triPlane?.GetReflectedObjectDataModify(myReflectData);
