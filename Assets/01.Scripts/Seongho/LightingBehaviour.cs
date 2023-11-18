@@ -111,7 +111,7 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         elapsedTime = 0;
         raycastDistance = 0;
-
+         
         var effect = RdfResources.Load<LightAfterEffect>(AFTEREFFCT_PATH);
 
         var obj = GameObject.Instantiate(effect);
