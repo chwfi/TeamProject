@@ -5,7 +5,6 @@ using UnityEngine;
 public class Lantern : Glow
 {
     [SerializeField] private InputReader _inputReader;
-    [SerializeField] private RemainedLight _remainedLight;
     protected override void Awake()
     {
         base.Awake();
@@ -16,9 +15,8 @@ public class Lantern : Glow
 
     }
     public override void OnStartShootLight()
-    {  
+    {
         base.OnStartShootLight();
-        _remainedLight.ClearTrail();
     }
     public override void OnStopShootLight()
     {
@@ -26,18 +24,24 @@ public class Lantern : Glow
     }
     public override void OnShootingLight()
     {
-        base.OnShootingLight();
-
         StartShootLight(transform.position, transform.forward);
+        //여기서 이미 SetReflectDataModify를 실행해줌
     }
     public override void SetReflectDataModify(ReflectData reflectData)
     {
-        Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
+        ReflectiveObject refObj = OnShootRaycast<ReflectiveObject>(reflectData.hitPos, reflectData.direction);
 
-        ChangedReflectObject(obj);
+        ChangedReflectObject(refObj);
+        refObj?.OnReflectTypeChanged(ReflectState.OnReflect);
+        refObj?.GetReflectedObjectDataModify(myReflectData);
 
-        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        obj?.GetReflectedObjectDataModify(myReflectData);
+        TriangluarPlane triPlane = OnShootRaycast<TriangluarPlane>(reflectData.hitPos, reflectData.direction);
+        triPlane?.GetReflectedObjectDataModify(reflectData);
+
+        OnShootRaycast<ReflectToReflect>(reflectData.hitPos, reflectData.direction);
+        OnShootRaycast<ReflectToUp>(reflectData.hitPos, reflectData.direction);
+
+        OnShootRaycast<DoorOpenTrigger>(reflectData.hitPos, reflectData.direction);
     }
     private void OnDestroy()
     {

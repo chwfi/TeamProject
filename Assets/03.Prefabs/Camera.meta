@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/03.Prefabs/Level/Triangular_pillar.prefab.meta
+guid: 94cfb3be641040a4bb7db0fcab8879d4
+PrefabImporter:
+========
 guid: 1f0672028ac54714b9339a6d1a36884c
 folderAsset: yes
 DefaultImporter:
+>>>>>>>> main:Assets/03.Prefabs/Camera.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
