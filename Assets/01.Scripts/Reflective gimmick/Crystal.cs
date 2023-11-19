@@ -10,14 +10,17 @@ public enum CrystalParticleType
     ChargingFin
 }
 
-public class Crystal : Reflective
+public class Crystal : Glow
 {
+    [SerializeField] private InputReader _inputReader;
+
     Dictionary<CrystalParticleType, ParticleSystem> particlesDic = new(); // 상태에 따른 파티클딕셔너리
+
     [SerializeField]
     private List<ParticleSystem> particles = new List<ParticleSystem>(); // 파티클들
 
-    private CrystalParticleType _curParticleType; 
-    private CrystalParticleType _preParticleType; 
+    private CrystalParticleType _curParticleType;
+    private CrystalParticleType _preParticleType;
 
     private MaterialPropertyBlock _materialPropertyBlock; // 크리스탈 색 적용할 머티리얼
     private MeshRenderer _mr; // 크리스탈의 메시렌더러
@@ -26,15 +29,19 @@ public class Crystal : Reflective
     private Color _colorZero;
     Color _newColor; // Color.Lerp를 통해 서서희 바꿀 목표 색
 
+    private float timer = 0f;
+
     private float curChargingValue; // 현재 색차지 값
-    private float maxChargingValue = 5f; 
+    private float maxChargingValue = 5f;
     public float ChargingValue // 색차지 값프로퍼티
     {
         get { return curChargingValue; }
         set { curChargingValue = Mathf.Clamp(value, 0, maxChargingValue); }
     }
 
+    public bool CanUse => curChargingValue >= maxChargingValue; //사용가능한가
     private bool isCharging = false; //현재 차징중인가
+
 
     protected override void Start()
     {
@@ -48,7 +55,7 @@ public class Crystal : Reflective
             particlesDic.Add(e, particles[i]);
             i++;
         }
-        _mr = transform.Find("Visual").GetComponent<MeshRenderer>();
+        _mr = GetComponent<MeshRenderer>();
 
         _materialPropertyBlock = new MaterialPropertyBlock();
         _colorZero = _materialPropertyBlock.GetColor("_EmissionColor");
@@ -58,24 +65,89 @@ public class Crystal : Reflective
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F)) //디버깅
-        {
-            OnHandleReflected();
-        }
-
         UpdateCrystalState(); // 상태 확인
         if (_preParticleType != _curParticleType) // 상태 바뀌면 파티클바꿔서 재생
         {
             ChangeParticleSystem();
         }
 
-        if(_curParticleType == CrystalParticleType.ChargingFin) // 다 채워지면 재생 끝
+        if (_curParticleType == CrystalParticleType.ChargingFin) // 다 채워지면 재생 끝
         {
             StartCoroutine(FinishParticle());
         }
 
         _preParticleType = _curParticleType;
     }
+
+    public override void OnPickUp()
+    {
+
+        _inputReader.OnStartFireEvent += OnStartShootLight;
+        _inputReader.OnStopFireEvent += OnStopShootLight;
+        _inputReader.OnShootingFireEvent += OnShootingLight;
+    }
+    public override void OnPutDown()
+    {
+        _inputReader.OnStartFireEvent -= OnStartShootLight;
+        _inputReader.OnStopFireEvent -= OnStopShootLight;
+        _inputReader.OnShootingFireEvent -= OnShootingLight;
+    }
+    public override void OnStartShootLight()
+    {
+        base.OnStartShootLight();
+    }
+    public override void OnStopShootLight()
+    {
+        base.OnStopShootLight();
+    }
+    public override void OnShootingLight()
+    {
+        StartShootLight(transform.position, transform.forward);
+    }
+
+    public override void SetReflectDataModify(ReflectData reflectData)
+    {
+        if (CanUse == false) return;
+
+        ReflectiveObject refObj = OnShootRaycast<ReflectiveObject>(reflectData.hitPos, reflectData.direction);
+
+        ChangedReflectObject(refObj);
+        refObj?.OnReflectTypeChanged(ReflectState.OnReflect);
+        refObj?.GetReflectedObjectDataModify(myReflectData);
+
+        TriangluarPlane triPlane = OnShootRaycast<TriangluarPlane>(reflectData.hitPos, reflectData.direction);
+        triPlane?.GetReflectedObjectDataModify(reflectData);
+
+        OnShootRaycast<ReflectToReflect>(reflectData.hitPos, reflectData.direction);
+        OnShootRaycast<ReflectToUp>(reflectData.hitPos, reflectData.direction);
+
+        OnShootRaycast<DoorOpenTrigger>(reflectData.hitPos, reflectData.direction);
+
+    }
+    public void OnCharging()
+    {
+        if (CanUse == false)
+        {
+            if (ChargingValue <= maxChargingValue)
+            {
+                timer += Time.deltaTime;
+                float t = Mathf.Clamp01(timer / maxChargingValue);
+
+                ChargingValue = Mathf.Lerp(0f, maxChargingValue, t);
+                _newColor = Color.Lerp(_colorZero, _targetColor, t);
+
+                _materialPropertyBlock.SetColor("_EmissionColor", _newColor);
+                _mr.SetPropertyBlock(_materialPropertyBlock);
+
+                if (_curParticleType != CrystalParticleType.None)
+                {
+                    ChangeParticleSystemColor();
+                }
+            }
+        }
+    }
+
+    #region 차징 코드
 
     private IEnumerator FinishParticle()
     {
@@ -109,7 +181,7 @@ public class Crystal : Reflective
         }
         else
         {
-            if(isCharging)
+            if (isCharging)
             {
                 _curParticleType = CrystalParticleType.Charging;
             }
@@ -119,48 +191,41 @@ public class Crystal : Reflective
             }
         }
     }
+    /*  public void OnHandleReflected()
+      {
+          if (_curParticleType == CrystalParticleType.None)
+          {
+              isCharging = true;
+              StartCoroutine(IncreaseChargingValueCoroutine());
+          }
+      }
+      public void UnHandleReflected()
+      {
+          isCharging = false;
+      }*/
+    /* private IEnumerator IncreaseChargingValueCoroutine() // 크리스탈 색 조정 및 차징
+     {
+         float elapsedTime = 0f;
 
-    public override void GetReflectedObjectDataModify(ReflectData inData)
-    {
-        //OnShootRaycast(inData, transform.forward);
-    }
-    public override void OnHandleReflected()
-    {
-        base.OnHandleReflected();
-        if(_curParticleType == CrystalParticleType.None)
-        {
-            isCharging = true;
-            StartCoroutine(IncreaseChargingValueCoroutine());
-        }
-    }
-    public override void UnHandleReflected()
-    {
-        base.UnHandleReflected();
-        isCharging = false;
-    }
-    private IEnumerator IncreaseChargingValueCoroutine() // 크리스탈 색 조정 및 차징
-    {
-        float elapsedTime = 0f;
+         while (isCharging && ChargingValue <= maxChargingValue)
+         {
+             elapsedTime += Time.deltaTime;
+             float t = Mathf.Clamp01(elapsedTime / maxChargingValue);
 
-        while (isCharging && ChargingValue <= maxChargingValue)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / maxChargingValue);
+             ChargingValue = Mathf.Lerp(0f, maxChargingValue, t);
+             _newColor = Color.Lerp(_colorZero, _targetColor, t);
 
-            ChargingValue = Mathf.Lerp(0f, maxChargingValue, t);
-            _newColor = Color.Lerp(_colorZero, _targetColor, t);
+             _materialPropertyBlock.SetColor("_EmissionColor", _newColor);
+             _mr.SetPropertyBlock(_materialPropertyBlock);
 
-            _materialPropertyBlock.SetColor("_EmissionColor", _newColor);
-            _mr.SetPropertyBlock(_materialPropertyBlock);
+             if (_curParticleType != CrystalParticleType.None)
+             {
+                 ChangeParticleSystemColor();
+             }
 
-            if(_curParticleType != CrystalParticleType.None)
-            {
-                ChangeParticleSystemColor();
-            }
-
-            yield return null;
-        }
-    }
+             yield return null;
+         }
+     }*/
 
     private void ChangeParticleSystemColor() // 색 바꾼다.
     {
@@ -174,4 +239,5 @@ public class Crystal : Reflective
             }
         }
     }
+    #endregion
 }

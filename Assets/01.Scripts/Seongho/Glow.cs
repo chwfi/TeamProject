@@ -7,7 +7,8 @@ using static Define.Define;
 [RequireComponent(typeof(LineRenderer))]
 public abstract class Glow : LightingBehaviour, IGlowable
 {
-
+    public abstract void OnPickUp();
+    public abstract void OnPutDown();
     public virtual void OnStartShootLight()
     {
         SetLightColor(defaultColor);
