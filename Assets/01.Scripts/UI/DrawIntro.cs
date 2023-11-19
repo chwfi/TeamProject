@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 [Serializable]
 public class OutputContent
@@ -14,6 +15,8 @@ public class OutputContent
     public float waitTime;
     public float fadeTime; //알파 조정 시간
     public float duration;   //지속 시간
+
+    public UnityEvent OnEvent;
 }
 
 public class DrawIntro : MonoBehaviour
@@ -44,6 +47,10 @@ public class DrawIntro : MonoBehaviour
             yield return new WaitForSeconds(DrawList[i].waitTime);
             _text.DOFade(1, DrawList[i].fadeTime);
             _sprite.DOFade(1, DrawList[i].fadeTime);
+            if (DrawList[i].OnEvent != null)
+            {
+                DrawList[i].OnEvent?.Invoke();
+            }
             yield return new WaitForSeconds(DrawList[i].duration);
             _text.DOFade(0, DrawList[i].fadeTime);
             _sprite.DOFade(0, DrawList[i].fadeTime);
