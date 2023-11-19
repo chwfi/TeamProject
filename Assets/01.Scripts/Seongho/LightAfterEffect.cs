@@ -1,50 +1,48 @@
-using Cinemachine.Utility;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
 using UnityEngine;
-[RequireComponent(typeof(LineRenderer))]
+
 public class LightAfterEffect : MonoBehaviour
 {
     private LineRenderer lb;
     private TrailRenderer trail;
-    private MaterialPropertyBlock _materialPropertyBlock;
 
     private Transform _trailTrm;
-    private void OnEnable()
-    {
-        _materialPropertyBlock = new MaterialPropertyBlock();
-    }
-    void Awake()
+
+    private void Awake()
     {
         lb = GetComponent<LineRenderer>();
         trail = GetComponentInChildren<TrailRenderer>();
 
-
         trail.enabled = false;
         _trailTrm = transform.GetChild(0);
     }
+
     private void Start()
     {
         lb.positionCount = 2;
-
-        Destroy(gameObject, trail.time + 3f);
+        Destroy(gameObject, trail.time + 6f);
     }
+
     public void Setting(float lightWidth, Color color, bool isHit)
     {
         lb.startWidth = lightWidth;
         lb.endWidth = lightWidth;
 
         lb.enabled = true;
-
         trail.enabled = isHit;
 
+        MaterialPropertyBlock _materialPropertyBlock = new MaterialPropertyBlock();
+        MaterialPropertyBlock _materialAfterEffect = new MaterialPropertyBlock();
+
         _materialPropertyBlock.SetColor("_EmissionColor", color * 6f);
+        _materialAfterEffect.SetColor("_EmissionColor", color * -2f);
+        _materialAfterEffect.SetColor("_BaseColor", new Color(color.r, color.g, color.b, color.a - 0.9f));
+
         lb.SetPropertyBlock(_materialPropertyBlock);
-        trail.SetPropertyBlock(_materialPropertyBlock);
+        trail.SetPropertyBlock(_materialAfterEffect);
     }
+
     public void DrawAndFadeLine(Vector3 startPos, Vector3 endPos, float duration, Action action)
     {
         StartCoroutine(DrawAndFadeLineCoroutine(startPos, endPos, duration, action));
@@ -65,12 +63,12 @@ public class LightAfterEffect : MonoBehaviour
             t += moveAmountPerTick / totalDistance * Time.deltaTime;
 
             lb.SetPosition(0, lerpedPosition);
-
             _trailTrm.position = lerpedPosition;
+
             yield return null;
         }
-        lb.enabled = false;
 
+        lb.enabled = false;
         action.Invoke();
     }
 }
