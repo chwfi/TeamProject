@@ -46,6 +46,12 @@ public abstract class Reflective : LightingBehaviour, IReflectable
     {
         StopDrawAndFadeLine();
 
+        var afterEffects = GameObject.FindObjectsOfType<LightAfterEffect>();
+
+        for (int i = 0; i < afterEffects.Length; ++i)
+        {
+            Destroy(afterEffects[i].gameObject);
+        }
     }
 
     public virtual void UnHandleReflected() //���� ������ �ѹ��� �����

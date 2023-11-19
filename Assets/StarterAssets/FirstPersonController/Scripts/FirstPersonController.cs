@@ -275,7 +275,7 @@ namespace StarterAssets
         {
 			if (other.CompareTag("TutorialChecker"))
 			{
-                TutorialManager.Instance.ShowPanel();
+                TutorialManager.Instance.ShowGmmick();
                 Destroy(other.gameObject);
             }
         }
