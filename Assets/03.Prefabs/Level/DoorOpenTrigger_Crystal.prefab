@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 5078697854038881813}
   - component: {fileID: 7335281667416413505}
   - component: {fileID: 2227048477327375132}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1506121767184481332
 Transform:
   m_ObjectHideFlags: 0
@@ -123,13 +123,13 @@ GameObject:
   - component: {fileID: 3785774123970801197}
   - component: {fileID: 6341600588217542145}
   - component: {fileID: 4233962360344939366}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5859541414054821166
 Transform:
   m_ObjectHideFlags: 0
@@ -222,6 +222,199 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &731279639328526813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1800208193232770435}
+  - component: {fileID: 7910748894043336105}
+  - component: {fileID: 902248791074520416}
+  - component: {fileID: 7738429032473488852}
+  m_Layer: 11
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1800208193232770435
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731279639328526813}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7378181092137487240}
+  m_Father: {fileID: 8740480610904022522}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &7910748894043336105
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731279639328526813}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &902248791074520416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731279639328526813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!114 &7738429032473488852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731279639328526813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!1 &771520040616874526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7378181092137487240}
+  - component: {fileID: 8544487220503847309}
+  - component: {fileID: 47679931501331980}
+  - component: {fileID: 7363335232333496999}
+  m_Layer: 11
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7378181092137487240
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771520040616874526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.91}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1800208193232770435}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.06, y: 2.3}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8544487220503847309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771520040616874526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e971988d90033fb409cca28c72a5a499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveDis: 0.15
+  _moveTime: 1.1
+  _ableDistance: 38.5
+--- !u!222 &47679931501331980
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771520040616874526}
+  m_CullTransparentMesh: 1
+--- !u!114 &7363335232333496999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771520040616874526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5a91966d3bec393469042fd538fa0c13, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2529488394882279852
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +428,7 @@ GameObject:
   - component: {fileID: 9036524436640996610}
   - component: {fileID: 8607201639635652123}
   - component: {fileID: 7820619469758729446}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: DoorOpenTrigger_Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,6 +461,7 @@ Transform:
   - {fileID: 2052361717842851303}
   - {fileID: 593900425579735520}
   - {fileID: 781909425682394792}
+  - {fileID: 1800208193232770435}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &905291724481889585
@@ -356,6 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetColor: {r: 1, g: 1, b: 1, a: 1}
   linkedDoor: {fileID: 0}
+  arrowUI: {fileID: 0}
 --- !u!1 &4267380025287754607
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,13 +563,13 @@ GameObject:
   - component: {fileID: 6023195399327368683}
   - component: {fileID: 3594885923360180640}
   - component: {fileID: 224416406116321181}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4126602343245371121
 Transform:
   m_ObjectHideFlags: 0
@@ -479,13 +674,13 @@ GameObject:
   - component: {fileID: 6036157761087927840}
   - component: {fileID: 6993778969479108433}
   - component: {fileID: 9203320521088255841}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6634104556768563124
 Transform:
   m_ObjectHideFlags: 0
@@ -590,13 +785,13 @@ GameObject:
   - component: {fileID: 3422485329595296646}
   - component: {fileID: 6144060431355784117}
   - component: {fileID: 3941783203905246459}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5104721717725514204
 Transform:
   m_ObjectHideFlags: 0
@@ -701,13 +896,13 @@ GameObject:
   - component: {fileID: 5804685490845708343}
   - component: {fileID: 6381746673205052967}
   - component: {fileID: 3302113466724582006}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5693604524553401416
 Transform:
   m_ObjectHideFlags: 0
@@ -812,13 +1007,13 @@ GameObject:
   - component: {fileID: 6382169948844570973}
   - component: {fileID: 6814453985253770995}
   - component: {fileID: 4737617580729886765}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2052361717842851303
 Transform:
   m_ObjectHideFlags: 0
@@ -922,13 +1117,13 @@ GameObject:
   - component: {fileID: 781909425682394792}
   - component: {fileID: 6665552383307101823}
   - component: {fileID: 8316174800572951872}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: MinimapUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &781909425682394792
 Transform:
   m_ObjectHideFlags: 0
@@ -1006,13 +1201,13 @@ GameObject:
   - component: {fileID: 4700244858668808730}
   - component: {fileID: 5860091486604668064}
   - component: {fileID: 2814109746551818422}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2852489026612424770
 Transform:
   m_ObjectHideFlags: 0
@@ -1117,13 +1312,13 @@ GameObject:
   - component: {fileID: 2548654084013398960}
   - component: {fileID: 3677105266452685160}
   - component: {fileID: 3328873352372731072}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &593900425579735520
 Transform:
   m_ObjectHideFlags: 0
@@ -1228,13 +1423,13 @@ GameObject:
   - component: {fileID: 2402491961267808207}
   - component: {fileID: 791622357575425023}
   - component: {fileID: 1201077704106983179}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1537154340389569826
 Transform:
   m_ObjectHideFlags: 0
@@ -1339,13 +1534,13 @@ GameObject:
   - component: {fileID: 6043269998969484674}
   - component: {fileID: 900265609789129193}
   - component: {fileID: 4690175648861176226}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7303002473053084002
 Transform:
   m_ObjectHideFlags: 0
@@ -1450,13 +1645,13 @@ GameObject:
   - component: {fileID: 1555603845639383174}
   - component: {fileID: 3167604896648959448}
   - component: {fileID: 5535143985614036004}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8502517679708027072
 Transform:
   m_ObjectHideFlags: 0

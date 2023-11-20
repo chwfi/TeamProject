@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
+using static Define.Define;
 
-public class DoorOpenTrigger : MonoBehaviour
+public class DoorOpenTrigger : MonoBehaviour, ICheckDistance
 {
     [SerializeField, Tooltip("목표 색")]
     private Color targetColor;
@@ -13,34 +13,70 @@ public class DoorOpenTrigger : MonoBehaviour
     [SerializeField]
     private ColorDoor linkedDoor; // 열어줄 문
 
-    private ArrowUI arrowUI; //처음에 나오는 크리스탈 위의 화살표. 닿으면 화살표를 없애주기 위해 선언
-
-    private List<Rigidbody> _rigids = new List<Rigidbody>();
+    [SerializeField] private ArrowUI arrowUI; //처음에 나오는 크리스탈 위의 화살표.
 
     bool _isOpend = false;
 
+    private DistanceState _currentState;
+    public DistanceState State
+    {
+        get => _currentState;
+        set
+        {
+            _currentState = value;
+
+            if (_currentState == DistanceState.Inside)
+            {
+                ChangeLayer("DoorCrystal");
+            }
+            else if (_currentState == DistanceState.Outside)
+            {
+                ChangeLayer("Default");
+            }
+        }
+    }
+
     private void Awake()
     {
-        arrowUI = FindObjectOfType<ArrowUI>();
-
-        _rigids.AddRange(GetComponentsInChildren<Rigidbody>());
+        Canvas canvas = GetComponentInChildren<Canvas>(); //캔버스에 카메라 넣어줌
+        if (canvas != null)
+        {
+            canvas.worldCamera = MainCam;
+        }
     }
+
+    private void ChangeLayer(string value)
+    {
+        this.gameObject.layer = LayerMask.NameToLayer($"{value}");
+    }    
 
     public void ColorMatch(Color inputColor) // 다른 함수에서 실행하여 비교 함
     {
         if (ColorSystem.CompareColor(inputColor, targetColor) && !_isOpend)
         {
+            this.gameObject.layer = LayerMask.NameToLayer("Default");
             linkedDoor.OpenDoor(); // 같은 색이라면 문 염
             arrowUI?.FadeToDisable(); //화살표 UI Fade후 Destroy
             SoundManager.Instance.PlaySFXSound("StoneFall");
-
-            _rigids.ForEach(v => //체인들 떨어뜨리기
-            {
-                v.useGravity = true;
-                Destroy(v.gameObject, 2f);
-            });
-
             _isOpend = true;
+        }
+    }
+
+    private void Update()
+    {
+        if (!_isOpend)
+            CheckDistance();
+    }
+
+    public DistanceState CheckDistance()
+    {
+        if (Vector3.Distance(PlayerTrm.position, this.transform.position) < 50)
+        {
+            return State = DistanceState.Inside;
+        }
+        else
+        {
+            return State = DistanceState.Outside;
         }
     }
 }
