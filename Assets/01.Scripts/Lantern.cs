@@ -51,7 +51,7 @@ public class Lantern : Glow
         TriangluarPlane triPlane = OnShootRaycast<TriangluarPlane>(reflectData.hitPos, reflectData.direction);
         triPlane?.GetReflectedObjectDataModify(reflectData);
 
-        Crystal crystal = OnShootRaycast<Crystal>(reflectData.hitPos, reflectData.direction);
+        CrystalCharging crystal = OnShootRaycast<CrystalCharging>(reflectData.hitPos, reflectData.direction);
         crystal?.OnCharging();
 
         OnShootRaycast<ReflectToReflect>(reflectData.hitPos, reflectData.direction);

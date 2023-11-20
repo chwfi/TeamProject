@@ -11,14 +11,14 @@ public enum CatchState
     Possible,
     Impossible,
 }
-public class CrystalTextUI : LookCamUIModule
+public class CrystalCheckInputAndTextUI : LookCamUIModule
 {
     [SerializeField] private float _ShowUIdistance = 5f;
     [SerializeField] private UnityEvent OnPickUpEvent = null;
-    private Crystal crystal;
+    private CrystalCharging crystal;
 
     private TextMeshPro _text;
-    private bool _canCatch =>
+    public bool CanCatch =>
         Vector3.Distance(transform.position, PlayerTrm.position) < _ShowUIdistance
         && crystal.CanUse;
 
@@ -46,7 +46,7 @@ public class CrystalTextUI : LookCamUIModule
     {
         _text = GetComponent<TextMeshPro>();
 
-        crystal = transform.root.GetComponent<Crystal>();
+        crystal = transform.root.GetComponent<CrystalCharging>();
     }
 
     protected override void Update()
@@ -59,16 +59,19 @@ public class CrystalTextUI : LookCamUIModule
 
     private void CheckInput()
     {
-
-        if (_canCatch == false) { return; }
+        if (CanCatch == false) { return; }
 
         if (Input.GetKeyDown(KeyCode.F))
+        {
             OnPickUpEvent?.Invoke();
+
+            _text.enabled = false;
+        }
     }
 
     private void CheckState()
     {
-        if (_canCatch)
+        if (CanCatch)
             State = CatchState.Possible;
         else
             State = CatchState.Impossible;

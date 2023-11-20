@@ -8,7 +8,7 @@ public class M_DoorTest : MonoBehaviour
     DoorOpenTrigger _doorOpenTrigger;
 
     [SerializeField]
-    Crystal _crystal;
+    CrystalCharging _crystal;
 
     [SerializeField]
     private Color curColor;
