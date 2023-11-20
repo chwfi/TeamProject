@@ -76,7 +76,7 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
-		private bool IsCurrentDeviceMouse
+        private bool IsCurrentDeviceMouse
 		{
 			get
 			{
@@ -252,7 +252,7 @@ namespace StarterAssets
 			}
 		}
 
-		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
 			if (lfAngle < -360f) lfAngle += 360f;
 			if (lfAngle > 360f) lfAngle -= 360f;

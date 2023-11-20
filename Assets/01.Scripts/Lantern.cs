@@ -9,10 +9,22 @@ public class Lantern : Glow
     {
         base.Awake();
 
+        OnPickUp();
+    }
+    public override void OnPickUp()
+    {
+        _inputReader.SetInputUser(this);
+
         _inputReader.OnStartFireEvent += OnStartShootLight;
         _inputReader.OnStopFireEvent += OnStopShootLight;
         _inputReader.OnShootingFireEvent += OnShootingLight;
+    }
 
+    public override void OnPutDown()
+    {
+        _inputReader.OnStartFireEvent -= OnStartShootLight;
+        _inputReader.OnStopFireEvent -= OnStopShootLight;
+        _inputReader.OnShootingFireEvent -= OnShootingLight;
     }
     public override void OnStartShootLight()
     {
@@ -29,19 +41,21 @@ public class Lantern : Glow
     }
     public override void SetReflectDataModify(ReflectData reflectData)
     {
-        ReflectiveObject refObj = OnShootRaycast<ReflectiveObject>(reflectData.hitPos, reflectData.direction);
+        Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
 
-        ChangedReflectObject(refObj);
-        refObj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        refObj?.GetReflectedObjectDataModify(myReflectData);
+        ChangedReflectObject(obj);
 
-        TriangluarPlane triPlane = OnShootRaycast<TriangluarPlane>(reflectData.hitPos, reflectData.direction);
-        triPlane?.GetReflectedObjectDataModify(reflectData);
+        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
+        obj?.GetReflectedObjectDataModify(myReflectData);
 
         OnShootRaycast<ReflectToReflect>(reflectData.hitPos, reflectData.direction);
         OnShootRaycast<ReflectToUp>(reflectData.hitPos, reflectData.direction);
 
         OnShootRaycast<DoorOpenTrigger>(reflectData.hitPos, reflectData.direction);
+
+        CrystalCharging cC = OnShootRaycast<CrystalCharging>(reflectData.hitPos, reflectData.direction);
+        cC?.OnCharging();
+
     }
     private void OnDestroy()
     {
@@ -49,4 +63,6 @@ public class Lantern : Glow
         _inputReader.OnStopFireEvent -= OnStopShootLight;
         _inputReader.OnShootingFireEvent -= OnShootingLight;
     }
+
+
 }

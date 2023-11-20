@@ -27,7 +27,7 @@ public class ReflectiveObject : Reflective
         triPlane?.GetReflectedObjectDataModify(myReflectData);
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(shootPos, raycastDirection);
-        door?.ColorMatch(cCol);
+        door?.ColorMatch(cCol, this);
     }
 
     public override void OnHandleReflected()

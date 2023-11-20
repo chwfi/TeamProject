@@ -60,6 +60,6 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
         obj?.GetReflectedObjectDataModify(myReflectData);
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(transform.position, raycastDirection);
-        door?.ColorMatch(cCol);
+        door?.ColorMatch(cCol, this);
     }
 }
