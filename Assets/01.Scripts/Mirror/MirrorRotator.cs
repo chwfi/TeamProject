@@ -22,8 +22,8 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
         }
     }
 
-    private float RotationSpeed => UIManager.Instance.settingRotUI.ValueScale;
-    //private float RotationSpeed => 10;
+    //private float RotationSpeed => UIManager.Instance.settingRotUI.ValueScale;
+    private float RotationSpeed => 10;
 
     public List<KeyGuideUI> _lookCamUI = new List<KeyGuideUI>();
 
