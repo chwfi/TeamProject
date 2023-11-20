@@ -39,7 +39,7 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     public void PauseSFXSound()
     {
-        _sfxPlayer.Pause();
+        _sfxPlayer.Stop();
     }
 
     public void PlayBGMSound()

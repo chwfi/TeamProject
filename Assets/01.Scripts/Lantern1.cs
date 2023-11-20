@@ -48,4 +48,14 @@ public class Lantern1 : Glow
         _inputReader.OnStopFireEvent -= OnStopShootLight;
         _inputReader.OnShootingFireEvent -= OnShootingLight;
     }
+
+    public override void OnPickUp()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnPutDown()
+    {
+        throw new System.NotImplementedException();
+    }
 }

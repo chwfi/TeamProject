@@ -17,7 +17,7 @@ public class M_DoorTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            _crystal.OnHandleReflected();
+            //_crystal.OnHandleReflected();
         }
     }
 }

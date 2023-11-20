@@ -31,7 +31,7 @@ public class DefinitelyUP : Reflective
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(inData.hitPos, raycastDirection);
 
-        door?.ColorMatch(cCol);
+        door?.ColorMatch(cCol, this);
     }
 
     public override void OnHandleReflected()

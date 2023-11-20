@@ -34,6 +34,6 @@ public class ReflectToReflect : Reflective
 
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(shootPos, raycastDirection);
-        door?.ColorMatch(cCol);
+        door?.ColorMatch(cCol, this);
     }
 }
