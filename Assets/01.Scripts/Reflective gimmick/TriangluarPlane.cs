@@ -39,6 +39,7 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
     }
     public override void GetReflectedObjectDataModify(ReflectData reflectedData)
     {
+        Debug.Log("GetReflectedObjectDataModify");
         foreach (var plane in _planes)
         {
             plane.SetDataModify(reflectedData);

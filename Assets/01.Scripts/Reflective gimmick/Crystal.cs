@@ -5,6 +5,7 @@ using UnityEngine;
 public class Crystal : Glow
 {
     [SerializeField] private InputReader _inputReader;
+    [SerializeField] private Transform _firePos;
     public override void OnPickUp()
     {
         _inputReader.SetInputUser(this);
@@ -35,7 +36,7 @@ public class Crystal : Glow
     {
         //base.OnShootingLight();
         Debug.Log("OnShootingLight");
-        StartShootLight(transform.position, transform.forward);
+        StartShootLight(_firePos.position, -_firePos.up);
     }
     public override void SetReflectDataModify(ReflectData reflectData)
     {

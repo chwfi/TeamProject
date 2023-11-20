@@ -46,7 +46,7 @@ public class CrystalCheckInputAndTextUI : LookCamUIModule
     {
         _text = GetComponent<TextMeshPro>();
 
-        crystal = transform.root.GetComponent<CrystalCharging>();
+        crystal = transform.root.Find("glass").GetComponent<CrystalCharging>();
     }
 
     protected override void Update()

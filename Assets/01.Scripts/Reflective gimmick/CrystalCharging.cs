@@ -37,7 +37,7 @@ public class CrystalCharging : MonoBehaviour
         set { curChargingValue = Mathf.Clamp(value, 0, maxChargingValue); }
     }
 
-    public bool CanUse => curChargingValue >= maxChargingValue; //사용가능한가
+    public bool CanUse = false; //사용가능한가
     private bool isCharging = false; //현재 차징중인가
 
 
@@ -56,6 +56,7 @@ public class CrystalCharging : MonoBehaviour
         _mr = GetComponent<MeshRenderer>();
 
         _materialPropertyBlock = new MaterialPropertyBlock();
+
         _colorZero = _materialPropertyBlock.GetColor("_EmissionColor");
         _materialPropertyBlock.SetColor("_EmissionColor", Color.black); //색 초기화.
         _mr.SetPropertyBlock(_materialPropertyBlock);                   //색 초기화.
@@ -104,6 +105,8 @@ public class CrystalCharging : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         particlesDic[_preParticleType].Stop();
+
+        CanUse = true;
     }
 
     private void ChangeParticleSystem() //파티클 재생
@@ -142,42 +145,6 @@ public class CrystalCharging : MonoBehaviour
             }
         }
     }
-    /*  public void OnHandleReflected()
-      {
-          if (_curParticleType == CrystalParticleType.None)
-          {
-              isCharging = true;
-              StartCoroutine(IncreaseChargingValueCoroutine());
-          }
-      }
-      public void UnHandleReflected()
-      {
-          isCharging = false;
-      }*/
-    /* private IEnumerator IncreaseChargingValueCoroutine() // 크리스탈 색 조정 및 차징
-     {
-         float elapsedTime = 0f;
-
-         while (isCharging && ChargingValue <= maxChargingValue)
-         {
-             elapsedTime += Time.deltaTime;
-             float t = Mathf.Clamp01(elapsedTime / maxChargingValue);
-
-             ChargingValue = Mathf.Lerp(0f, maxChargingValue, t);
-             _newColor = Color.Lerp(_colorZero, _targetColor, t);
-
-             _materialPropertyBlock.SetColor("_EmissionColor", _newColor);
-             _mr.SetPropertyBlock(_materialPropertyBlock);
-
-             if (_curParticleType != CrystalParticleType.None)
-             {
-                 ChangeParticleSystemColor();
-             }
-
-             yield return null;
-         }
-     }*/
-
     private void ChangeParticleSystemColor() // 색 바꾼다.
     {
         foreach (var p in particlesDic[_curParticleType].

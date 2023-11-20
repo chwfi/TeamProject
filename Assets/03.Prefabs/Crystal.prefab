@@ -4805,6 +4805,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &5445966626923462883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1306034423304812507}
+  m_Layer: 7
+  m_Name: FirePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1306034423304812507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5445966626923462883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00064, y: -0.00038, z: 0.01561}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6286175194565451316}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6960271550734548501
 GameObject:
   m_ObjectHideFlags: 0
@@ -9606,6 +9637,7 @@ GameObject:
   - component: {fileID: 910010042839877937}
   - component: {fileID: 2170826580499249323}
   - component: {fileID: 8902786943668258831}
+  - component: {fileID: 306481460163577230}
   m_Layer: 7
   m_Name: Crystal
   m_TagString: Untagged
@@ -9621,11 +9653,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7140781359066761135}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6172072, y: 0.34504396, z: -0.34504384, w: -0.6172072}
+  m_LocalRotation: {x: -0.6172071, y: 0.34504408, z: -0.34504408, w: -0.6172071}
   m_LocalPosition: {x: -6.4, y: 0.43, z: 10.97}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1306034423304812507}
   - {fileID: 686872414115411612}
   - {fileID: 7534884284209438682}
   - {fileID: 7332351789585064501}
@@ -9820,15 +9853,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e9303d332f537041ac5508d2ea4c56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 0, b: 0, a: 0}
+  defaultColor: {r: 0.4055798, g: 1, b: 0, a: 0}
   lightFadeInoutTick: 90
   lightWidth: 0.08
   _minimapCube: {fileID: 0}
   _inputReader: {fileID: 11400000, guid: c3255832653d1484e9fa060c9b35439f, type: 2}
+  _firePos: {fileID: 1306034423304812507}
+--- !u!114 &306481460163577230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140781359066761135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5af5cf4b4412a440a2f670fbd211aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   particles:
   - {fileID: 7534884284190047430}
   - {fileID: 7332351789599213419}
-  _targetColor: {r: 0, g: 0.21138263, b: 1, a: 1}
+  _targetColor: {r: 0, g: 0.34419847, b: 1, a: 1}
 --- !u!1 &8427295088014183790
 GameObject:
   m_ObjectHideFlags: 0
