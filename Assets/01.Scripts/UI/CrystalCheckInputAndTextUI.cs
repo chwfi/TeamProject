@@ -42,11 +42,18 @@ public class CrystalCheckInputAndTextUI : LookCamUIModule
             }
         }
     }
+
+    private Vector3[] SetTransform = //포지션
+    {
+        new Vector3(0,-0.5f,0.3f),
+        new Vector3(-90f,20 ,0),
+        new Vector3(25,25,25),
+    };
     protected override void Awake()
     {
         _text = GetComponent<TextMeshPro>();
 
-        crystal = transform.root.Find("glass").GetComponent<CrystalCharging>();
+        crystal = transform.root.Find("Glass").GetComponent<CrystalCharging>();
     }
 
     protected override void Update()
@@ -64,8 +71,7 @@ public class CrystalCheckInputAndTextUI : LookCamUIModule
         if (Input.GetKeyDown(KeyCode.F))
         {
             OnPickUpEvent?.Invoke();
-
-            _text.enabled = false;
+            gameObject.SetActive(false); //숨기기
         }
     }
 

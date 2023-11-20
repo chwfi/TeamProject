@@ -40,7 +40,6 @@ public class CrystalCharging : MonoBehaviour
     public bool CanUse = false; //사용가능한가
     private bool isCharging = false; //현재 차징중인가
 
-
     protected void Start()
     {
         _curParticleType = CrystalParticleType.None; // 상태 초기화
