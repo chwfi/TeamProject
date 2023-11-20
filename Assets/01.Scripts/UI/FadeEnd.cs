@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FadeEnd : MonoBehaviour
 {
@@ -28,5 +29,10 @@ public class FadeEnd : MonoBehaviour
             .Append(_sprite.DOColor(c, _fadeTime))
             .AppendInterval(_duration)
             .Append(_sprite.DOFade(0, _fadeTime));
+    }
+
+    public void SceneMove(string name)
+    {
+        SceneManager.LoadScene(name);
     }
 }

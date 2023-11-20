@@ -38,19 +38,6 @@ public class FadeSprite : MonoBehaviour
             .Append(_sprite.DOFade(0, _fadeTime));
     }
 
-    public void End()
-    {
-        Sequence seq = DOTween.Sequence();
-        _sprite.color = Color.gray;
-
-        seq.PrependInterval(_delay)
-            .Append(_sprite.DOFade(1, _fadeTime))
-            .AppendInterval(_waitTime)
-            .Join(_sprite.DOColor(c, _fadeTime))
-            .AppendInterval(_duration)
-            .Append(_sprite.DOFade(0, _fadeTime));
-    }
-
     public void SceneMove(string name)
     {
         SceneManager.LoadScene(name);
