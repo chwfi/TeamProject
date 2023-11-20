@@ -26,11 +26,15 @@ public class DrawIntro : MonoBehaviour
     
     private SpriteRenderer _sprite;
     private TextMeshProUGUI _text;
+    private TextMeshProUGUI _endTex;
+
+    public int num;
 
     private void Awake()
     {
         _sprite = GameObject.Find("DrawSprite").GetComponent<SpriteRenderer>();
         _text = transform.Find("TextContent").GetComponent<TextMeshProUGUI>();
+        _endTex = transform.Find("End").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -43,7 +47,8 @@ public class DrawIntro : MonoBehaviour
         for (int i = 0; i < DrawList.Count; i++)
         {
             _sprite.sprite = DrawList[i].sprite;
-            _text.text = DrawList[i].text; 
+            _text.text = DrawList[i].text;
+            num = i;
             
             yield return new WaitForSeconds(DrawList[i].waitTime);
             _text.DOFade(1, DrawList[i].fadeTime);
@@ -66,5 +71,16 @@ public class DrawIntro : MonoBehaviour
                 yield return new WaitForSeconds(DrawList[i].fadeTime);
             }
         }
+    }
+
+    public void ToBeContinue(string s)
+    {
+        Sequence seq = DOTween.Sequence();
+        _endTex.text = s;
+
+        seq.Append(_endTex.DOFade(1, DrawList[num].fadeTime))
+            .AppendInterval(DrawList[num].duration)
+            .Append(_endTex.DOFade(0, DrawList[num].fadeTime));
+        
     }
 }

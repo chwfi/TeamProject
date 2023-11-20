@@ -13,6 +13,8 @@ public class FadeSprite : MonoBehaviour
 
     [SerializeField] private float _delay;
 
+    [SerializeField] private Color c;
+
     private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
