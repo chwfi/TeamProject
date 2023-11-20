@@ -81,6 +81,7 @@ public class Crystal : Glow
 
     public override void OnPickUp()
     {
+        _inputReader.SetInputUser(this);
 
         _inputReader.OnStartFireEvent += OnStartShootLight;
         _inputReader.OnStopFireEvent += OnStopShootLight;
@@ -94,10 +95,12 @@ public class Crystal : Glow
     }
     public override void OnStartShootLight()
     {
+        Debug.Log("OnStartShootLight");
         base.OnStartShootLight();
     }
     public override void OnStopShootLight()
     {
+        Debug.Log("OnStartShootLight");
         base.OnStopShootLight();
     }
     public override void OnShootingLight()
@@ -109,6 +112,7 @@ public class Crystal : Glow
     {
         if (CanUse == false) return;
 
+        Debug.Log("SetReflectDataModify"); 
         ReflectiveObject refObj = OnShootRaycast<ReflectiveObject>(reflectData.hitPos, reflectData.direction);
 
         ChangedReflectObject(refObj);

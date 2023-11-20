@@ -14,6 +14,8 @@ public class Lantern : Glow
 
     public override void OnPickUp()
     {
+        _inputReader.SetInputUser(this);
+
         _inputReader.OnStartFireEvent += OnStartShootLight;
         _inputReader.OnStopFireEvent += OnStopShootLight;
         _inputReader.OnShootingFireEvent += OnShootingLight;

@@ -22,6 +22,7 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public bool CanShoot = true;
 
+    private Glow _preGlow = null;
     private void OnEnable()
     {
         if (_playerInputAction == null)
@@ -48,7 +49,7 @@ public class InputReader : ScriptableObject, IPlayerActions
             {
                 isClicking = true;
                 OnStartFireEvent?.Invoke();
-            }     
+            }
         }
         else if (context.canceled)
         {
@@ -88,5 +89,14 @@ public class InputReader : ScriptableObject, IPlayerActions
         {
             OnShootingFireEvent?.Invoke();
         }
+    }
+
+    public void SetInputUser(Glow glowObj)
+    {
+
+        if (_preGlow == null) _preGlow = glowObj;
+        _preGlow.OnPutDown();
+
+        _preGlow = glowObj;
     }
 }

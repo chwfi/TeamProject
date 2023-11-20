@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using static Define.Define;
 
 public enum CatchState
@@ -13,13 +14,13 @@ public enum CatchState
 public class CrystalTextUI : LookCamUIModule
 {
     [SerializeField] private float _ShowUIdistance = 5f;
-
+    [SerializeField] private UnityEvent OnPickUpEvent = null;
     private Crystal crystal;
 
     private TextMeshPro _text;
     private bool _canCatch =>
-        Vector3.Distance(transform.position, PlayerTrm.position) < _ShowUIdistance 
-        /*&& crystal.CanUse*/;
+        Vector3.Distance(transform.position, PlayerTrm.position) < _ShowUIdistance
+        && crystal.CanUse;
 
     private CatchState _currentState;
     public CatchState State
@@ -50,15 +51,27 @@ public class CrystalTextUI : LookCamUIModule
 
     protected override void Update()
     {
+        base.Update();
+
         CheckState();
+        CheckInput();
+    }
+
+    private void CheckInput()
+    {
+
+        if (_canCatch == false) { return; }
+
+        if (Input.GetKeyDown(KeyCode.F))
+            OnPickUpEvent?.Invoke();
     }
 
     private void CheckState()
     {
         if (_canCatch)
-            _currentState = CatchState.Possible;
+            State = CatchState.Possible;
         else
-            _currentState = CatchState.Impossible;
+            State = CatchState.Impossible;
     }
 
     public void Fade(float value, float time)
