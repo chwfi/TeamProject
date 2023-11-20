@@ -60,8 +60,8 @@ public abstract class LightingBehaviour : MonoBehaviour
     protected virtual void Awake()
     {
         lb = GetComponent<LineRenderer>();
-        if (_outlineParticle != null ) _outlineParticle = GetComponentInChildren<ParticleSystem>();
-        if (_light != null) _light = GetComponentInChildren<Light>();
+        _outlineParticle = GetComponentInChildren<ParticleSystem>();
+        _light = GetComponentInChildren<Light>();
     }
     protected virtual void Start()
     {
@@ -85,7 +85,6 @@ public abstract class LightingBehaviour : MonoBehaviour
             var main = _outlineParticle.main;
             main.startColor = defaultColor;
         }
-
         if (_light != null)
         {
             _light.color = defaultColor;
