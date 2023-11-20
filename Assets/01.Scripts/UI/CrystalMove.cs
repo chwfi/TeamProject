@@ -8,6 +8,8 @@ public class CrystalMove : MonoBehaviour
 {
     [SerializeField] private Vector3 _targetPos;
     [SerializeField] private float _speed;
+    [SerializeField] private float _fadeTime;
+    [SerializeField] private float _waitTime;
 
     private SpriteRenderer _sprite;
 
@@ -19,9 +21,9 @@ public class CrystalMove : MonoBehaviour
     private void Start()
     {
         Sequence seq = DOTween.Sequence();
-        seq.PrependInterval(5f);
-        seq.Append(_sprite.DOFade(1, 2f))
+        seq.PrependInterval(_waitTime);
+        seq.Append(_sprite.DOFade(1, _fadeTime))
         .Append(transform.DOMove(_targetPos, _speed))
-        .Append(_sprite.DOFade(0, _speed));
+        .Append(_sprite.DOFade(0, _fadeTime));
     }
 }

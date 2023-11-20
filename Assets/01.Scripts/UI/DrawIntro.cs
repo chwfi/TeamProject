@@ -15,6 +15,7 @@ public class OutputContent
     public float waitTime;
     public float fadeTime; //알파 조정 시간
     public float duration;   //지속 시간
+    public bool isConnect;
 
     public UnityEvent OnEvent;
 }
@@ -42,8 +43,8 @@ public class DrawIntro : MonoBehaviour
         for (int i = 0; i < DrawList.Count; i++)
         {
             _sprite.sprite = DrawList[i].sprite;
-            _text.text = DrawList[i].text;
-
+            _text.text = DrawList[i].text; 
+            
             yield return new WaitForSeconds(DrawList[i].waitTime);
             _text.DOFade(1, DrawList[i].fadeTime);
             _sprite.DOFade(1, DrawList[i].fadeTime);
@@ -52,9 +53,18 @@ public class DrawIntro : MonoBehaviour
                 DrawList[i].OnEvent?.Invoke();
             }
             yield return new WaitForSeconds(DrawList[i].duration);
-            _text.DOFade(0, DrawList[i].fadeTime);
-            _sprite.DOFade(0, DrawList[i].fadeTime);
-            yield return new WaitForSeconds(DrawList[i].fadeTime);
+
+            if (!DrawList[i].isConnect)
+            {                
+                _text.DOFade(0, DrawList[i].fadeTime);
+                _sprite.DOFade(0, DrawList[i].fadeTime);
+                yield return new WaitForSeconds(DrawList[i].fadeTime);
+            }
+            else
+            {
+                _text.DOFade(0, DrawList[i].fadeTime);
+                yield return new WaitForSeconds(DrawList[i].fadeTime);
+            }
         }
     }
 }
