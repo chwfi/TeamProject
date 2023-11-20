@@ -60,8 +60,8 @@ public abstract class LightingBehaviour : MonoBehaviour
     protected virtual void Awake()
     {
         lb = GetComponent<LineRenderer>();
-        _outlineParticle = GetComponentInChildren<ParticleSystem>();
-        _light = GetComponentInChildren<Light>();
+        if (_outlineParticle != null ) _outlineParticle = GetComponentInChildren<ParticleSystem>();
+        if (_light != null) _light = GetComponentInChildren<Light>();
     }
     protected virtual void Start()
     {
@@ -80,9 +80,16 @@ public abstract class LightingBehaviour : MonoBehaviour
         _minimapMaterialBlock.SetColor("_EmissionColor", defaultColor * 6f);
         _minimapCube.SetPropertyBlock(_minimapMaterialBlock); //미니맵에 뜨는 UI의 색을 설정해주는 것
 
-        var main = _outlineParticle.main;
-        main.startColor = defaultColor;
-        _light.color = defaultColor;
+        if (_outlineParticle != null)
+        {
+            var main = _outlineParticle.main;
+            main.startColor = defaultColor;
+        }
+
+        if (_light != null)
+        {
+            _light.color = defaultColor;
+        }
     }
     protected void SetStartPos(Vector3 pos)
     {

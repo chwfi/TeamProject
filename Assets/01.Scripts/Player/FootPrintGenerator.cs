@@ -10,7 +10,7 @@ public class FootPrintGenerator : MonoBehaviour
 
     private void Awake()
     {
-        _inputReader.OnStartFireEvent += FootPrint;
+        _inputReader.OnStopFireEvent += FootPrint;
     }
 
     public void FootPrint()
@@ -29,6 +29,6 @@ public class FootPrintGenerator : MonoBehaviour
 
     private void OnDestroy()
     {
-        _inputReader.OnStartFireEvent -= FootPrint;
+        _inputReader.OnStopFireEvent -= FootPrint;
     }
 }
