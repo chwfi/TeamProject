@@ -13,6 +13,8 @@ public class FadeSprite : MonoBehaviour
 
     [SerializeField] private float _delay;
 
+    [SerializeField] private Color c;
+
     private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
@@ -33,6 +35,19 @@ public class FadeSprite : MonoBehaviour
             .AppendInterval(_waitTime)
             .Join(_sprite.DOColor(Color.gray, _fadeTime))
             .AppendInterval(_delay)
+            .Append(_sprite.DOFade(0, _fadeTime));
+    }
+
+    public void End()
+    {
+        Sequence seq = DOTween.Sequence();
+        _sprite.color = Color.gray;
+
+        seq.PrependInterval(_delay)
+            .Append(_sprite.DOFade(1, _fadeTime))
+            .AppendInterval(_waitTime)
+            .Join(_sprite.DOColor(c, _fadeTime))
+            .AppendInterval(_duration)
             .Append(_sprite.DOFade(0, _fadeTime));
     }
 
