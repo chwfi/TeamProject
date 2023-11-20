@@ -37,6 +37,11 @@ public class SoundManager : MonoSingleton<SoundManager>
         _sfxPlayer.PlayOneShot(_audioClipsDisc[clip_name]);
     }
 
+    public void PauseSFXSound()
+    {
+        _sfxPlayer.Pause();
+    }
+
     public void PlayBGMSound()
     {
         _bgmPlayer.clip = _backgroundSound;

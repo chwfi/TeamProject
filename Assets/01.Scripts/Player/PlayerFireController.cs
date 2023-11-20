@@ -9,16 +9,23 @@ public class PlayerFireController : MonoBehaviour
 
     private void Awake()
     {
-        //_inputReader.FireEvent += OnShootHandler;
+        _inputReader.OnStartFireEvent += OnShootHandler;
+        _inputReader.OnStopFireEvent += OnStopHandler;
     }
 
-    private void OnShootHandler(bool value)
+    private void OnShootHandler()
     {
-        //_lantern.OnShootLight(value);
+        SoundManager.Instance.PlaySFXSound("Hum");
+    }
+
+    private void OnStopHandler()
+    {
+        SoundManager.Instance.PauseSFXSound();
     }
 
     private void OnDestroy()
     {
-        //_inputReader.FireEvent -= OnShootHandler;
+        _inputReader.OnStartFireEvent -= OnShootHandler;
+        _inputReader.OnStopFireEvent -= OnStopHandler;
     }
 }
