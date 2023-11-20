@@ -390,7 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 259769660786244072}
   - component: {fileID: 775506577863913887}
-  - component: {fileID: 2919282476822715800}
+  - component: {fileID: 5017911285877459426}
   m_Layer: 6
   m_Name: Lantern
   m_TagString: Untagged
@@ -517,7 +517,7 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &2919282476822715800
+--- !u!114 &5017911285877459426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5603245379569864358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67643426d621e9646a494d1d63caf540, type: 3}
+  m_Script: {fileID: 11500000, guid: 1726e0e9a20ca9648abfc37b6eb671a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}

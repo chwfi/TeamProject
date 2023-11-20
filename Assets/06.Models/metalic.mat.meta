@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/06.Models/metalic.mat.meta
 guid: 4e1997c8835e8b944add97f10271ebe5
 NativeFormatImporter:
+========
+guid: b1f0a0ee002b91f40bc1cbedabb00257
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> main:Assets/00.Scenes/IntroStory.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 

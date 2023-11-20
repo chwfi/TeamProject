@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 5078697854038881813}
   - component: {fileID: 7335281667416413505}
   - component: {fileID: 2227048477327375132}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1506121767184481332
 Transform:
   m_ObjectHideFlags: 0
@@ -123,13 +123,13 @@ GameObject:
   - component: {fileID: 3785774123970801197}
   - component: {fileID: 6341600588217542145}
   - component: {fileID: 4233962360344939366}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5859541414054821166
 Transform:
   m_ObjectHideFlags: 0
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 7910748894043336105}
   - component: {fileID: 902248791074520416}
   - component: {fileID: 7738429032473488852}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 8544487220503847309}
   - component: {fileID: 47679931501331980}
   - component: {fileID: 7363335232333496999}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 9036524436640996610}
   - component: {fileID: 8607201639635652123}
   - component: {fileID: 7820619469758729446}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: DoorOpenTrigger_Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,13 +563,13 @@ GameObject:
   - component: {fileID: 6023195399327368683}
   - component: {fileID: 3594885923360180640}
   - component: {fileID: 224416406116321181}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4126602343245371121
 Transform:
   m_ObjectHideFlags: 0
@@ -674,13 +674,13 @@ GameObject:
   - component: {fileID: 6036157761087927840}
   - component: {fileID: 6993778969479108433}
   - component: {fileID: 9203320521088255841}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6634104556768563124
 Transform:
   m_ObjectHideFlags: 0
@@ -785,13 +785,13 @@ GameObject:
   - component: {fileID: 3422485329595296646}
   - component: {fileID: 6144060431355784117}
   - component: {fileID: 3941783203905246459}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5104721717725514204
 Transform:
   m_ObjectHideFlags: 0
@@ -896,13 +896,13 @@ GameObject:
   - component: {fileID: 5804685490845708343}
   - component: {fileID: 6381746673205052967}
   - component: {fileID: 3302113466724582006}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5693604524553401416
 Transform:
   m_ObjectHideFlags: 0
@@ -1007,13 +1007,13 @@ GameObject:
   - component: {fileID: 6382169948844570973}
   - component: {fileID: 6814453985253770995}
   - component: {fileID: 4737617580729886765}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2052361717842851303
 Transform:
   m_ObjectHideFlags: 0
@@ -1117,13 +1117,13 @@ GameObject:
   - component: {fileID: 781909425682394792}
   - component: {fileID: 6665552383307101823}
   - component: {fileID: 8316174800572951872}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: MinimapUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &781909425682394792
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,13 +1201,13 @@ GameObject:
   - component: {fileID: 4700244858668808730}
   - component: {fileID: 5860091486604668064}
   - component: {fileID: 2814109746551818422}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2852489026612424770
 Transform:
   m_ObjectHideFlags: 0
@@ -1312,13 +1312,13 @@ GameObject:
   - component: {fileID: 2548654084013398960}
   - component: {fileID: 3677105266452685160}
   - component: {fileID: 3328873352372731072}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &593900425579735520
 Transform:
   m_ObjectHideFlags: 0
@@ -1423,13 +1423,13 @@ GameObject:
   - component: {fileID: 2402491961267808207}
   - component: {fileID: 791622357575425023}
   - component: {fileID: 1201077704106983179}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1537154340389569826
 Transform:
   m_ObjectHideFlags: 0
@@ -1534,13 +1534,13 @@ GameObject:
   - component: {fileID: 6043269998969484674}
   - component: {fileID: 900265609789129193}
   - component: {fileID: 4690175648861176226}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7303002473053084002
 Transform:
   m_ObjectHideFlags: 0
@@ -1645,13 +1645,13 @@ GameObject:
   - component: {fileID: 1555603845639383174}
   - component: {fileID: 3167604896648959448}
   - component: {fileID: 5535143985614036004}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chain_04_Diamonds (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8502517679708027072
 Transform:
   m_ObjectHideFlags: 0

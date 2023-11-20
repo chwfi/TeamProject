@@ -7,7 +7,7 @@ namespace Define
     public static class Define
     {
         public static LayerMask ReflectionLayer =>
-                 1 << LayerMask.NameToLayer("ReflectiveObject");
+                 LayerMask.GetMask("ReflectiveObject", "DoorCrystal");
 
         public static Transform PlayerTrm
         {
