@@ -20,9 +20,7 @@ public class AssetLoader : MonoBehaviour
     private async void Start()
     {
         await LoadAsset();
-
         PoolManager.Instance = new PoolManager(transform);
-
         OnLoadComplete?.Invoke();
 
         await MakePooling();

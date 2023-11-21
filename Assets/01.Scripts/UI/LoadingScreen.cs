@@ -6,28 +6,29 @@ using UnityEngine.UIElements;
 
 public class LoadingScreen : MonoBehaviour
 {
-    public bool _isComplete = false;
+    public bool isComplete = false;
 
     private void OnEnable()
     {
-        AssetLoader.OnLoadComplete += HandleLoadCOmplete;
+        AssetLoader.OnLoadComplete += HandleLoadComplete;
     }
 
     private void OnDisable()
     {
-        AssetLoader.OnLoadComplete -= HandleLoadCOmplete;
+        AssetLoader.OnLoadComplete -= HandleLoadComplete;
     }
 
-    private void HandleLoadCOmplete()
+    private void HandleLoadComplete()
     {
-        _isComplete = true;
+        isComplete = true;
     }
 
     private void Update()
     {
-        if( _isComplete )
+        if( isComplete )
         {
             SceneManager.LoadScene(SceneList.TestMap);
+            Destroy(gameObject);
         }
     }
 }
