@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SFX : uint
+{
+    Page,
+    StoneFall,
+    MetalDrag,
+    Hum,
+    Footstep,
+
+}
+
 public enum DistanceState
 {
     Inside,

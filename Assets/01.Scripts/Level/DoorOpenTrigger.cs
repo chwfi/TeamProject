@@ -65,7 +65,7 @@ public class DoorOpenTrigger : MonoBehaviour, ICheckDistance
             this.gameObject.layer = LayerMask.NameToLayer("Default");
             linkedDoor.OpenDoor(); // 같은 색이라면 문 염
             arrowUI?.FadeToDisable(); //화살표 UI Fade후 Destroy
-            SoundManager.Instance.PlaySFXSound("StoneFall");
+            SoundManager.Instance.PlaySFXSound(SFX.StoneFall);
             _isOpend = true;
         }
 
@@ -74,7 +74,7 @@ public class DoorOpenTrigger : MonoBehaviour, ICheckDistance
             this.gameObject.layer = LayerMask.NameToLayer("Default");
             linkedDoor.OpenDoor(); // 같은 색이라면 문 염
             arrowUI?.FadeToDisable(); //화살표 UI Fade후 Destroy
-            SoundManager.Instance.PlaySFXSound("StoneFall");
+            SoundManager.Instance.PlaySFXSound(SFX.StoneFall);
             _isOpend = true;
         }
     }

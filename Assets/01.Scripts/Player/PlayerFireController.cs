@@ -15,12 +15,12 @@ public class PlayerFireController : MonoBehaviour
 
     private void OnShootHandler()
     {
-        SoundManager.Instance.PlaySFXSound("Hum");
+        SoundManager.Instance.PlaySFXSound(SFX.Hum);
     }
 
     private void OnStopHandler()
     {
-        SoundManager.Instance.PauseSFXSound("Hum");
+        SoundManager.Instance.PauseSFXSound(SFX.Hum);
     }
 
     private void OnDestroy()

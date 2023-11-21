@@ -21,13 +21,9 @@ public class SoundManager : MonoSingleton<SoundManager>
 
         _audioClipsDisc = new Dictionary<string, AudioClip>();
         _audioClipToAudioSourceDisc = new();
-    }
-    private void Start()
-    {
+
         foreach (AudioClip clip in _sfxSounds)
         {
-            Debug.Log("d");
-
             GameObject audioSrObj = new GameObject(clip.name);
             audioSrObj.transform.parent = transform.Find("SFXCollection");
             AudioSource audioSr = audioSrObj.AddComponent<AudioSource>();
@@ -37,26 +33,28 @@ public class SoundManager : MonoSingleton<SoundManager>
             _audioClipsDisc.Add(clip.name, clip); //배열에 있는 사운드 이펙트들을 딕셔너리에 모두 추가해줌
             _audioClipToAudioSourceDisc.Add(clip, audioSr);
         }
-
+    }
+    private void Start()
+    {
         PlayBGMSound();
     }
 
-    public void PlaySFXSound(string clip_name) //사운드 이펙트 재생 시 딕셔너리에 있는 클립의 이름으로 특정하여 재생
+    public void PlaySFXSound(SFX sfx) //사운드 이펙트 재생 시 딕셔너리에 있는 클립의 이름으로 특정하여 재생
     {
-        if (!_audioClipsDisc.ContainsKey(clip_name))
+        if (!_audioClipsDisc.ContainsKey(sfx.ToString()))
         {
-            Debug.Log($"{clip_name} is not Contained at audioClipsDisc");
+            Debug.Log($"{sfx.ToString()} is not Contained at audioClipsDisc");
             return;
         }
 
         //_sfxPlayer.PlayOneShot(_audioClipsDisc[clip_name]);
-        var clip = _audioClipsDisc[clip_name];
+        var clip = _audioClipsDisc[sfx.ToString()];
         _audioClipToAudioSourceDisc[clip].Play();
     }
 
-    public void PauseSFXSound(string clip_name)
+    public void PauseSFXSound(SFX sfx)
     {
-        var clip = _audioClipsDisc[clip_name];
+        var clip = _audioClipsDisc[sfx.ToString()];
         _audioClipToAudioSourceDisc[clip].Stop();
 
         //_sfxPlayer.Stop();
@@ -82,5 +80,17 @@ public class SoundManager : MonoSingleton<SoundManager>
     public void SetVolumeBGM(float volume)
     {
         _bgmPlayer.volume = volume;
+    }
+
+    public AudioSource GetAudioSource(string clip_name)
+    {
+        if (!_audioClipsDisc.ContainsKey(clip_name))
+        {
+            Debug.Log($"{clip_name} is not Contained at audioClipsDisc");
+            return null;
+        }
+
+        var clip = _audioClipsDisc[clip_name];
+        return _audioClipToAudioSourceDisc[clip];
     }
 }

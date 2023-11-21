@@ -34,7 +34,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
     public void ShowGmmick()
     {
-        SoundManager.Instance.PlaySFXSound("Page");
+        SoundManager.Instance.PlaySFXSound(SFX.Page);
         _gimmickPanel.DOFade(1, 0.5f);
         _gimmickList[_previousGimmick].SetActive(false);
         _gimmickList[_currentGimmick].SetActive(true);
@@ -45,7 +45,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
     public void HideGmmick()
     {
-        SoundManager.Instance.PlaySFXSound("Page");
+        SoundManager.Instance.PlaySFXSound(SFX.Page);
         _gimmickPanel.DOFade(0, 0.5f);
         IsActive = false;
         UIManager.Instance.InputReader.CanShoot = true;
@@ -56,7 +56,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
     public void ShowTuto()
     {
-        SoundManager.Instance.PlaySFXSound("Page");
+        SoundManager.Instance.PlaySFXSound(SFX.Page );
         _tutoPanel.DOFade(1, 0.5f);
         _tutoList[_previousTuto].SetActive(false);
         _tutoList[_currentTuto].SetActive(true);
@@ -67,7 +67,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
     private void HideTuto()
     {
-        SoundManager.Instance.PlaySFXSound("Page");
+        SoundManager.Instance.PlaySFXSound(SFX.Page);
         _tutoPanel.DOFade(0, 0.5f);
         IsActiveTuto = false;
         UIManager.Instance.InputReader.CanShoot = true;

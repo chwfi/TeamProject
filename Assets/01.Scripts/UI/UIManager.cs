@@ -43,7 +43,7 @@ public class UIManager : MonoSingleton<UIManager>
             {
                 settingUI.Fade(1, 0.5f);
                 InputReader.CanShoot = false;
-                SoundManager.Instance.PlaySFXSound("Page");
+                SoundManager.Instance.PlaySFXSound(SFX.Page);
                 GameManager.Instance.StopGameImmediately(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
@@ -56,7 +56,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         settingUI.Fade(0, 0.5f);
         InputReader.CanShoot = true;
-        SoundManager.Instance.PlaySFXSound("Page");
+        SoundManager.Instance.PlaySFXSound(SFX.Page);
         GameManager.Instance.StopGameImmediately(false);
         Cursor.visible = false;
         _isSettingShown = false;
