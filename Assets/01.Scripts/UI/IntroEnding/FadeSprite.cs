@@ -14,23 +14,23 @@ public class FadeSprite : MonoBehaviour
     [SerializeField] private float _delay;
 
     [SerializeField] private Color c;
-
+    
+    Sequence seq;
     private void Awake()
     {
+        seq = DOTween.Sequence();
         _sprite = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        Sequence seq = DOTween.Sequence();
-
         seq.Append(_sprite.DOFade(1, _fadeTime))
             .AppendInterval(_duration)
             .Append(_sprite.DOFade(0, _fadeTime));
     }
     public void CrystalChangeColor()
     {
-        Sequence seq = DOTween.Sequence();
+        seq = DOTween.Sequence();
         seq.Append(_sprite.DOFade(1, _fadeTime))
             .AppendInterval(_waitTime)
             .Join(_sprite.DOColor(Color.gray, _fadeTime))

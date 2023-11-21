@@ -16,6 +16,8 @@ public class IntroFade : MonoBehaviour
     [SerializeField] private float _waitTime;
     [SerializeField] private Color c;
 
+    Sequence seq;
+
     private void Awake()
     {
         _title.color = c;
@@ -25,7 +27,7 @@ public class IntroFade : MonoBehaviour
 
     private void Start()
     {
-        Sequence seq = DOTween.Sequence();
+        seq = DOTween.Sequence();
 
         seq.Append(_title.DOFade(1, _fadeTime))
             .Join(_start.DOFade(1, _fadeTime))
@@ -34,8 +36,7 @@ public class IntroFade : MonoBehaviour
 
     public void SceneMove(string name)
     {
-        Sequence seq = DOTween.Sequence();
-
+        seq = DOTween.Sequence();
         seq.Append(_title.DOFade(0, 1f))
             .Join(_start.DOFade(0, 1f))
             .Join(_exit.DOFade(0, 1f))
@@ -46,8 +47,7 @@ public class IntroFade : MonoBehaviour
     public void ExitGame()
     {
         Debug.Log("게임 나감");
-        Sequence seq = DOTween.Sequence();
-
+        seq = DOTween.Sequence();
         seq.Append(_title.DOFade(0, 1f))
             .Join(_start.DOFade(0, 1f))
             .Join(_exit.DOFade(0, 1f))
