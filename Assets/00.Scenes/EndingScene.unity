@@ -1153,6 +1153,7 @@ GameObject:
   - component: {fileID: 1702709953}
   - component: {fileID: 1702709952}
   - component: {fileID: 1702709956}
+  - component: {fileID: 1702709957}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1343,30 +1344,18 @@ MonoBehaviour:
     isConnect: 0
     OnEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1702709956}
-          m_TargetAssemblyTypeName: DrawIntro, Assembly-CSharp
-          m_MethodName: ToBeContinue
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   - text: 
     sprite: {fileID: 0}
-    waitTime: 2.5
+    waitTime: 0
     fadeTime: 2
     duration: 4
     isConnect: 0
     OnEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1702709956}
-          m_TargetAssemblyTypeName: DrawIntro, Assembly-CSharp
+        - m_Target: {fileID: 1702709957}
+          m_TargetAssemblyTypeName: EndingCradit, Assembly-CSharp
           m_MethodName: ToBeContinue
           m_Mode: 5
           m_Arguments:
@@ -1398,7 +1387,7 @@ MonoBehaviour:
         - m_Target: {fileID: 126153160}
           m_TargetAssemblyTypeName: FadeEnd, Assembly-CSharp
           m_MethodName: SceneMove
-          m_Mode: 5
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1407,8 +1396,19 @@ MonoBehaviour:
             m_StringArgument: Intro
             m_BoolArgument: 0
           m_CallState: 2
-  _endTex: {fileID: 1228090833}
   num: 0
+--- !u!114 &1702709957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702709951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 254bcdb9f8aac0b44ab67e3fc6bfe61f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1717034740
 GameObject:
   m_ObjectHideFlags: 0

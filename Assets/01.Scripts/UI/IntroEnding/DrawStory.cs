@@ -26,7 +26,6 @@ public class DrawStory : MonoBehaviour
     
     private SpriteRenderer _sprite;
     private TextMeshProUGUI _text;
-    [SerializeField] private TextMeshProUGUI _endTex;
 
     public int num;
     Sequence seq;
@@ -72,15 +71,5 @@ public class DrawStory : MonoBehaviour
                 yield return new WaitForSeconds(DrawList[i].fadeTime);
             }
         }
-    }
-
-    public void ToBeContinue(string s)
-    {
-        _endTex.text = s;
-
-        seq.Append(_endTex.DOFade(1, DrawList[num].fadeTime))
-            .AppendInterval(DrawList[num].duration)
-            .Append(_endTex.DOFade(0, DrawList[num].fadeTime));
-        
     }
 }
