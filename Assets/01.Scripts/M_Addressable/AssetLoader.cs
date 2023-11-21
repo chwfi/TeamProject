@@ -9,9 +9,12 @@ public class AssetLoader : MonoBehaviour
 
     public static Notify OnLoadComplete;
 
+    public static AssetLoader Instance;
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        Instance = this;
     }
 
     private async void Start()
