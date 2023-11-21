@@ -1,10 +1,13 @@
 using UnityEngine;
-using Task = System.Threading.Tasks.Task;
+using System.Threading.Tasks;
 
 public class AssetLoader : MonoBehaviour
 {
     [SerializeField]
     private AssetLoaderSO assetLoaderSO;
+    public delegate void Notify();
+
+    public static Notify OnLoadComplete;
 
     private void Awake()
     {
@@ -14,6 +17,11 @@ public class AssetLoader : MonoBehaviour
     private async void Start()
     {
         await LoadAsset();
+
+        PoolManager.Instance = new PoolManager(transform);
+
+        OnLoadComplete?.Invoke();
+
         await MakePooling();
     }
 

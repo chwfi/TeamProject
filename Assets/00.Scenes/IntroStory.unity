@@ -263,19 +263,22 @@ MonoBehaviour:
   _skipImg: {fileID: 1150292933}
   _fadeTime: 2
   _duration: 2
+  pressedKey: 0
+  fadeOut: 0
+  canSkip: 0
   OnEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 255397002}
         m_TargetAssemblyTypeName: FadeUI, Assembly-CSharp
         m_MethodName: FadeInImg
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: TestMap
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &348989585
@@ -2105,17 +2108,17 @@ MonoBehaviour:
         m_Calls: []
   - text: 
     sprite: {fileID: 0}
-    waitTime: 0
-    fadeTime: 2
-    duration: 5
+    waitTime: 2
+    fadeTime: 0
+    duration: 0
     isConnect: 0
     OnEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2015682043}
-          m_TargetAssemblyTypeName: FadeSprite, Assembly-CSharp
+        - m_Target: {fileID: 255397002}
+          m_TargetAssemblyTypeName: FadeUI, Assembly-CSharp
           m_MethodName: SceneMove
-          m_Mode: 5
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -2638,7 +2638,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1823687827}
         m_TargetAssemblyTypeName: IntroFade, Assembly-CSharp
         m_MethodName: SceneMove
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4528,6 +4528,7 @@ MonoBehaviour:
   _start: {fileID: 963214822}
   _exit: {fileID: 109118187}
   _fadeTime: 3
+  _waitTime: 0
   c: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &1836525757
 GameObject:

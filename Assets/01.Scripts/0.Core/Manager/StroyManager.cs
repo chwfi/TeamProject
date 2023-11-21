@@ -17,26 +17,35 @@ public class StroyManager : MonoBehaviour
     [SerializeField] private float _fadeTime;
     [SerializeField] private float _duration;
 
-    private bool pressedKey;
-    private bool fadeOut;
-    private bool canSkip;
+    public bool pressedKey;
+    public bool fadeOut;
+    public bool canSkip;
 
     public UnityEvent OnEvent;
+    Sequence seq;
+
+    private void Start()
+    {
+        seq = DOTween.Sequence();
+    }
 
     private void Update()
     {
-        Sequence seq = DOTween.Sequence();
-
-        if(pressedKey)
+        if (pressedKey)
         {
-            seq.Append(_skipTex.DOFade(1, _fadeTime))
-                .Join(_skipImg.DOFade(1, _fadeTime))
-                .AppendCallback(()=>fadeOut = true)
-                .AppendCallback(()=>canSkip = true)
-                .AppendCallback(()=>pressedKey = false);
+            seq.Append(_skipTex.DOFade(1, _fadeTime).OnComplete(() =>
+            {
+                fadeOut = true;
+                canSkip = true;
+                pressedKey = false;
+            }))
+            .Join(_skipImg.DOFade(1, _fadeTime));
+                //.AppendCallback(() => fadeOut = true)
+                //.AppendCallback(() => canSkip = true)
+                //.AppendCallback(() => pressedKey = false);
         }
 
-        if(fadeOut)
+        if (fadeOut)
         {
             seq.PrependInterval(_duration)
                 .AppendCallback(() => canSkip = false)
@@ -44,12 +53,12 @@ public class StroyManager : MonoBehaviour
                 .Join(_skipImg.DOFade(0, _fadeTime));
         }
 
-        if(canSkip && Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (canSkip && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             OnEvent.Invoke();
         }
 
-        if(Keyboard.current.anyKey.wasPressedThisFrame)
+        if (Keyboard.current.anyKey.wasPressedThisFrame)
         {
             pressedKey = true;
         }

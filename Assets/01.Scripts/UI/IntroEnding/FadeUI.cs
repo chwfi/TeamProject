@@ -11,11 +11,16 @@ public class FadeUI : MonoBehaviour
 
     [SerializeField] private float _fadeTime;
 
-    public void FadeInImg(string name)
+    Sequence seq;
+    public void FadeInImg()
     {
-        Sequence seq = DOTween.Sequence();
-
+        seq = DOTween.Sequence();
         seq.Append(_img.DOFade(1, _fadeTime))
-            .AppendCallback(() => SceneManager.LoadScene(name));
+            .AppendCallback(() => SceneManager.LoadScene(SceneList.LoadingScene));
+    }
+
+    public void SceneMove()
+    {
+        SceneManager.LoadScene(SceneList.LoadingScene);
     }
 }
