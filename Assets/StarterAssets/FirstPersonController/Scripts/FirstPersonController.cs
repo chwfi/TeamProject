@@ -273,7 +273,12 @@ namespace StarterAssets
 
         private void OnTriggerEnter(Collider other)
         {
-			if (other.CompareTag("TutorialChecker"))
+            if (other.CompareTag("ColorPanel"))
+            {
+                TutorialManager.Instance.ShowColorPanel();
+                Destroy(other.gameObject);
+            }
+            if (other.CompareTag("TutorialChecker"))
 			{
                 TutorialManager.Instance.ShowGmmick();
                 Destroy(other.gameObject);
