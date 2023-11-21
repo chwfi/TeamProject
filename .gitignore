@@ -70,3 +70,18 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/SpecialSkillsEffectsPack/Patch/Decals/HDRPdecal(Upper2020HDRP).unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Decals/HDRPdecal.unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Decals/HDRPdecalMatrixFix(Upper2020HDRP).unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Decals/URPdecal.unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Materials/GammaSpaceMaterials(WithoutNormal).unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Materials/GammaSpaceMaterials.unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Materials/LinearSpaceMaterials(WithoutNormal).unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Materials/LinearSpaceMaterials.unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Prefebs/OptimizedEffectsPrefebs.unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Prefebs/OriginalEffectsPrefebs(WithoutDistort).unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Prefebs/OriginalEffectsPrefebs.unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Toon/ToonTypeMaterial(GammaSpace).unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Toon/ToonTypeMaterial(LinearSpace).unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Toon/ToonTypeTextures_Part1.unitypackage.meta
+Assets/SpecialSkillsEffectsPack/Patch/Toon/ToonTypeTextures_Part2.unitypackage.meta
