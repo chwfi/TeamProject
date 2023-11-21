@@ -10,17 +10,27 @@ public class FadeUI : MonoBehaviour
     [SerializeField] private Image _img;
 
     [SerializeField] private float _fadeTime;
+    private bool isChanged = false;
 
     Sequence seq;
     public void FadeInImg()
     {
         seq = DOTween.Sequence();
         seq.Append(_img.DOFade(1, _fadeTime))
-            .AppendCallback(() => SceneManager.LoadScene(SceneList.LoadingScene));
+            .AppendCallback(() => SceneMove());
     }
 
     public void SceneMove()
     {
-        SceneManager.LoadScene(SceneList.LoadingScene);
+        if(!isChanged)
+        {
+            isChanged = true;
+            SceneManager.LoadScene(SceneList.LoadingScene);
+        }
+        else
+        {
+            Debug.Log("¿¿ æ»µ≈ §ª§ª");
+        }
+        
     }
 }

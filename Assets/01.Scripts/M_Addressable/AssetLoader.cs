@@ -17,8 +17,11 @@ public class AssetLoader : MonoBehaviour
         {
             Debug.LogError("AssetLoader is already Created");
         }
-        Instance = this;
-        DontDestroyOnLoad(Instance);
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
     }
 
     private async void Start()
