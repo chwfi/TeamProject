@@ -53,6 +53,7 @@ public class AssetLoader : MonoBehaviour
                 Debug.LogWarning($"{r.assetRef.Asset.name} doesnt has PoolableMono Component, skip it");
                 continue;
             }
+            Debug.Log(obj.name);
             await Task.Delay(1);
             PoolManager.Instance.CreatePool(r.assetRef.AssetGUID, obj, r.count);
         }
