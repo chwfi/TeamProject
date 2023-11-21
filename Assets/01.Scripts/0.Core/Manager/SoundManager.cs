@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +48,6 @@ public class SoundManager : MonoSingleton<SoundManager>
             return;
         }
 
-        //_sfxPlayer.PlayOneShot(_audioClipsDisc[clip_name]);
         var clip = _audioClipsDisc[sfx.ToString()];
         _audioClipToAudioSourceDisc[clip].Play();
     }
@@ -55,9 +55,22 @@ public class SoundManager : MonoSingleton<SoundManager>
     public void PauseSFXSound(SFX sfx)
     {
         var clip = _audioClipsDisc[sfx.ToString()];
-        _audioClipToAudioSourceDisc[clip].Stop();
+        var audio = _audioClipToAudioSourceDisc[clip];
+        StartCoroutine(FadeOut(audio));
+    }
 
-        //_sfxPlayer.Stop();
+    IEnumerator FadeOut(AudioSource audio)
+    {
+        float startVolume = audio.volume; // 오디오 시작 볼륨 저장
+
+        while (audio.volume > 0)
+        {
+            audio.volume -= startVolume * Time.deltaTime / .4f; // 시간에 따라 볼륨을 서서히 감소시킴
+            yield return null;
+        }
+
+        audio.Stop(); // 오디오를 정지시킴
+        audio.volume = startVolume; // 시작 볼륨으로 초기화
     }
 
     public void PlayBGMSound()

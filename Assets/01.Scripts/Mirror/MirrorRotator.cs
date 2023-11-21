@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -74,23 +75,35 @@ public class MirrorRotator : MonoBehaviour, ICheckDistance
                     transform.Rotate(new Vector3(0, 0, 4) * RotationSpeed * Time.deltaTime);
             }
 
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                SoundManager.Instance.PlaySFXSound(SFX.Rotate);
+            }
+
             if (Input.GetKey(KeyCode.Q))
             {
                 transform.Rotate(new Vector3(0, 1, 0) * RotationSpeed * KeyPressTime * Time.deltaTime);
                 KeyPressTime += Time.deltaTime * 4f;
             }
-            else if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.Q))
             {
+                SoundManager.Instance.PauseSFXSound(SFX.Rotate);
                 KeyPressTime = 0.2f;
             }
 
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
+                SoundManager.Instance.PlaySFXSound(SFX.Rotate);
+            }
+
+            if (Input.GetKey(KeyCode.E))
+            {     
                 transform.Rotate(new Vector3(0, -1, 0) * RotationSpeed * KeyPressTime * Time.deltaTime);
                 KeyPressTime += Time.deltaTime * 4f;
             }
-            else if (Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyUp(KeyCode.E))
             {
+                SoundManager.Instance.PauseSFXSound(SFX.Rotate);
                 KeyPressTime = 0.2f;
             }
 
