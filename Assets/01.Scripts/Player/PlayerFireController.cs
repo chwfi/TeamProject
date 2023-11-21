@@ -9,6 +9,8 @@ public class PlayerFireController : MonoBehaviour
 
     private void Awake()
     {
+        
+
         _inputReader.OnStartFireEvent += OnShootHandler;
         _inputReader.OnStopFireEvent += OnStopHandler;
     }

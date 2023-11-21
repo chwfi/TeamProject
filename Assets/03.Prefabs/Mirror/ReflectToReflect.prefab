@@ -213,7 +213,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ccb9c637cee43044bfeeae86f95f5b1, type: 2}
+  - {fileID: 2100000, guid: 8ec14264e8eb6c94491923db3877432c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   lightFadeInoutTick: 40
-  lightWidth: 0.08
+  lightWidth: 0.4
   _minimapCube: {fileID: 5522193217477881995}
 --- !u!1 &3001619261730472003
 GameObject:

@@ -56,8 +56,6 @@ public abstract class LightingBehaviour : MonoBehaviour
 
     private Color _effectColor;
     private int maxDistance = 1000;
-
-    private bool _isHit = false;
     protected virtual void Awake()
     {
         lb = GetComponent<LineRenderer>();
@@ -148,8 +146,6 @@ public abstract class LightingBehaviour : MonoBehaviour
         if (Physics.Raycast(pos, dir, out hit, raycastDistance, ReflectionLayer))
         {
             reflectedObject = CheckObject<T>(hit, dir);
-
-            _isHit = true;
         }
         else
         {
@@ -157,8 +153,6 @@ public abstract class LightingBehaviour : MonoBehaviour
             SetDrawLineEndPos(endPosition);
 
             ReflectObjectChangedTypeToUnReflect();
-
-            _isHit = false;
         }
         return reflectedObject;
     }

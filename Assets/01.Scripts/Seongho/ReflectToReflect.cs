@@ -32,8 +32,7 @@ public class ReflectToReflect : Reflective
         var triPlane = OnShootRaycast<TriangluarPlane>(shootPos, raycastDirection);
         triPlane?.GetReflectedObjectDataModify(myReflectData);
 
-
-        DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(shootPos, raycastDirection);
+        var door = OnShootRaycast<DoorOpenTrigger>(shootPos, raycastDirection);
         door?.ColorMatch(cCol, this);
     }
 }

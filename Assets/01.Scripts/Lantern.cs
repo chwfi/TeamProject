@@ -43,7 +43,7 @@ public class Lantern : Glow
     {
         Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
 
-        if (obj is not ReflectToReflect && obj is not ReflectToUp)
+        if (obj is not ReflectToReflect)
         {
             ChangedReflectObject(obj);
             obj?.OnReflectTypeChanged(ReflectState.OnReflect);

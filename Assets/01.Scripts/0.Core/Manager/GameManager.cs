@@ -16,6 +16,10 @@ public class GameManager : MonoSingleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         _player = PlayerTrm.GetComponent<FirstPersonController>();
     }
     private void Update()
