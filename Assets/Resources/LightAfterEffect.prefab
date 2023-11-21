@@ -81,7 +81,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.03
+    widthMultiplier: 0.09
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -228,7 +228,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.007
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
