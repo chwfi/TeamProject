@@ -31,7 +31,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
     private void Start()
     {
-        Invoke("ShowTuto", 2f);
+        ShowTuto();
     }
 
     public void ShowColorPanel()

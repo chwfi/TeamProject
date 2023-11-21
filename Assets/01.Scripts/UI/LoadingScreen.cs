@@ -2,15 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using DG.Tweening;
+using TMPro;
+using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
-    private bool isComplete = false;
+    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private SpriteRenderer _spriteRender;
+    [SerializeField] private Transform _circle;
+    [SerializeField] private float _rotateValue;
+
+    public bool isComplete = false;
+    private Sequence seq;
 
     private void Awake()
     {
         AssetLoader.Instance.OnLoadComplete += HandleLoadComplete;
+        seq = DOTween.Sequence();
     }
 
     private void OnDisable()
@@ -25,7 +34,13 @@ public class LoadingScreen : MonoBehaviour
 
     private void Update()
     {
-        if( isComplete )
+
+        seq.Append(_text.DOFade(5f, 2f))
+            .Join(_spriteRender.DOFade(5f, 2f));
+            
+        _circle.Rotate(0, 0, _rotateValue * Time.deltaTime);
+
+        if (isComplete)
         {
             SceneManager.LoadScene(SceneList.TestMap);
             Destroy(gameObject);

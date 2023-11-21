@@ -9,6 +9,7 @@ public enum SFX : uint
     MetalDrag,
     Hum,
     Footstep,
+    Rotate
 }
 
 public enum DistanceState
