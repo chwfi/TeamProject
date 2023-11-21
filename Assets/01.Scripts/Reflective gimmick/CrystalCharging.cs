@@ -9,8 +9,7 @@ public enum CrystalParticleType
     Charging,
     ChargingFin
 }
-
-public class CrystalCharging : MonoBehaviour
+public class CrystalCharging : Reflective
 {
     Dictionary<CrystalParticleType, ParticleSystem> particlesDic = new(); // 상태에 따른 파티클딕셔너리
 
@@ -30,7 +29,7 @@ public class CrystalCharging : MonoBehaviour
     private float timer = 0f;
 
     private float curChargingValue; // 현재 색차지 값
-    private float maxChargingValue = 5f;
+    public float maxChargingValue = 5f;
     public float ChargingValue // 색차지 값프로퍼티
     {
         get { return curChargingValue; }
@@ -40,7 +39,7 @@ public class CrystalCharging : MonoBehaviour
     public bool CanUse = false; //사용가능한가
     private bool isCharging = false; //현재 차징중인가
 
-    protected void Start()
+    protected override void Start()
     {
         _curParticleType = CrystalParticleType.None; // 상태 초기화
         _preParticleType = _curParticleType;         // 상태 초기화
@@ -61,6 +60,25 @@ public class CrystalCharging : MonoBehaviour
         _mr.SetPropertyBlock(_materialPropertyBlock);                   //색 초기화.
     }
 
+    public override void OnHandleReflected()
+    {
+        isCharging = true;
+    }
+    public override void UnHandleReflected()
+    {
+        isCharging = false;
+
+        if (_curParticleType != CrystalParticleType.ChargingFin)
+        {
+            ChargingValue = 0;
+            timer = 0;
+            _newColor = _colorZero;
+            _materialPropertyBlock.SetColor("_EmissionColor", _colorZero);
+            _mr.SetPropertyBlock(_materialPropertyBlock);
+        }
+
+
+    }
     private void Update()
     {
         UpdateCrystalState(); // 상태 확인
@@ -75,25 +93,31 @@ public class CrystalCharging : MonoBehaviour
         }
 
         _preParticleType = _curParticleType;
+
+        CheckCharging();
     }
-    public void OnCharging()
+    public void CheckCharging()
     {
         if (CanUse == true) { return; }
-
-        if (ChargingValue <= maxChargingValue)
         {
-            timer += Time.deltaTime;
-            float t = Mathf.Clamp01(timer / maxChargingValue);
-
-            ChargingValue = Mathf.Lerp(0f, maxChargingValue, t);
-            _newColor = Color.Lerp(_colorZero, _targetColor, t);
-
-            _materialPropertyBlock.SetColor("_EmissionColor", _newColor);
-            _mr.SetPropertyBlock(_materialPropertyBlock);
-
-            if (_curParticleType != CrystalParticleType.None)
+            if (isCharging == true)
             {
-                ChangeParticleSystemColor();
+                if (ChargingValue <= maxChargingValue)
+                {
+                    timer += Time.deltaTime;
+                    float t = Mathf.Clamp01(timer / maxChargingValue);
+
+                    ChargingValue = Mathf.Lerp(0f, maxChargingValue, t);
+                    _newColor = Color.Lerp(_colorZero, _targetColor, t);
+
+                    _materialPropertyBlock.SetColor("_EmissionColor", _newColor);
+                    _mr.SetPropertyBlock(_materialPropertyBlock);
+
+                    if (_curParticleType != CrystalParticleType.None)
+                    {
+                        ChangeParticleSystemColor();
+                    }
+                }
             }
         }
     }
@@ -122,7 +146,7 @@ public class CrystalCharging : MonoBehaviour
 
     private void UpdateCrystalState() // 상태 업데이트
     {
-        if (ChargingValue == maxChargingValue)
+        if (ChargingValue >= maxChargingValue)
         {
             if (_curParticleType != CrystalParticleType.None)
             {
@@ -155,6 +179,11 @@ public class CrystalCharging : MonoBehaviour
                 c.color = _newColor;
             }
         }
+    }
+
+    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
+    {
+        throw new NotImplementedException();
     }
     #endregion
 }

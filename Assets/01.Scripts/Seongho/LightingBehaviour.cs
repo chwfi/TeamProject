@@ -44,6 +44,7 @@ public abstract class LightingBehaviour : MonoBehaviour
     #region 반사로직 변수(경고 !!절대로 열지 마세요!! )
 
     protected Reflective reflectObject = null; //내 빛에 반사된 오브젝트
+    protected CrystalCharging crystalCharging = null; //내 빛에 반사된 오브젝트
 
     protected ReflectData myReflectData; //나의 반사 데이터
 
@@ -117,7 +118,7 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         elapsedTime = 0;
         raycastDistance = 0;
-         
+
         var effect = RdfResources.Load<LightAfterEffect>(AFTEREFFCT_PATH);
 
         var obj = GameObject.Instantiate(effect);

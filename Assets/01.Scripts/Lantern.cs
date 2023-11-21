@@ -55,8 +55,8 @@ public class Lantern : Glow
 
         OnShootRaycast<DoorOpenTrigger>(reflectData.hitPos, reflectData.direction);
 
-        CrystalCharging cC = OnShootRaycast<CrystalCharging>(reflectData.hitPos, reflectData.direction);
-        cC?.OnCharging();
+        //CrystalCharging cC = OnShootRaycast<CrystalCharging>(reflectData.hitPos, reflectData.direction);
+        //cC?.OnCharging();
     }
     private void OnDestroy()
     {
