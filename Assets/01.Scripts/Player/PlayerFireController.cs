@@ -20,7 +20,7 @@ public class PlayerFireController : MonoBehaviour
 
     private void OnStopHandler()
     {
-        SoundManager.Instance.PauseSFXSound();
+        SoundManager.Instance.PauseSFXSound("Hum");
     }
 
     private void OnDestroy()

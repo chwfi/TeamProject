@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class SoundManager : MonoSingleton<SoundManager>
 {
@@ -8,19 +9,33 @@ public class SoundManager : MonoSingleton<SoundManager>
     [SerializeField] private AudioClip _backgroundSound; //배경 음악
 
     Dictionary<string, AudioClip> _audioClipsDisc; //사운드 이펙드들을 딕셔너리로 관리
+    Dictionary<AudioClip, AudioSource> _audioClipToAudioSourceDisc; //사운드 이펙드들을 딕셔너리로 관리
     AudioSource _bgmPlayer; //배경 음악 플레이어
-    AudioSource _sfxPlayer; //사운드 이펙트 플레이어
+    //AudioSource _sfxPlayer; //사운드 이펙트 플레이어
 
     protected override void Awake()
     {
         base.Awake();
         _bgmPlayer = transform.Find("BGMPlayer").GetComponent<AudioSource>();
-        _sfxPlayer = transform.Find("SFXPlayer").GetComponent<AudioSource>();
+        //_sfxPlayer = transform.Find("SFXPlayer").GetComponent<AudioSource>();
 
         _audioClipsDisc = new Dictionary<string, AudioClip>();
+        _audioClipToAudioSourceDisc = new();
+    }
+    private void Start()
+    {
         foreach (AudioClip clip in _sfxSounds)
         {
+            Debug.Log("d");
+
+            GameObject audioSrObj = new GameObject(clip.name);
+            audioSrObj.transform.parent = transform.Find("SFXCollection");
+            AudioSource audioSr = audioSrObj.AddComponent<AudioSource>();
+
+            audioSr.clip = clip;
+
             _audioClipsDisc.Add(clip.name, clip); //배열에 있는 사운드 이펙트들을 딕셔너리에 모두 추가해줌
+            _audioClipToAudioSourceDisc.Add(clip, audioSr);
         }
 
         PlayBGMSound();
@@ -34,12 +49,17 @@ public class SoundManager : MonoSingleton<SoundManager>
             return;
         }
 
-        _sfxPlayer.PlayOneShot(_audioClipsDisc[clip_name]);
+        //_sfxPlayer.PlayOneShot(_audioClipsDisc[clip_name]);
+        var clip = _audioClipsDisc[clip_name];
+        _audioClipToAudioSourceDisc[clip].Play();
     }
 
-    public void PauseSFXSound()
+    public void PauseSFXSound(string clip_name)
     {
-        _sfxPlayer.Stop();
+        var clip = _audioClipsDisc[clip_name];
+        _audioClipToAudioSourceDisc[clip].Stop();
+
+        //_sfxPlayer.Stop();
     }
 
     public void PlayBGMSound()
@@ -50,7 +70,13 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     public void SetVolumeSFX(float volume)
     {
-        _sfxPlayer.volume = volume;
+        //_sfxPlayer.volume = volume;
+
+        foreach (var item in _audioClipToAudioSourceDisc)
+        {
+            var sr = item.Value;
+            sr.volume = volume;
+        }
     }
 
     public void SetVolumeBGM(float volume)
