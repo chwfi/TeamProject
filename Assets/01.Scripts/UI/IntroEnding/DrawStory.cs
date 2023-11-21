@@ -20,7 +20,7 @@ public class OutputContent
     public UnityEvent OnEvent;
 }
 
-public class DrawIntro : MonoBehaviour
+public class DrawStory : MonoBehaviour
 {
     public List<OutputContent> DrawList;
     
@@ -29,6 +29,7 @@ public class DrawIntro : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _endTex;
 
     public int num;
+    Sequence seq;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class DrawIntro : MonoBehaviour
 
     private void Start()
     {
+        seq = DOTween.Sequence();
         StartCoroutine(TextDraw());
     }
 
@@ -74,7 +76,6 @@ public class DrawIntro : MonoBehaviour
 
     public void ToBeContinue(string s)
     {
-        Sequence seq = DOTween.Sequence();
         _endTex.text = s;
 
         seq.Append(_endTex.DOFade(1, DrawList[num].fadeTime))
