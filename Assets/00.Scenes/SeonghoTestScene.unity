@@ -1047,7 +1047,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tutorialInfo: []
+  _gimmickPanel: {fileID: 0}
+  _gimmickList: []
+  _tutoPanel: {fileID: 0}
+  _tutoList: []
+  _previousGimmick: 0
+  _previousTuto: 0
   IsActive: 0
+  IsActiveTuto: 0
 --- !u!4 &356114322
 Transform:
   m_ObjectHideFlags: 0
@@ -4303,7 +4310,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ccb9c637cee43044bfeeae86f95f5b1, type: 2}
+  - {fileID: 2100000, guid: 8ec14264e8eb6c94491923db3877432c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
