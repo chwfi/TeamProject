@@ -5081,7 +5081,7 @@ MonoBehaviour:
   _start: {fileID: 963214822}
   _titleTex: {fileID: 1549214534}
   _exit: {fileID: 109118187}
-  _fadeTime: 3
+  _fadeTime: 1.5
   _waitTime: 0
   c: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &1836525757

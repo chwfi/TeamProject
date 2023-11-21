@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DarkStar : MonoBehaviour
 {
     [SerializeField]
     private GameObject testTimeline;
 
-    private void Update()
+    public void Ending()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            testTimeline.gameObject.SetActive(true);
-        }
+        testTimeline.gameObject.SetActive(true);
+        Invoke("Sa", 11f);
+    }
+
+    private void Sa()
+    {
+        SceneManager.LoadScene(SceneList.EndingScene);
     }
 }

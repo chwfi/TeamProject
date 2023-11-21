@@ -24,13 +24,12 @@ Material:
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _EMISSION
+  m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 6
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -156,7 +155,7 @@ Material:
     - _BaseColor: {r: 1, g: 0, b: 0, a: 1}
     - _BumpMap_ST: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 0.1102941, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Fresnel_ST: {r: 1, g: 1, b: 0, a: 0}
     - _HorizonColor: {r: 1, g: 1, b: 1, a: 0}
     - _MainTex_ST: {r: 1, g: 1, b: 0, a: 0}

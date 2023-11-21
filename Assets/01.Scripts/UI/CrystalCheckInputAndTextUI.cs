@@ -16,6 +16,7 @@ public class CrystalCheckInputAndTextUI : LookCamUIModule
     [SerializeField] private float _ShowUIdistance = 5f;
     [SerializeField] private UnityEvent OnPickUpEvent = null;
     [SerializeField] private CrystalCharging crystal;
+    [SerializeField] private GameObject lantern;
 
     private TextMeshPro _text;
     public bool CanCatch =>
@@ -72,6 +73,7 @@ public class CrystalCheckInputAndTextUI : LookCamUIModule
         if (Input.GetKeyDown(KeyCode.F))
         {
             OnPickUpEvent?.Invoke();
+            lantern.SetActive(false);
             gameObject.SetActive(false); //¼û±â±â
         }
     }

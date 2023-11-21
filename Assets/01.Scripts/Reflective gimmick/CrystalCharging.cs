@@ -129,7 +129,7 @@ public class CrystalCharging : Reflective
 
     private IEnumerator FinishParticle()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         particlesDic[_preParticleType].Stop();
 
         CanUse = true;
