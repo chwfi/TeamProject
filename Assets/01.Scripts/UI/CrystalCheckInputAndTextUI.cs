@@ -15,7 +15,7 @@ public class CrystalCheckInputAndTextUI : LookCamUIModule
 {
     [SerializeField] private float _ShowUIdistance = 5f;
     [SerializeField] private UnityEvent OnPickUpEvent = null;
-    private CrystalCharging crystal;
+    [SerializeField] private CrystalCharging crystal;
 
     private TextMeshPro _text;
     public bool CanCatch =>
@@ -53,8 +53,8 @@ public class CrystalCheckInputAndTextUI : LookCamUIModule
     {
         _text = GetComponent<TextMeshPro>();
 
-        if (crystal != null)
-            crystal = transform.root.Find("Glass").GetComponent<CrystalCharging>();
+        //if (crystal != null)
+            //crystal = transform.root.Find("Glass").GetComponent<CrystalCharging>();
     }
 
     protected override void Update()

@@ -63,10 +63,13 @@ public class CrystalCharging : Reflective
     public override void OnHandleReflected()
     {
         isCharging = true;
+
+        SoundManager.Instance.PlaySFXSound(SFX.CrystalCharging);
     }
     public override void UnHandleReflected()
     {
         isCharging = false;
+        SoundManager.Instance.PauseSFXSound(SFX.CrystalCharging);
 
         if (_curParticleType != CrystalParticleType.ChargingFin)
         {
@@ -183,7 +186,7 @@ public class CrystalCharging : Reflective
 
     public override void GetReflectedObjectDataModify(ReflectData reflectedData)
     {
-        throw new NotImplementedException();
+        
     }
     #endregion
 }
