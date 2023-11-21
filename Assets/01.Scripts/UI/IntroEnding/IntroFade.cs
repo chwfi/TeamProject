@@ -34,14 +34,14 @@ public class IntroFade : MonoBehaviour
             .Join(_exit.DOFade(1, _fadeTime));
     }
 
-    public void SceneMove(string name)
+    public void SceneMove()
     {
         seq = DOTween.Sequence();
         seq.Append(_title.DOFade(0, 1f))
             .Join(_start.DOFade(0, 1f))
             .Join(_exit.DOFade(0, 1f))
             .AppendInterval(_waitTime)
-            .AppendCallback(() => SceneManager.LoadScene(name));
+            .AppendCallback(() => SceneManager.LoadScene(SceneList.IntroStory));
     }
 
     public void ExitGame()

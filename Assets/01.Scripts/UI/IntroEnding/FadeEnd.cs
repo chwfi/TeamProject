@@ -34,8 +34,8 @@ public class FadeEnd : MonoBehaviour
 
 
 
-    public void SceneMove(string name)
+    public void SceneMove()
     {
-        SceneManager.LoadScene(name);
+        SceneManager.LoadScene(SceneList.Intro);
     }
 }
