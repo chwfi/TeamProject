@@ -17,6 +17,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
     [SerializeField] private List<GameObject> _gimmickList;
     [SerializeField] private CanvasGroup _tutoPanel;
     [SerializeField] private List<GameObject> _tutoList;
+    [SerializeField] private CanvasGroup _colorPanel;
 
     private int _currentGimmick = 1;
     public int _previousGimmick = 0;
@@ -26,10 +27,29 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
     public bool IsActive = false;
     public bool IsActiveTuto = false;
+    public bool IsActiveColorpanel = false;
 
     private void Start()
     {
         Invoke("ShowTuto", 2f);
+    }
+
+    public void ShowColorPanel()
+    {
+        SoundManager.Instance.PlaySFXSound(SFX.Page);
+        _colorPanel.DOFade(1, 0.5f);
+        UIManager.Instance.InputReader.CanShoot = false;
+        GameManager.Instance.StopGameImmediately(true);
+        IsActiveColorpanel = true;
+    }
+
+    public void HideColorPanel()
+    {
+        SoundManager.Instance.PlaySFXSound(SFX.Page);
+        _colorPanel.DOFade(0, 0.5f);
+        IsActiveColorpanel = false;
+        UIManager.Instance.InputReader.CanShoot = true;
+        GameManager.Instance.StopGameImmediately(false);
     }
 
     public void ShowGmmick()
@@ -118,6 +138,16 @@ public class TutorialManager : MonoSingleton<TutorialManager>
         if (IsActiveTuto && Input.GetKeyDown(KeyCode.E))
         {
             HideTuto();
+        }
+
+        if (IsActiveColorpanel && Input.GetKeyDown(KeyCode.E))
+        {
+            HideColorPanel();
+        }
+
+        if (!IsActiveColorpanel && Input.GetKeyDown(KeyCode.I))
+        {
+            ShowColorPanel();
         }
     }
 }
