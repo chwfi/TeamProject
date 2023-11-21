@@ -7,14 +7,18 @@ public class AssetLoader : MonoBehaviour
     private AssetLoaderSO assetLoaderSO;
     public delegate void Notify();
 
-    public static Notify OnLoadComplete;
+    public Notify OnLoadComplete;
 
     public static AssetLoader Instance;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(Instance != null)
+        {
+            Debug.LogError("AssetLoader is already Created");
+        }
         Instance = this;
+        DontDestroyOnLoad(Instance);
     }
 
     private async void Start()

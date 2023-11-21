@@ -6,16 +6,16 @@ using UnityEngine.UIElements;
 
 public class LoadingScreen : MonoBehaviour
 {
-    public bool isComplete = false;
+    private bool isComplete = false;
 
-    private void OnEnable()
+    private void Awake()
     {
-        AssetLoader.OnLoadComplete += HandleLoadComplete;
+        AssetLoader.Instance.OnLoadComplete += HandleLoadComplete;
     }
 
     private void OnDisable()
     {
-        AssetLoader.OnLoadComplete -= HandleLoadComplete;
+        AssetLoader.Instance.OnLoadComplete -= HandleLoadComplete;
     }
 
     private void HandleLoadComplete()
