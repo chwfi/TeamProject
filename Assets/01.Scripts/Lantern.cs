@@ -43,10 +43,12 @@ public class Lantern : Glow
     {
         Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
 
-        ChangedReflectObject(obj);
-
-        obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        obj?.GetReflectedObjectDataModify(myReflectData);
+        if (obj is not ReflectToReflect && obj is not ReflectToUp)
+        {
+            ChangedReflectObject(obj);
+            obj?.OnReflectTypeChanged(ReflectState.OnReflect);
+            obj?.GetReflectedObjectDataModify(myReflectData);
+        }
 
         OnShootRaycast<ReflectToReflect>(reflectData.hitPos, reflectData.direction);
         OnShootRaycast<ReflectToUp>(reflectData.hitPos, reflectData.direction);
@@ -55,7 +57,6 @@ public class Lantern : Glow
 
         CrystalCharging cC = OnShootRaycast<CrystalCharging>(reflectData.hitPos, reflectData.direction);
         cC?.OnCharging();
-
     }
     private void OnDestroy()
     {

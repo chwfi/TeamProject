@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using static Define.Define;
 
 [RequireComponent(typeof(LineRenderer))]
 public abstract class Glow : LightingBehaviour, IGlowable
