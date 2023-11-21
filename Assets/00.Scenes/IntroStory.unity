@@ -275,7 +275,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: TestMap
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &348989585
@@ -2105,9 +2105,9 @@ MonoBehaviour:
         m_Calls: []
   - text: 
     sprite: {fileID: 0}
-    waitTime: 0
-    fadeTime: 2
-    duration: 5
+    waitTime: 2
+    fadeTime: 0
+    duration: 0
     isConnect: 0
     OnEvent:
       m_PersistentCalls:
@@ -2121,7 +2121,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: TestMap
             m_BoolArgument: 0
           m_CallState: 2
   _endTex: {fileID: 1793323710}

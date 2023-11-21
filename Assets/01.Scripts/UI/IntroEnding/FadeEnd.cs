@@ -15,15 +15,16 @@ public class FadeEnd : MonoBehaviour
 
     [SerializeField] private Color c;
 
+    Sequence seq;
+
     private void Awake()
     {
-        _sprite = GetComponent<SpriteRenderer>();
+        _sprite = GetComponent<SpriteRenderer>(); 
     }
 
     public void End()
     {
-        Sequence seq = DOTween.Sequence();
-
+        seq = DOTween.Sequence();
         seq.Append(_sprite.DOFade(1, _fadeTime))
             .AppendInterval(_waitTime)
             .Append(_sprite.DOColor(c, _fadeTime))
