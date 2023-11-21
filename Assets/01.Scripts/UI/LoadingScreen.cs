@@ -13,7 +13,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private Transform _circle;
     [SerializeField] private float _rotateValue;
 
-    private bool isComplete = false;
+    public bool isComplete = false;
     private Sequence seq;
 
     private void Awake()
@@ -36,17 +36,14 @@ public class LoadingScreen : MonoBehaviour
     {
 
         seq.Append(_text.DOFade(5f, 2f))
-            .Join(_spriteRender.DOFade(5f, 2f))
-            .AppendInterval(3f)
-            .OnComplete(() =>
-            {
-                if (isComplete)
-                {
-                    SceneManager.LoadScene(SceneList.TestMap);
-                    Destroy(gameObject);
-                }
-            });
-
+            .Join(_spriteRender.DOFade(5f, 2f));
+            
         _circle.Rotate(0, 0, _rotateValue * Time.deltaTime);
+
+        if (isComplete)
+        {
+            SceneManager.LoadScene(SceneList.TestMap);
+            Destroy(gameObject);
+        }
     }
 }

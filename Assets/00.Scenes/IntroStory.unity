@@ -4640,7 +4640,8 @@ MonoBehaviour:
     OnEvent:
       m_PersistentCalls:
         m_Calls: []
-  - text: sss
+  - text: "\uC218\uC815\uC758 \uD798\uC744 \uB418\uCC3E\uC544 \uC138\uC0C1\uC744
+      \uBC1D\uD600\uB77C"
     sprite: {fileID: 0}
     waitTime: 0
     fadeTime: 2
