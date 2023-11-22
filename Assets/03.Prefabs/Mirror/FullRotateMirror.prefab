@@ -15283,7 +15283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   lightFadeInoutTick: 40
-  lightWidth: 0.08
+  lightWidth: 0.4
   _minimapCube: {fileID: 8851920543698238050}
 --- !u!65 &7921283964260560654
 BoxCollider:
