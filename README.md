@@ -4,9 +4,7 @@
 | 게임 제목  | Reflector |
 | ------------- | -------------: |
 | 장르  | 퍼즐, 탐험  |
-| 개발 기간  | 2023년 11월 1주차 ~ 11월 3주차 (약 3주)  |
-| 개발 인원  | 5명  |
+| 개발 기간  | 약 3주  |
+| 개발 인원  | 1명  |
 
-상세한 포트폴리오 링크 -> https://wonseok1112.tistory.com/35
-
-![스크린샷 2023-11-15 093127](https://github.com/chwfi/Whale_Game/assets/98933635/9122b63a-64fb-47a8-b746-3103b2e5fddf)
+![화면 캡처 2024-03-12 144029](https://github.com/chwfi/TeamProject/assets/98932107/5fd7fb6c-5350-4197-b4b3-dc4a3db33b58)
