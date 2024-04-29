@@ -7,4 +7,4 @@
 | 개발 기간  | 약 3주  |
 | 개발 인원  | 1명  |
 
-![화면 캡처 2024-03-12 144029](https://github.com/chwfi/TeamProject/assets/98932107/5fd7fb6c-5350-4197-b4b3-dc4a3db33b58)
+![화면 캡처 2024-03-12 190816](https://github.com/chwfi/TeamProject/assets/98932107/abfb3665-3e67-4d5e-89cf-e90d2a51fb92)
