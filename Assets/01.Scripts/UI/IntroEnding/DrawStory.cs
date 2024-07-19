@@ -22,54 +22,93 @@ public class OutputContent
 
 public class DrawStory : MonoBehaviour
 {
-    public List<OutputContent> DrawList;
-    
-    private SpriteRenderer _sprite;
-    private TextMeshProUGUI _text;
+    [SerializeField]
+    private List<OutputContent> drawList;
 
-    public int num;
-    Sequence seq;
+    private SpriteRenderer spriteRenderer;
+    private TextMeshProUGUI textMeshPro;
 
     private void Awake()
     {
-        _sprite = GameObject.Find("DrawSprite").GetComponent<SpriteRenderer>();
-        _text = transform.Find("TextContent").GetComponent<TextMeshProUGUI>();
+        spriteRenderer = GetComponentFromName<SpriteRenderer>("DrawSprite");
+        textMeshPro = GetComponentInChildren<TextMeshProUGUI>("TextContent");
     }
 
     private void Start()
     {
-        seq = DOTween.Sequence();
-        StartCoroutine(TextDraw());
+        if (spriteRenderer != null && textMeshPro != null)
+        {
+            StartCoroutine(TextDraw());
+        }
     }
 
     private IEnumerator TextDraw()
     {
-        for (int i = 0; i < DrawList.Count; i++)
+        foreach (var content in drawList)
         {
-            _sprite.sprite = DrawList[i].sprite;
-            _text.text = DrawList[i].text;
-            num = i;
-            
-            yield return new WaitForSeconds(DrawList[i].waitTime);
-            _text.DOFade(1, DrawList[i].fadeTime);
-            _sprite.DOFade(1, DrawList[i].fadeTime);
-            if (DrawList[i].OnEvent != null)
-            {
-                DrawList[i].OnEvent?.Invoke();
-            }
-            yield return new WaitForSeconds(DrawList[i].duration);
+            SetContent(content);
 
-            if (!DrawList[i].isConnect)
-            {                
-                _text.DOFade(0, DrawList[i].fadeTime);
-                _sprite.DOFade(0, DrawList[i].fadeTime);
-                yield return new WaitForSeconds(DrawList[i].fadeTime);
-            }
-            else
-            {
-                _text.DOFade(0, DrawList[i].fadeTime);
-                yield return new WaitForSeconds(DrawList[i].fadeTime);
-            }
+            yield return new WaitForSeconds(content.waitTime);
+
+            yield return FadeInContent(content.fadeTime);
+
+            content.OnEvent?.Invoke();
+
+            yield return new WaitForSeconds(content.duration);
+
+            yield return FadeOutContent(content.fadeTime, content.isConnect);
         }
+    }
+
+    private void SetContent(OutputContent content)
+    {
+        spriteRenderer.sprite = content.sprite;
+        textMeshPro.text = content.text;
+    }
+
+    private IEnumerator FadeInContent(float fadeTime)
+    {
+        var textFadeIn = textMeshPro.DOFade(1, fadeTime);
+        var spriteFadeIn = spriteRenderer.DOFade(1, fadeTime);
+
+        yield return textFadeIn.WaitForCompletion();
+        yield return spriteFadeIn.WaitForCompletion();
+    }
+
+    private IEnumerator FadeOutContent(float fadeTime, bool isConnect)
+    {
+        var textFadeOut = textMeshPro.DOFade(0, fadeTime);
+        var spriteFadeOut = isConnect ? null : spriteRenderer.DOFade(0, fadeTime);
+
+        yield return textFadeOut.WaitForCompletion();
+
+        if (!isConnect && spriteFadeOut != null)
+        {
+            yield return spriteFadeOut.WaitForCompletion();
+        }
+    }
+
+    private T GetComponentFromName<T>(string name) where T : Component
+    {
+        var gameObject = GameObject.Find(name);
+
+        if (gameObject != null)
+        {
+            return gameObject.GetComponent<T>();
+        }
+
+        return null;
+    }
+
+    private T GetComponentInChildren<T>(string name) where T : Component
+    {
+        var child = transform.Find(name);
+
+        if (child != null)
+        {
+            return child.GetComponent<T>();
+        }
+
+        return null;
     }
 }
