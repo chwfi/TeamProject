@@ -10,12 +10,12 @@ using UnityEngine.Events;
 [Serializable]
 public class OutputContent
 {
-    [TextArea] public string text;
-    public Sprite sprite;
-    public float waitTime;
-    public float fadeTime; //알파 조정 시간
-    public float duration;   //지속 시간
-    public bool isConnect;
+    [TextArea] public string Text;
+    public Sprite Sprite;
+    public float WaitTime;
+    public float FadeTime; //알파 조정 시간
+    public float Duration;   //지속 시간
+    public bool IsConnect;
 
     public UnityEvent OnEvent;
 }
@@ -23,20 +23,20 @@ public class OutputContent
 public class DrawStory : MonoBehaviour
 {
     [SerializeField]
-    private List<OutputContent> drawList;
+    private List<OutputContent> _drawList;
 
-    private SpriteRenderer spriteRenderer;
-    private TextMeshProUGUI textMeshPro;
+    private SpriteRenderer _spriteRenderer;
+    private TextMeshProUGUI _textMeshPro;
 
     private void Awake()
     {
-        spriteRenderer = GetComponentFromName<SpriteRenderer>("DrawSprite");
-        textMeshPro = GetComponentInChildren<TextMeshProUGUI>("TextContent");
+        _spriteRenderer = GetComponentFromName<SpriteRenderer>("DrawSprite");
+        _textMeshPro = GetComponentInChildren<TextMeshProUGUI>("TextContent");
     }
 
     private void Start()
     {
-        if (spriteRenderer != null && textMeshPro != null)
+        if (_spriteRenderer != null && _textMeshPro != null)
         {
             StartCoroutine(TextDraw());
         }
@@ -44,32 +44,32 @@ public class DrawStory : MonoBehaviour
 
     private IEnumerator TextDraw()
     {
-        foreach (var content in drawList)
+        foreach (var content in _drawList)
         {
             SetContent(content);
 
-            yield return new WaitForSeconds(content.waitTime);
+            yield return new WaitForSeconds(content.WaitTime);
 
-            yield return FadeInContent(content.fadeTime);
+            yield return FadeInContent(content.FadeTime);
 
             content.OnEvent?.Invoke();
 
-            yield return new WaitForSeconds(content.duration);
+            yield return new WaitForSeconds(content.Duration);
 
-            yield return FadeOutContent(content.fadeTime, content.isConnect);
+            yield return FadeOutContent(content.FadeTime, content.IsConnect);
         }
     }
 
     private void SetContent(OutputContent content)
     {
-        spriteRenderer.sprite = content.sprite;
-        textMeshPro.text = content.text;
+        _spriteRenderer.sprite = content.Sprite;
+        _textMeshPro.text = content.Text;
     }
 
     private IEnumerator FadeInContent(float fadeTime)
     {
-        var textFadeIn = textMeshPro.DOFade(1, fadeTime);
-        var spriteFadeIn = spriteRenderer.DOFade(1, fadeTime);
+        var textFadeIn = _textMeshPro.DOFade(1, fadeTime);
+        var spriteFadeIn = _spriteRenderer.DOFade(1, fadeTime);
 
         yield return textFadeIn.WaitForCompletion();
         yield return spriteFadeIn.WaitForCompletion();
@@ -77,8 +77,8 @@ public class DrawStory : MonoBehaviour
 
     private IEnumerator FadeOutContent(float fadeTime, bool isConnect)
     {
-        var textFadeOut = textMeshPro.DOFade(0, fadeTime);
-        var spriteFadeOut = isConnect ? null : spriteRenderer.DOFade(0, fadeTime);
+        var textFadeOut = _textMeshPro.DOFade(0, fadeTime);
+        var spriteFadeOut = isConnect ? null : _spriteRenderer.DOFade(0, fadeTime);
 
         yield return textFadeOut.WaitForCompletion();
 
