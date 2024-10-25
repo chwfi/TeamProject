@@ -93,6 +93,11 @@ public abstract class LightingBehaviour : MonoBehaviour
     {
         _startPos = pos;
     }
+
+    /// <summary>
+    /// 반사할 빛의 색을 지정하는 함수
+    /// </summary>
+    /// <param name="color"> 빛의 색 </param>
     protected void SetLightColor(Color color)
     {
         _effectColor = color;
@@ -101,16 +106,18 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         // 라인 렌더러에 Property Block 적용
         lb.SetPropertyBlock(_materialPropertyBlock);
+
+        //자신이 반사할 빛의 색을 설정한다.
     }
 
-    protected void StopDrawAndFadeLine()
+    protected void StartDrawAndFadeLine()
     {
         lb.enabled = true;
 
         ReflectObjectChangedTypeToUnReflect();
     }
 
-    protected void StartDrawAndFadeLine(bool isGrow = false)
+    protected void StopDrawAndFadeLine(bool isGrow = false)
     {
         lb.enabled = false;
 
@@ -137,7 +144,7 @@ public abstract class LightingBehaviour : MonoBehaviour
 
         RaycastHit hit;
 
-        T reflectedObject = null;
+        T reflectedObject = null; 
 
         Vector3 endPosition = pos + dir * raycastDistance;
 

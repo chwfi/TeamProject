@@ -26,7 +26,7 @@ public class Darkstart : Reflective
 
         timer = 0;
     }
-    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
+    public override void OnDeflected(ReflectData reflectedData)
     {
 
     }

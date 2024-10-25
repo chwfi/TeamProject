@@ -184,7 +184,7 @@ public class CrystalCharging : Reflective
         }
     }
 
-    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
+    public override void OnDeflected(ReflectData reflectedData)
     {
         
     }

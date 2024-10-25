@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DefinitelyUP : Reflective
 {
-    public override void GetReflectedObjectDataModify(ReflectData inData)
+    public override void OnDeflected(ReflectData inData)
     {
         SetStartPos(inData.hitPos);
 
@@ -27,7 +27,7 @@ public class DefinitelyUP : Reflective
 
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
 
-        obj?.GetReflectedObjectDataModify(myReflectData);
+        obj?.OnDeflected(myReflectData);
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(inData.hitPos, raycastDirection);
 

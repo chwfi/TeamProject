@@ -4,33 +4,25 @@ using UnityEngine;
 
 public class ReflectToReflect : Reflective
 {
-    public override void OnHandleReflected()
+    public override void OnDeflected(ReflectData data)
     {
-        base.OnHandleReflected();
-    }
-    public override void UnHandleReflected()
-    {
-        base.UnHandleReflected();
-    }
-    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
-    {
-        Vector3 shootPos = reflectedData.hitPos;
+        Vector3 shootPos = data.hitPos;
         SetStartPos(shootPos);
 
         Color cCol;
 
-        cCol = ColorSystem.GetColorCombination(reflectedData.color, defaultColor);
+        cCol = ColorSystem.GetColorCombination(data.color, defaultColor);
         SetLightColor(cCol);
 
-        var raycastDirection = Vector3.Reflect(reflectedData.direction, reflectedData.normal);
+        var raycastDirection = Vector3.Reflect(data.direction, data.normal);
 
         var obj = OnShootRaycast<Reflective>(shootPos, raycastDirection);
         ChangedReflectObject(obj);
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        obj?.GetReflectedObjectDataModify(myReflectData);
+        obj?.OnDeflected(myReflectData);
 
         var triPlane = OnShootRaycast<TriangluarPlane>(shootPos, raycastDirection);
-        triPlane?.GetReflectedObjectDataModify(myReflectData);
+        triPlane?.OnDeflected(myReflectData);
 
         var door = OnShootRaycast<DoorOpenTrigger>(shootPos, raycastDirection);
         door?.ColorMatch(cCol, this);

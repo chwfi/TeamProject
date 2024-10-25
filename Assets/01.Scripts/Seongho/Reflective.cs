@@ -9,7 +9,7 @@ using UnityEngine;
 public abstract class Reflective : LightingBehaviour, IReflectable
 {
 
-    private ReflectState _currentState = ReflectState.NULL; //���� �� �ݻ� ����
+    private ReflectState _currentState = ReflectState.NULL;
 
     public ReflectState CurrentState
     {
@@ -32,19 +32,11 @@ public abstract class Reflective : LightingBehaviour, IReflectable
         }
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-    protected override void Start()
-    {
-        base.Start();
-    }
-    public abstract void GetReflectedObjectDataModify(ReflectData reflectedData); //�°��ִ� ���̸� �����
+    public abstract void OnDeflected(ReflectData reflectedData);
 
-    public virtual void OnHandleReflected() //ó�� ���� ������ �ѹ��� �����
+    public virtual void OnHandleReflected()
     {
-        StopDrawAndFadeLine();
+        StartDrawAndFadeLine();
 
         var afterEffects = GameObject.FindObjectsOfType<LightAfterEffect>();
 
@@ -56,7 +48,7 @@ public abstract class Reflective : LightingBehaviour, IReflectable
 
     public virtual void UnHandleReflected() //���� ������ �ѹ��� �����
     {
-        StartDrawAndFadeLine();
+        StopDrawAndFadeLine();
     }
     public void OnReflectTypeChanged(ReflectState state)
     {

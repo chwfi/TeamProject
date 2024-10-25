@@ -15,7 +15,7 @@ public class ReflectiveObject : Reflective
     {
         base.UnHandleReflected();
     }
-    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
+    public override void OnDeflected(ReflectData reflectedData)
     {
         Vector3 shootPos = reflectedData.hitPos;
         SetStartPos(shootPos);
@@ -30,10 +30,10 @@ public class ReflectiveObject : Reflective
         var obj = OnShootRaycast<Reflective>(shootPos, raycastDirection);
         ChangedReflectObject(obj);
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        obj?.GetReflectedObjectDataModify(myReflectData);
+        obj?.OnDeflected(myReflectData);
 
         var triPlane = OnShootRaycast<TriangluarPlane>(shootPos, raycastDirection);
-        triPlane?.GetReflectedObjectDataModify(myReflectData);
+        triPlane?.OnDeflected(myReflectData);
 
 
         var door = OnShootRaycast<DoorOpenTrigger>(shootPos, raycastDirection);

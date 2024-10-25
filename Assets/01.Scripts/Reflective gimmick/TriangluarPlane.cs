@@ -19,7 +19,7 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
     }
     public void On()
     {
-        StopDrawAndFadeLine();
+        StartDrawAndFadeLine();
     }
     public override void UnHandleReflected()
     {
@@ -37,7 +37,7 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
     {
         SetLightColor(color);
     }
-    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
+    public override void OnDeflected(ReflectData reflectedData)
     {
         foreach (var plane in _planes)
         {
@@ -57,7 +57,7 @@ public class TriangluarPlane : Reflective //삼각형의 각 면
         ReflectiveObject obj = OnShootRaycast<ReflectiveObject>(transform.position, raycastDirection); //자, 우리 한 번 빛을 쏴볼까요?
         ChangedReflectObject(obj);
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        obj?.GetReflectedObjectDataModify(myReflectData);
+        obj?.OnDeflected(myReflectData);
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(transform.position, raycastDirection);
         door?.ColorMatch(cCol, this);

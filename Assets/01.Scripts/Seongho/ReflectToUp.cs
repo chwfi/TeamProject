@@ -13,7 +13,7 @@ public class ReflectToUp : Reflective
     {
         base.UnHandleReflected();
     }
-    public override void GetReflectedObjectDataModify(ReflectData reflectedData)
+    public override void OnDeflected(ReflectData reflectedData)
     {
         Vector3 shootPos = transform.position + (transform.up * transform.localScale.y * .5f);
 
@@ -29,10 +29,10 @@ public class ReflectToUp : Reflective
         var obj = OnShootRaycast<Reflective>(shootPos, raycastDirection);
         ChangedReflectObject(obj);
         obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-        obj?.GetReflectedObjectDataModify(myReflectData);
+        obj?.OnDeflected(myReflectData);
 
         var triPlane = OnShootRaycast<TriangluarPlane>(shootPos, raycastDirection);
-        triPlane?.GetReflectedObjectDataModify(myReflectData);
+        triPlane?.OnDeflected(myReflectData);
 
 
         DoorOpenTrigger door = OnShootRaycast<DoorOpenTrigger>(shootPos, raycastDirection);

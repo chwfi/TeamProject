@@ -16,26 +16,26 @@ public abstract class Glow : LightingBehaviour, IGlowable
             Destroy(afterEffects[i].gameObject);
         }
 
-        StopDrawAndFadeLine();
+        StartDrawAndFadeLine();
     }
     public virtual void OnStopShootLight()
     {
-        StartDrawAndFadeLine(true);
+        StopDrawAndFadeLine(true);
     }
     public virtual void OnShootingLight()
     {
 
     }
+
     public virtual void StartShootLight(Vector3 origin, Vector3 direction)
     {
         _startPos = origin;
 
         myReflectData.hitPos = origin;
         myReflectData.direction = direction;
-
-        SetReflectDataModify(myReflectData);
     }
-    public abstract void SetReflectDataModify(ReflectData reflectData);
+
+    public abstract void ShootLightSetting();
 
 
 

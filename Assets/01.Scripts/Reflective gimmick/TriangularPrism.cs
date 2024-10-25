@@ -43,13 +43,13 @@ public class TriangularPrism : Reflective
             plane.UnHandleReflected();
         }
     }
-    public override void GetReflectedObjectDataModify(ReflectData data)
+    public override void OnDeflected(ReflectData data)
     {
         foreach (var plane in _planes)
         {
             if (_currentPlane != plane) return;
 
-            plane.GetReflectedObjectDataModify(data);
+            plane.OnDeflected(data);
         }
     }
 }

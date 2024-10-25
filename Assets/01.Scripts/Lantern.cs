@@ -34,29 +34,16 @@ public class Lantern : Glow
     {
         base.OnStopShootLight();
     }
-    public override void OnShootingLight()
+
+    public override void ShootLightSetting()
     {
-        StartShootLight(transform.position, transform.forward);
-        //여기서 이미 SetReflectDataModify를 실행해줌
-    }
-    public override void SetReflectDataModify(ReflectData reflectData)
-    {
-        Reflective obj = OnShootRaycast<Reflective>(reflectData.hitPos, reflectData.direction);
+        Vector3 startPos = transform.position;
+        Vector3 dir = transform.forward;
 
-        if (obj is not ReflectToReflect)
-        {
-            ChangedReflectObject(obj);
-            obj?.OnReflectTypeChanged(ReflectState.OnReflect);
-            obj?.GetReflectedObjectDataModify(myReflectData);
-        }
+        OnShootRaycast<ReflectToReflect>(startPos, dir);
+        OnShootRaycast<ReflectToUp>(startPos, dir);
+        OnShootRaycast<DoorOpenTrigger>(startPos, dir);
 
-        OnShootRaycast<ReflectToReflect>(reflectData.hitPos, reflectData.direction);
-        OnShootRaycast<ReflectToUp>(reflectData.hitPos, reflectData.direction);
-
-        OnShootRaycast<DoorOpenTrigger>(reflectData.hitPos, reflectData.direction);
-
-        //CrystalCharging cC = OnShootRaycast<CrystalCharging>(reflectData.hitPos, reflectData.direction);
-        //cC?.OnCharging();
     }
     private void OnDestroy()
     {
